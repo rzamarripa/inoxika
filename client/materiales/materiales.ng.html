@@ -1,0 +1,107 @@
+<h2>Materiales</h2>
+<div class="row">
+	<div class="col-sm-12">
+		<a class="btn btn-{{mat.nuevo == true ? 'primary' : 'danger'}}" role="button" data-toggle="collapse" 
+			href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="nuevoobra" ng-click="mat.nuevoObra()">
+		 {{mat.nuevo == true ? 'Nuevo' : 'Cancelar'}}
+		</a>
+		<div class="collapse" id="collapseExample">
+			<form class="form-horizontal" role="form" data-parsley-validate>
+		  	<div class="well"> 
+		  		    
+			    <div class="row">
+			    
+	          <div class="col-sm-4">
+					    <label>Nombre</label>
+				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="mat.material.nombre" >
+				    </div>
+				     <div class="col-sm-4">
+							<label >Unidad</label>
+							<select  class="form-control select2" placeholder="Seleccione" ng-model="mat.material.unidad_id">
+								<option ng-repeat="unidad in mat.unidades" value="{{unidad._id}}">{{unidad.nombre}}</option>
+							</select>
+					</div>
+				     
+				     <div class="col-sm-4">
+					    <label>Precio</label>
+				    	<input type="number" class="form-control" placeholder="Precio" ng-model="mat.material.precio" >
+				    </div>
+				     <div class="col-sm-6">
+						    <label>Descripción</label>
+					    	<textarea type="text" class="form-control" placeholder="Descripción" ng-model="mat.material.descripcion" >
+					    </textarea>
+		    	         </div>
+	    	  </div>
+	    	 
+	    	 <br>
+					<div class="row">
+						
+						<div class="col-sm-12">
+							<input type="submit" ng-click="mat.guardar(mat.material)" value="Guardar" class="btn btn-primary" ng-show="mat.action">
+							<input type="submit" ng-click="mat.actualizar(mat.material)" value="Actualizar" class="btn btn-primary" ng-show="!mat.action">	
+						</div>
+					</div>
+		  	</div>
+	  	</form>
+		</div>
+	</div>
+</div>
+<br/>
+<!-- List -->
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th width="20%"><div class="text-center">Nombre</div></th>
+					<th width="20%"><div class="text-center">Unidad</div></th>
+			
+					<th width="20%"><div class="text-center">Precio</div></th>
+					<th width="20%"><div class="text-center">Descripción</div></th>
+					<th width="10%">
+						<div class="text-center">
+							Estatus
+						</div>
+					</th>
+					<th width="10%">
+						<div class="text-center">
+							Acciones
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+		    <tr ng-repeat="material in mat.materiales">
+			    <td><div class="text-center">{{material.nombre}}</div></td>
+			    <td><div class="text-center">{{mat.obtenerUnidad(material.unidad_id)}}</div></td>
+			    <td><div class="text-center">{{material.precio | currency}}</div></td>
+			    <td><div class="text-center">{{material.descripcion}}</div></td>
+			    <td>
+				    <div class="text-center">
+				    	<span ng-if="material.estatus" class="label label-success">
+							  Activo
+							</span>
+							<span ng-if="!material.estatus" class="label label-danger">
+							  Inactivo
+							</span>
+				    </div>
+			    </td>
+			    <td>
+				    <div class="text-center">
+					    <div class="btn-group">
+							  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    <span class="caret"></span>
+							    <span class="sr-only">Toggle Dropdown</span>
+							  </button>
+							  <ul class="dropdown-menu text-left">
+							    <li><a href="#" ng-click="mat.editar(material._id)"><i class="fa fa-pencil"></i> Editar</a></li>
+							  <li><a href="#" ng-click="mat.cambiarEstatus(material._id)"><i class="fa fa-trash"></i> Desactivar</a></li>
+							  </ul>
+							</div>
+				    </div>				    
+			    </td>
+		    </tr>
+			</tbody>
+		</table>
+	</div>
+</div>
