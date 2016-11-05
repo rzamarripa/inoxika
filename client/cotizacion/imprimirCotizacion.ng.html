@@ -1,0 +1,96 @@
+<div class="content">
+
+<br/><br/><br/><br/><br/><br/><br/>
+<div class="page-header">
+ 
+</div>
+<div class="row">
+	<div class="col-sm-12">
+			<div class="row" >
+				<div class="col-sm-6"><br/>
+					<p>Cliente: <strong>{{cot.getCliente(cot.cotizacion.cliente_id)}}</strong></p>
+					<div class="pull-left">
+			         <p>{{cot.getClienteDireccion(cot.cotizacion.cliente_id)}}</p>
+			       </div>
+			      </div>
+			      <div class="col-sm-6">
+						<div class="pull-right"> 
+					        <p>Cotización:<div clas="jumbotron"><strong>{{cot.cotizacion.folio}}</strong></div> </p>
+					       
+					        <p>Fecha: <strong>{{cot.cotizacion.fechaInicio | date:"dd-MM-yyyy"}}</strong></p>
+					      
+					        <p>Fecha Vencimiento: <strong>{{cot.cotizacion.fechaVencimiento | date:"dd-MM-yyyy"}}</strong></p>
+
+				       </div>
+				</div>
+			</div>
+		
+    </div>
+</div>
+<br/>
+<div class="col-sm-12">
+	<div class="row">
+		<p>Proyecto:{{cot.nombreProyecto}}</p>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-bordered"  >
+			<thead>
+				<tr>
+				    <td width="10%"><div class="text-center">No.</div></td> 
+			        <th width="20%"><div class="text-center">Descripción</div></th>
+					<th width="10%"><div class="text-center">Unidad</div></th>
+					<th width="10%"><div class="text-center">Cantidad</div></th>
+					<th width="10%"><div class="text-center">Precio</div></th>
+					<th width="10%"><div class="text-center">Importe</div></th>
+				</tr>
+			</thead> 
+			<tbody>
+		    	<tr  ng-repeat="detalle in cot.cotizacion.detalle"> 
+			        <td><div class="text-center">{{$index + 1}}</div ></td>  
+			        <td><div class="text-center">{{detalle.descripcion}}</div></td> 
+				    <td><div class="text-center">{{cot.getUnidad(detalle.unidad_id)}}</div></td>			    
+				    <td><div class="text-center">{{detalle.cantidad}}</div></td>
+				    <td><div class="text-center">{{detalle.precio * detalle.utilidad/100 + detalle.precio | currency}}</div></td>
+				    <td ><div class="text-center">{{(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad | currency }}</div></td>
+		
+			   </tr>	
+			   <tr>
+				   <td colspan="5" ></td>
+				   <td><div class="text-center"><strong>SubTotal:</strong> {{cot.cotizacion.subTota | currency}}</div>
+				   </td>
+			    </tr>
+			    <tr>
+			    	<td colspan="5"></td>
+			    	<td><div class="text-center"><strong>Iva:</strong> {{cot.cotizacion.iva | currency}}
+			    	</div></td>
+			    </tr>
+			    <tr>
+				   <td colspan="5"></td>
+				   <td><div class="text-center"><p>Total:{{cot.cotizacion.total | currency}}</p> </div>
+				   </td>
+			   </tr>
+			    
+			</tbody>
+		</table>
+		</div>
+</div>
+<br/>
+<div class="row">
+	<div class="col-sm-12">
+		<p>Nota: Aqui va la nota</p>
+	</div>
+</div>
+
+<br/><br/><br/><br/><br/><br/><br/>
+
+<div class="row pull-right">
+	<div class="col-sm-12">
+	<p>Atentamente</p><br/>
+
+	<p><strong> Rigoberto Zamarripa Villegas</strong></p>
+
+	</div>
+</div>
+</div>

@@ -1,0 +1,86 @@
+
+<nav>
+	<div ng-include="'client/layouts/_admin.html'" ng-if="currentUser.roles[0] == 'admin'"></div>
+    <div ng-include="'client/layouts/_empresa.html'" ng-if="currentUser.roles[0] == 'director'"></div>
+    
+</nav>
+	 <!--<nav>
+	<ul data-smart-menu>
+
+
+  <li data-menu-collapse>
+	    <a href="#">
+	      <i class="fa fa-lg fa-fw fa-bar-chart-o"></i>
+	      <span class="menu-item-parent">Catálogos</span>
+	    </a>
+	    <ul>
+		    <li data-ui-sref-active="active">
+		      <a ui-sref="root.empresas" >
+		        <i class="fa fa-lg fa-fw fa-industry"></i>
+		        <span class="menu-item-parent">Empresas</span>
+		      </a>
+		    </li>
+		    <li data-ui-sref-active="active">
+		      <a ui-sref="root.obras" >
+		        <i class="fa fa-lg fa-fw fa-sun-o"></i>
+		        <span class="menu-item-parent">Obras</span>
+		      </a>
+		    </li>
+		    <li data-ui-sref-active="active">
+		      <a ui-sref="root.tipoProyecto" >
+		        <i class="fa fa-lg fa-fw fa-users"></i>
+		        <span class="menu-item-parent">Tipo Proyecto</span>
+		      </a>
+		    </li>
+		    <li data-ui-sref-active="active">
+		      <a ui-sref="root.mes" >
+		        <i class="fa fa-lg fa-fw fa-industry"></i>
+		        <span class="menu-item-parent">Agregar Meses</span>
+		      </a>
+		    </li>
+		    <li data-ui-sref-active="active">
+		      <a ui-sref="root.usuarios" >
+		        <i class="fa fa-lg fa-fw fa-industry"></i>
+		        <span class="menu-item-parent">Usuarios</span>
+		      </a>
+		    </li>
+		    <li data-ui-sref-active="active">
+		      <a ui-sref="root.partidas" >
+		        <i class="fa fa-lg fa-fw fa-industry"></i>
+		        <span class="menu-item-parent">Partidas</span>
+		      </a>
+		    </li>
+		    <li data-ui-sref-active="active">
+		      <a ui-sref="root.control" >
+		        <i class="fa fa-lg fa-fw fa-industry"></i>
+		        <span class="menu-item-parent">Control y mejora</span>
+		      </a>
+		    </li>
+		    <li data-ui-sref-active="active">
+		      <a ui-sref="root.costos" >
+		        <i class="fa fa-lg fa-fw fa-industry"></i>
+		        <span class="menu-item-parent">Costos</span>
+		      </a>
+		    </li>
+		    <li data-ui-sref-active="active">
+		      <a ui-sref="root.costosDirectos" >
+		        <i class="fa fa-lg fa-fw fa-industry"></i>
+		        <span class="menu-item-parent">Costos Directos</span>
+		      </a>
+		    </li>
+		    <li data-ui-sref-active="active">
+		      <a ui-sref="root.GI" >
+		        <i class="fa fa-lg fa-fw fa-industry"></i>
+		        <span class="menu-item-parent">Gastos Indirectos</span>
+		      </a>
+		    </li>
+		    <li data-ui-sref-active="active">
+		      <a ui-sref="root.addGasto" >
+		        <i class="fa fa-lg fa-fw fa-industry"></i>
+		        <span class="menu-item-parent">Gastos de  Oficina</span>
+		      </a>
+		    </li>
+	    </ul>
+	  </li>
+  </ul>
+</nav> -->

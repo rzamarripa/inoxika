@@ -1,0 +1,181 @@
+<h2>Clientes</h2>
+<div class="row">
+	<div class="col-sm-12">
+			<form class="form-horizontal" role="form" data-parsley-validate>
+		  		<div class="well">
+				<div class="row">
+			    	<h3>Empresa</h3>				    
+	          		<div class="col-sm-4">
+					    <label>Nombre</label>
+				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="cl.cliente.nombre" >
+				    </div>
+				     <div class="col-sm-6"  rowspan="2">
+					    <label>Datos Fiscales</label>
+				    	<textarea type="text" style="height: 50px" class="form-control" placeholder="Descripción" ng-model="cl.cliente.descripcion"></textarea>
+				    </div>
+				    
+	    	  
+    	  		</div>
+	    	  <div class="row">
+	    	  	<div class="col-sm-4">
+	    	  		<label>Ubicación</label>
+					<input type="text" class="form-control" placeholder="Dirección" ng-model="cl.cliente.direccion" >
+	    	  	</div>
+	    	  </div>
+	    	  </div>
+	    	  <div class="well"  >
+	    	   <div class="row">
+	    	   <div class="col-sm-12">
+	    	  	<h3>Contactos</h3>
+		    	  	<a class="btn btn-{{cl.new == true ? 'primary' : 'danger'}}" role="button" data-toggle="collapse" 
+						href="#contactos" aria-expanded="false" aria-controls="collapseExample" id="nuevoobra" ng-click="cl.nuevoContacto()">
+					 <i class="fa fa-plus fa-lg" ng-if="cl.new"></i>
+					 <i class="fa fa-minus fa-lg" ng-if="!cl.new"></i>
+					</a>
+				<br/>
+				<div class="collapse" id="contactos"><br/>
+		    	  	<div class="col-sm-3">
+					    <label>Nombre</label>
+				    	<input type="text" ng-click="cl.nuevu()" class="form-control" placeholder="Nombre" ng-model="cl.contactoSeleccionado.nombreContacto" >
+				    </div>
+				    <div class="col-sm-3">
+					    <label>Correo</label>
+				    	<input type="text" ng-click="cl.nuevu()" class="form-control" placeholder="Correo" ng-model="cl.contactoSeleccionado.correo" >
+				    </div>
+				    <div class="col-sm-3">
+					    <label>Celular</label>
+				    	<input type="text" ng-click="cl.nuevu()" class="form-control" placeholder="Celular" ng-model="cl.contactoSeleccionado.celular" >
+				    </div>
+				    <div class="col-sm-3">
+					    <label>Teléfono Oficina</label>
+				    	<input type="text" ng-click="cl.nuevu()" class="form-control" placeholder="Teléfono Oficina" ng-model="cl.contactoSeleccionado.telefonoOficina" >
+				    </div>
+			    </div>
+	    	  </div>
+	    	  </div>
+
+	     <div class="modal-body" >
+             <div class="row">
+	    	  	<div class="col-sm-12">
+	    	  		<table class="table table-bordered">
+	    	  		<thead>
+	    	  			<tr>
+	    	  			    <th><div class="text-center">No.</div></th>
+	    	  				<th><div class="text-center">Nombre</div></th>
+	    	  				<th><div class="text-center">Correo</div></th>
+	    	  				<th><div class="text-center">Celular</div></th>
+	    	  				<th><div class="text-center">Teléfono Oficina</div></th>
+	    	  				<th><div class="text-center">Acciones</div></th>
+	    	  			</tr>
+	    	  		</thead>
+	    	  		<tbody>
+	    	  			<tr ng-repeat="contacto in cl.cliente.contactos"> 
+	    	  			    <td><div class="text-center">{{$index + 1}}</div></td>
+	    	  				<td><div class="text-center">{{contacto.nombreContacto}}</div></td>
+	    	  				<td><div class="text-center">{{contacto.correo}}</div></td>
+	    	  				<td><div class="text-center">{{contacto.celular}}</div></td>
+	    	  				<td><div class="text-center">{{contacto.telefonoOficina}}</div></td>
+				    	  	<td>
+							    <div class="text-center">
+								    <div class="btn-group">
+										  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										    <span class="caret"></span>
+										    <span class="sr-only">Toggle Dropdown</span>
+										  </button>
+										  <ul class="dropdown-menu text-left">
+										    <li><a href="#" ng-click="cl.editarContactos($index)"><i class="fa fa-pencil"></i> Editar</a></li>
+										  </ul>
+										</div>
+							    </div>				    
+						    </td>
+	    	  			</tr>
+	    	  		</tbody>
+	    	  		</table>
+				</div>
+	    	  </div> 
+              <br/>
+        </div>
+
+
+	    	   <div class="row"><br/>
+				
+				<div class="col-sm-12">
+					<input type="submit" ng-click="cl.agregarContacto(cl.contactoSeleccionado)" value="Agregar" class="btn btn-primary" ng-show="cl.add">
+					<!-- <input type="submit" ng-click="cl.modificarContacto(cl.contactoSeleccionado)" value="Modificar" class="btn btn-primary" ng-show="cl.add" > -->
+					<input type="submit" ng-click="cl.modificarContacto(cl.contactoSeleccionado)" value="Actualizar Contacto" class="btn btn-primary"
+					ng-if="!cl.actualContacto">	
+				</div>
+			</div>
+	    	 </div>
+			<div class="row">
+				
+				<div class="col-sm-12">
+					<input type="submit" ng-click="cl.guardarCliente(cl.cliente)" value="Guardar" class="btn btn-primary" ng-show="!cl.cliente._id">
+					<input type="submit" ng-click="cl.actualizar(cl.cliente)" value="Actualizar" class="btn btn-primary" ng-if="cl.cliente._id">	
+				</div>
+			</div>
+		  	
+	  	</form>
+		
+	</div>
+</div>
+<br/>
+<!-- List -->
+
+
+<!-- <div class="row">
+	<div class="col-sm-12">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th width="10%"><div class="text-center">Nombre</div></th>
+					<th width="10%"><div class="text-center">Dirección</div></th>
+					<th width="10%"><div class="text-center">Teléfono</div></th>
+					<th width="30%"><div class="text-center">Descripción</div></th>
+					<th width="10%">
+						<div class="text-center">
+							Estatus
+						</div>
+					</th>
+					<th width="10%">
+						<div class="text-center">
+							Acciones
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+		    <tr ng-repeat="cliente in cl.clientes">
+			    <td><div class="text-center">{{cliente.nombre}}</div></td>
+			    <td><div class="text-center">{{cliente.direccion}}</div></td>
+			    <td><div class="text-center">{{cliente.telefono}}</div></td>
+			    <td><div class="text-center">{{cliente.descripcion}}</div></td>
+			    <td>
+				    <div class="text-center">
+				    	<span ng-if="cliente.estatus" class="label label-success">
+							  Activo
+							</span>
+							<span ng-if="!cliente.estatus" class="label label-danger">
+							  Inactivo
+							</span>
+				    </div>
+			    </td>
+			    <td>
+				    <div class="text-center">
+					    <div class="btn-group">
+							  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    <span class="caret"></span>
+							    <span class="sr-only">Toggle Dropdown</span>
+							  </button>
+							  <ul class="dropdown-menu text-left">
+							    <li><a href="#" ng-click="cl.editar(cliente._id)"><i class="fa fa-pencil"></i> Editar</a></li>
+							  <li><a href="#" ng-click="cl.cambiarEstatus(cliente._id)"><i class="fa fa-trash"></i> Desactivar</a></li>
+							  </ul>
+							</div>
+				    </div>				    
+			    </td>
+		    </tr>
+			</tbody>
+		</table>
+	</div>
+</div> -->

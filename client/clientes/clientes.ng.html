@@ -1,0 +1,148 @@
+<h2>Listado de Clientes</h2>
+
+<a class="btn btn-primary" ui-sref="root.clientesDetalle">Nuevo</a><br/>
+ <div class="container"><br/>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"></h4>
+          <div class="row">
+	    	   <div class="col-sm-12">
+		    	  	<div class="col-sm-3">
+					    <label>Nombre</label>
+				    	<input type="text" ng-click="client.nuevu()" class="form-control" placeholder="Nombre" ng-model="client.contactoSeleccionado.nombreContacto" >
+				    </div>
+				    <div class="col-sm-3">
+					    <label>Correo</label>
+				    	<input type="text" ng-click="client.nuevu()" class="form-control" placeholder="Correo" ng-model="client.contactoSeleccionado.correo" >
+				    </div>
+				    <div class="col-sm-3">
+					    <label>Celular</label>
+				    	<input type="text" ng-click="client.nuevu()" class="form-control" placeholder="Celular" ng-model="client.contactoSeleccionado.celular" >
+				    </div>
+				    <div class="col-sm-3">
+					    <label>Teléfono Oficina</label>
+				    	<input type="text" ng-click="client.nuevu()" class="form-control" placeholder="Teléfono Oficina" ng-model="client.contactoSeleccionado.telefonoOficina" >
+				    </div>
+			   
+	    	  </div>
+	    	  </div>
+         
+        </div>
+        <div class="modal-body" >
+              
+
+             <div class="row">
+	    	  	<div class="col-sm-12">
+	    	  		<table class="table table-bordered">
+	    	  		<thead>
+	    	  			<tr>
+	    	  			    <th>No.</th>
+	    	  				<th>Nombre</th>
+	    	  				<th>Correo</th>
+	    	  				<th>Celular</th>
+	    	  				<th>Teléfono Oficina</th>
+	    	  				<th>Acciones</th>
+	    	  			</tr>
+	    	  		</thead>
+	    	  		<tbody>
+	    	  			<tr ng-repeat="contacto in client.contactosSeleccionados"> 
+	    	  			    <td>{{$index + 1}}</td>
+	    	  				<td>{{contacto.nombreContacto}}</td>
+	    	  				<td>{{contacto.correo}}</td>
+	    	  				<td>{{contacto.celular}}</td>
+	    	  				<td>{{contacto.telefonoOficina}}</td>
+				    	  	<td>
+							    <div class="text-center">
+								    <div class="btn-group">
+										  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										    <span class="caret"></span>
+										    <span class="sr-only">Toggle Dropdown</span>
+										  </button>
+										  <ul class="dropdown-menu text-left">
+										    <li><a href="#" ng-click="client.editarContactos($index,contactos)"><i class="fa fa-pencil"></i> Editar</a></li>
+										  </ul>
+										</div>
+							    </div>				    
+						    </td>
+	    	  			</tr>
+	    	  		</tbody>
+	    	  		</table>
+				</div>
+	    	  </div> 
+              <br/>
+          <br>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+	    		  	
+		
+
+<!-- List -->
+	<div class="row">
+		<div class="col-sm-12">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th width="10%"><div class="text-center">Nombre</div></th>
+						<th width="10%"><div class="text-center">Dirección</div></th>
+						<th width="30%"><div class="text-center">Descripción</div></th>
+						<th width="10%">
+							<div class="text-center">
+								Estatus
+							</div>
+						</th>
+						<th width="10%">
+							<div class="text-center">
+								Acciones
+							</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+			    <tr ng-repeat="cliente in client.clientes">
+				    <td><div class="text-center">{{cliente.nombre}}</div></td>
+				    <td><div class="text-center">{{cliente.direccion}}</div></td>
+				  
+				    <td><div class="text-center">{{cliente.descripcion}}</div></td>
+				    <td>
+					    <div class="text-center">
+					    	<span ng-if="cliente.estatus" class="label label-success">
+								  Activo
+								</span>
+								<span ng-if="!cliente.estatus" class="label label-danger">
+								  Inactivo
+								</span>
+					    </div>
+				    </td>
+				    <td>
+					    <div class="text-center">
+						    <div class="btn-group">
+								  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								    <span class="caret"></span>
+								    <span class="sr-only">Toggle Dropdown</span>
+								  </button>
+								  <ul class="dropdown-menu text-left">
+								    <li><a href="/editarCliente/{{cliente._id}}"><i class="fa fa-pencil"></i> Editar</a></li>
+								  <li><a href="#" ng-click="client.cambiarEstatus(cliente._id)"><i class="fa fa-trash"></i> Desactivar</a></li>
+								  <li><a href="#" ng-click="client.modal(cliente.contactos)"><i class="fa fa-eye"></i> Ver</a></li>
+								  </ul>
+								</div>
+					    </div>				    
+				    </td>
+			    </tr>
+				</tbody>
+			</table>
+		</div>
+</div>

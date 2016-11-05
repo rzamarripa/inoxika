@@ -1,0 +1,57 @@
+<h2>Cotización</h2>
+<div class="row">
+	<div class="col-sm-12">
+		<a class="btn btn-primary" ui-sref="root.cotizacionDetalle({cantidad : cot.cantidad})" >Nuevo</a>
+
+	</div>
+</div>
+<br/>
+<!-- ///////////////////////////////////////   TABLAS  ///////////////////////////////////////////////////////// -->
+ 
+ 	<div class="row" id="printableArea">
+		<div class="col-sm-12">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th width="3%"><div class="text-center">No.</div></th>
+						<th width="5%"><div class="text-center">Folio</div></th>
+						<th width="10%"><div class="text-center">Fecha</div></th>
+						<th width="10%"><div class="text-center">Cliente</div></th>
+						<th width="10%"><div class="text-center">Primer Producto</div></th>
+						
+						<th width="5%">
+							<div class="text-center">
+								Acciones
+							</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+			    <tr ng-repeat="cotiza in cot.cotizaciones">
+				    <td><div class="text-center">{{$index + 1}}</div></td>
+				    <td><div class="text-center">{{cotiza.folio}}</div></td> 
+				    <td><div class="text-center">{{cotiza.fechaInicio | date:"dd-MM-yyyy"}}</div></td> 
+				    <td><div class="text-center">{{cot.getCliente(cotiza.cliente_id)}}</div></td>
+				    <td><div class="text-center">{{cotiza.nombrePrimerProducto}}</div></td>
+				    <td>
+					    <div class="text-center">
+						    <div class="btn-group">
+								  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								    <span class="caret"></span>
+								    <span class="sr-only">Toggle Dropdown</span>
+								  </button>
+								  <ul class="dropdown-menu text-left">
+								    <li><a href="/editarCotizacion/{{cotiza._id}}"><i class="fa fa-pencil"></i> Editar</a></li>
+								  <li><a href="#" ng-click="cot.cambiarEstatus(cotiza._id)"><i class="fa fa-trash"></i> Desactivar</a></li>
+								  <li><a href="/ordenProduccionDetalle/{{cotiza._id}}"><i class="fa fa-check-square-o"></i> Aceptada</a></li>
+								  <li><a target="_blank" href="/imprimirCotizacion/{{cotiza._id}}"><i class="fa fa-print"></i> Imprimir</a></li>
+								  <li><a><i class="fa fa-ban"></i> Rechazada</a></li>
+								  </ul>
+								</div>
+					    </div>				    
+				    </td>
+			    </tr>
+				</tbody>
+			</table>
+		</div>
+</div>
