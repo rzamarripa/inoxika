@@ -1,6 +1,6 @@
 angular.module("inoxica")
-.controller("MaterialesCtrl", MaterialesCtrl);  
-function MaterialesCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
+.controller("MaterialesDetalleCtrl", MaterialesDetalleCtrl);  
+function MaterialesDetalleCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
 $reactive(this).attach($scope);
 
 	this.subscribe('materiales',()=>{
@@ -16,8 +16,8 @@ $reactive(this).attach($scope);
   this.action = true;
   
 	this.helpers({
-	  materiales : () => {
-		  return Materiales.find();
+	  material : () => {
+		  return Materiales.findOne({_id : $stateParams.material_id});
 	  },
 	   unidades : () => {
 		  return Unidades.find();
@@ -42,7 +42,7 @@ $reactive(this).attach($scope);
 		this.material = {}; 
 		$('.collapse').collapse('hide');
 		this.nuevo = true;
-		
+		$state.go('root.materiales');
 	};
 	
 	this.editar = function(id)
@@ -61,6 +61,7 @@ $reactive(this).attach($scope);
 		$('.collapse').collapse('hide');
 		this.nuevo = true;
 		console.log(material);
+		$state.go('root.materiales');
 	};
 
 	this.cambiarEstatus = function(id)

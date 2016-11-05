@@ -1,6 +1,6 @@
 angular.module("inoxica")
-.controller("CotizacionCtrl", CotizacionCtrl);  
-function CotizacionCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
+.controller("CotizacionDetalleCtrl", CotizacionDetalleCtrl);  
+function CotizacionDetalleCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
 let rc = $reactive(this).attach($scope);
 
 
@@ -8,7 +8,7 @@ let rc = $reactive(this).attach($scope);
 	return [{estatus:true}] 
     });
      this.subscribe('cotizacion',()=>{
-	return [{estatus:true}] 
+	return [{estatus:1}] 
     });
       this.subscribe('clientes',()=>{
 	return [{estatus:true}] 
@@ -20,22 +20,16 @@ let rc = $reactive(this).attach($scope);
 	return [{estatus:true}] 
     });
 
-      this.cotizacion = {};
-      this.cotizacionProducto = {};
-      this.cotizacion.detalle = [];
-      this.cotizacion.detalleDelProducto = [];
-      this.subTotal = 0.00;
+    console.log($stateParams)
+    var cantidad = $stateParams.cantidad
 
- this.clienteSeleccionado = {};
- this.productoSeleccionado = {};
-	
-  this.action = true;
+      
   
 	this.helpers({
-	  cotizaciones : () => {
-		  return Cotizacion.find();
+	  cotizacion : () => {
+		  return Cotizacion.findOne({_id : $stateParams.cotizacion_id});
 	  },
-	  cotizacionesProductos : () => {
+	  cotizacionProductos : () => {
 		  return Cotizacion.find({tipo : "producto" });
 	  },
 	  materiales : () => {
@@ -50,24 +44,24 @@ let rc = $reactive(this).attach($scope);
 	   unidades : () => {
 		  return Unidades.find();
 	  },
-	
   });
-    // this.CotizacionProducto = function()
-  // {
-    
-  //   this.cotizacionProducto = {};
-  //    this.cotizacion.detalle = [];
-  //   this.cotizacionManual = {};			
-  // };
-  // this.CotizacionManual = function()
-  // {
-
-  //   this.cotizacionManual = {};	
-  //   this.cotizacionProducto = {};	
-  // };
   
-	this.nuevo = true;
-	this.guardar = true;  	  
+
+  this.nuevo = true;
+  this.guardar = true; 
+  this.tabla 	= false; 
+  this.action = true;
+
+
+  this.cotizacion = {};
+      this.cotizacionProducto = {};
+      this.cotizacion.detalle = [];
+      this.subTotal = 0.00;
+      this.cotizacionManual = {};
+      this.productoIndice = 0;
+	  this.clienteSeleccionado = {};
+	  this.productoSeleccionado = {};
+	 
   this.nuevoCotizacion = function()
   {
     this.action = true;
@@ -76,22 +70,26 @@ let rc = $reactive(this).attach($scope);
     this.cotizacion = {};
     this.cotizacion.detalle = [];
   };
-
   
   this.agregarManual = function(cotizacionManual)
 	{ 
 		//cotizacion.material_id = this.material_id;
+		console.log(this.cotizacion)
 		cotizacionManual.tipo = "manual";
 		this.cotizacion.detalle.push(cotizacionManual);
-		this.cotizacion.detalleDelProducto = [];
 		this.cotizacion.estatus = 1;
 		console.log(this.cotizacion);
 		this.guardar = false; 
-		this.subTotal += cotizacionManual.precio;
+		this.productoTipo = false;
+		this.on = false;
+		this.tabla 	= true;
+		this.subTotal += (cotizacionManual.precio + (cotizacionManual.precio * cotizacionManual.utilidad /100)  * cotizacionManual.cantidad)
+		* cotizacionManual.cantidad ;
+		this.cotizacionManual = {};
+		
 	};
 	this.agregarProducto = function(cotizacionProducto)
 	{ 
-		//cotizacion.material_id = this.material_id;
 		cotizacionProducto.tipo = "producto";
 		this.cotizacion.detalle.push(cotizacionProducto);
 		this.cotizacion.estatus = 1;
@@ -99,8 +97,10 @@ let rc = $reactive(this).attach($scope);
 		this.guardar = false; 
 		this.productoTipo = false;
 		_.each(cotizacionProducto.detalle, function(detalle){
-			rc.subTotal += detalle.precio;
-		})
+			rc.subTotal += (cotizacionManual.precio + (cotizacionManual.precio * cotizacionManual.utilidad /100)  * cotizacionManual.cantidad)
+		* cotizacionManual.cantidad ;
+		});
+		this.productoSeleccionado = {};
 	};
 
 	 this.guardarCotizacion = function(cotizacion)
@@ -110,32 +110,21 @@ let rc = $reactive(this).attach($scope);
 		_.each(rc.cotizacion.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	
-			_.each(cotizacion.detalleDelProducto, function(cot){
-				delete cot.$$hashKey;
-				_.each(cot.detalleProducto, function(ct){
-				delete ct.$$hashKey;
-
-			});
-
-			});
-
-
+		 var total = 0;
+		_.each(rc.cotizacion.detalle,function(detalle){ total +=
+		 ((detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad)});
+		_.each(rc.cotizacion.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
+		this.cotizacion.subTotal = total;
+		this.cotizacion.total = total - total*0.16;
+		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre 
+		this.cotizacion.estado = true;
 		
-
-		_.each(rc.cotizacion.detalleDelProducto, function(cotizacion){
-			delete cotizacion.$$hashKey;
-			_.each(cotizacion.detalle, function(cot){
-				delete cot.$$hashKey;
-
-			});
-		});	
-			
+		this.cotizacion.folio = parseInt(cantidad) + 1;			
 		Cotizacion.insert(this.cotizacion);
 		toastr.success('Cotizacion guardada.');
 		this.cotizacion = {};
 		this.cotizacionProducto = {};
      	this.cotizacion.detalle = [];
-     	this.cotizacion.detalleDelProducto = [];
     	this.cotizacionManual = {};  
     	this.clienteSeleccionado = {};
         this.productoSeleccionado = {};
@@ -144,6 +133,7 @@ let rc = $reactive(this).attach($scope);
 		this.guardar = true; 
 		this.productoTipo = true;
 		this.tabla = false;
+		$state.go('root.cotizacion')
 	};
 	
 	this.editar = function(id)
@@ -153,15 +143,39 @@ let rc = $reactive(this).attach($scope);
     $('.collapse').collapse('show');
     this.nuevo = false;
 	};
+	this.editarProducto = function($index)
+	{
+    this.productoSeleccionado = rc.cotizacion.detalle[$index];
+
+    this.agregar = false;
+    this.cancelar = true;
+    this.productoIndice = $index;
+    console.log(this.productoSeleccionado);
+
+	};
+	this.editarMaterial = function($index)
+	{
+    this.materialSeleccionado = rc.producto.detalleProducto[$index];
+    this.agregar = false;
+    this.cancelar = true;
+    this.materialIndice = $index;
+    console.log(this.materialSeleccionado);
+
+	};
 	
 	this.actualizar = function(cotizacion)
 	{
+		console.log(this.cotizacion);
+		_.each(rc.cotizacion.detalle, function(cotizacion){
+			delete cotizacion.$$hashKey;
+			});
 		var idTemp = cotizacion._id;
 		delete cotizacion._id;		
 		Cotizacion.update({_id:idTemp},{$set:cotizacion});
 		$('.collapse').collapse('hide');
 		this.nuevo = true;
 		console.log(cotizacion);
+		$state.go('root.cotizacion')
 	};
 
 	this.cambiarEstatus = function(id)
@@ -193,7 +207,40 @@ let rc = $reactive(this).attach($scope);
 	{
 		 
 		 this.tabla = true;
-
 	};
+
+	 this.getUnidad= function(unidad_id)
+	{
+		var unidad = Unidades.findOne(unidad_id);
+		if(unidad)
+		return unidad.nombre;
+	}; 
+
+	this.SumaPrecioProductos = function(){
+		total = 0;
+		_.each(rc.cotizacion.detalle,function(detalle){ total += (
+		(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad)});
+		return total
+	};
+
+	this.aumentoIva = function () 
+	{
+		this.on = !this.on;
+
+		console.log(this.on)		
 		
+   };
+
+
+
+
 };
+
+
+
+
+
+
+
+
+

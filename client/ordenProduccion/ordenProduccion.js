@@ -1,6 +1,6 @@
 angular.module("inoxica")
-.controller("ProductosCtrl", ProductosCtrl);  
-function ProductosCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
+.controller("OrdenProduccionCtrl", OrdenProduccionCtrl);  
+function OrdenProduccionCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
 let rc = $reactive(this).attach($scope);
 
 	this.materialIndice = 0;
@@ -17,6 +17,13 @@ let rc = $reactive(this).attach($scope);
 	return [{estatus:true}] 
     });
 
+    this.subscribe('ordenProduccion',()=>{
+	return [{estado:true}] 
+    });
+     this.subscribe('proveedores',()=>{
+	return [{estatus:true}] 
+    });
+
  
  
 	
@@ -25,6 +32,12 @@ let rc = $reactive(this).attach($scope);
   this.cancelar = false;
   
 	this.helpers({
+	  ordenes : () => {
+		  return OrdenProduccion.find();
+	  },
+	    proveedores : () => {
+		  return Proveedores.find();
+	  },
 	  productos : () => {
 		  return Productos.find();
 	  },
@@ -34,15 +47,6 @@ let rc = $reactive(this).attach($scope);
 	  unidades : () => {
 		  return Unidades.find();
 	  },
-	 //  materialesProductos : () => {
-	 //  	suma = [];
-	 //  		total = 0;
-		// _.each(rc.producto.detalleProducto,function(producto){total += producto.precio});
-		// return total
-
-		//   return suma;
-	 //  },
-	
   });
   
 	this.nuevo = true;
@@ -177,10 +181,14 @@ let rc = $reactive(this).attach($scope);
 		if(unidad)
 		return unidad.nombre;
 	};
-	//  this.obtenerMaterial= function(material_id)
-	// {
-	// 	this.agregar = true;
-	// };
+
+	    this.getProveedor = function(proveedor_id)
+	{
+		var proveedor = Proveedores.findOne(proveedor_id);
+		if(proveedor)
+		return proveedor.nombre;
+	};
+
 	this.cancelarMaterial = function()
 	{
 		this.agregar = true

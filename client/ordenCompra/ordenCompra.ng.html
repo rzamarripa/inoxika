@@ -1,0 +1,53 @@
+<h2>Orden Compra</h2>
+<div class="row">
+	<div class="col-sm-12">
+		<!-- <a class="btn btn-primary" ui-sref="root.cotizacionDetalle" >Nuevo</a> -->
+
+	</div>
+</div>
+<br/>
+<!-- ///////////////////////////////////////   TABLAS  ///////////////////////////////////////////////////////// -->
+ 
+ 	<div class="row">
+		<div class="col-sm-12">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+					<th width="5%"><div class="text-center">No.</div></th>
+						<th width="5%"><div class="text-center">Folio</div></th>
+						<th width="10%"><div class="text-center">Fecha</div></th>
+						<th width="10%"><div class="text-center">Proveedor</div></th>
+						<th width="10%"><div class="text-center">Primer Producto</div></th>
+						<th width="5%">
+							<div class="text-center">
+								Acciones
+							</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+			    <tr ng-repeat="ordenCompra in orden.ordenes">
+				    <td><div class="text-center">{{$index + 1}}</div></td>
+				    <td><div class="text-center">{{ordenCompra.folio}}</div></td>
+				    <td><div class="text-center">{{ordenCompra.fechaInicio | date:"dd-MM-yyyy"}}</div></td> 
+				    <td><div class="text-center">{{orden.getProveedor(ordenCompra.proveedor_id)}}</div></td>
+				    <td><div class="text-center">{{ordenCompra.nombrePrimerProducto}}</div></td>
+				    <td>
+					    <div class="text-center">
+						    <div class="btn-group">
+								  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								    <span class="caret"></span>
+								    <span class="sr-only">Toggle Dropdown</span>
+								  </button>
+								  <ul class="dropdown-menu text-left">
+								    <li><a href="/editarOrdenCompra/{{ordenCompra._id}}"><i class="fa fa-pencil"></i> Editar</a></li>
+								  <li><a href="#" ng-click="client.cambiarEstatus(ordenCompra._id)"><i class="fa fa-trash"></i> Desactivar</a></li>
+								  </ul>
+								</div>
+					    </div>				    
+				    </td>
+			    </tr>
+				</tbody>
+			</table>
+		</div>
+</div>

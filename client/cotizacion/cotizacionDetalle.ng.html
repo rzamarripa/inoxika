@@ -1,0 +1,246 @@
+<h2>Cotización</h2>
+<div class="row">
+	<div class="col-sm-12">
+		<form class="form-horizontal" role="form" data-parsley-validate>
+		  	<div class="well"> 
+		  		    
+			    <div class="row">
+
+				    <div class="col-sm-4">
+								<label >Cliente</label>
+								<select class="form-control select2" placeholder="Seleccione" ng-model="cot.cotizacion.cliente_id"
+								 ng-change="cot.getClientes(cot.cotizacion.cliente_id)">
+									<option ng-repeat="cliente in cot.clientes" value="{{cliente._id}}">{{cliente.nombre}}</option>
+								</select>
+					</div>
+					<div class="col-sm-6"> 
+					<h4>{{cot.clienteSeleccionado.nombre}}</h4>
+					<p>{{cot.clienteSeleccionado.direccion}}</p>
+					<p ng-show="cot.clientillo">{{cot.clienteSeleccionado.descripcion}}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="well">     
+			    <div class="row">			    
+	          <div class="col-sm-3">
+					    <label>Nombre del Proyecto</label>
+				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="cot.cotizacion.nombreProyecto" >
+				    </div>
+				     <div class="col-sm-3">
+						<label for="fecha">Fecha de inicio</label>
+						<input name="fechaInicio" date-time format="dd-MM-yyyy" class="form-control" view="year" max-view="month" min-view="date" ng-model="cot.cotizacion.fechaInicio"  />
+					</div>
+					<div class="col-sm-3">
+						<label for="fecha">Fecha de Vencimiento</label>
+						<input name="fechaInicio" date-time format="dd-MM-yyyy" class="form-control" view="year" max-view="month" min-view="date" ng-model="cot.cotizacion.fechaVencimiento"  />
+					</div>
+				</div>
+	    	  </div>
+	    	 
+	    	 <br/>
+
+<div class="row">
+	<div class="jarviswidget" id="wid-id-7" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
+		<header role="heading">
+			<ul class="nav nav-tabs pull-left in">
+				<li class="active">
+					<a data-toggle="tab" href="#hr1" ng-click="cot.Mostrartabla()"><span > Partida Manual </span> </a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#hr2" ng-click="cot.Mostrartabla()"><span > Partida Producto  </span> </a>
+				</li>
+			</ul>
+		<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+		<div class="widget-toolbar" id="switch-1" role="menu">
+										<span class="onoffswitch-title"><i class="fa fa-line-chart"></i> Agregar Iva</span>
+										<span class="onoffswitch" >
+											<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-click="cot.aumentoIva()">
+											<label class="onoffswitch-label" for="myonoffswitch"> 
+												<span class="onoffswitch-inner" data-swchon-text="Iva" data-swchoff-text="Sin"
+												></span> 
+												<span class="onoffswitch-switch" ></span></label> 
+											</span>
+									</div>
+		</header>
+	
+
+		<!-- ////////////////////////////////////////////// PARTIDA MANUAL //////////////////////////////// -->
+<div role="content">
+<div class="widget-body">
+	<div class="tab-content">
+		<div class="tab-pane active" id="hr1">
+			<div class="tabbable tabs-below">
+				<div class="tab-content padding-10">
+					<div class="tab-pane active" id="AA">
+						<div class="row">
+							<div class="col-sm-2">
+				    			<label>Nombre</label>
+			    				<input  type="text" class="form-control" placeholder="Nombre" ng-model="cot.cotizacionManual.nombre">
+			   				 </div>
+			   				  <div class="col-sm-2">
+				    			<label>Cantidad</label>
+			    				<input type="number" class="form-control" placeholder="Cantidad" ng-model="cot.cotizacionManual.cantidad">
+			   				 </div>
+			   				  <div class="col-sm-2">
+								<label >Unidad</label>
+								<select  class="form-control select2" placeholder="Seleccione" ng-model="cot.cotizacionManual.unidad_id">
+									<option ng-repeat="unidad in cot.unidades" value="{{unidad._id}}">{{unidad.nombre}}</option>
+								</select>
+					        </div>
+			   				 <div class="col-sm-2">
+				    			<label>Precio</label>
+			    				<input type="number" class="form-control" placeholder="Precio" ng-model="cot.cotizacionManual.precio">
+			   				 </div>
+			   				 <div class="col-sm-2">
+				    			<label>Utilidad</label>
+			    				<input type="number" class="form-control" placeholder="Utilidad" ng-model="cot.cotizacionManual.utilidad">
+			   				 </div>
+			   				 <div class="col-sm-2">
+		    	 					<label>Precio + utilidad</label>
+						    		<div class="form-control">{{cot.cotizacionManual.precio * cot.cotizacionManual.utilidad/100  + cot.cotizacionManual.precio | currency}}</div>
+								</div>
+			   				 <div class="col-sm-12">
+							     <label>Descripción</label>
+						    	    <textarea type="text" class="form-control" placeholder="Descripción" ng-model="cot.cotizacionManual.descripcion" >
+						            </textarea>
+			    	         </div>
+			   				 </div><br/>
+					   	<div class="row">
+							<div class="col-sm-12">
+								<input type="submit" ng-click="cot.agregarManual(cot.cotizacionManual)" value="Agregar" class="btn btn-primary" ng-show="cot.action">
+								<input type="submit" ng-click="cot.actualizarManual(cot.cotizacionManual,cot.cotizacion)" value="Actualizar" class="btn btn-primary" ng-show="!cot.action">	
+							</div>
+						</div><br/>
+						</div>	
+				</div>
+				
+			</div>
+
+		</div>
+
+				<!-- //////////////////////////////////////////////////// PRODUCTO  //////////////////////////////// -->
+	    <div class="tab-pane" id="hr2">
+
+				<div class="tab-content padding-10">
+					<div class="tab-pane active" id="iss1">
+							<div class="row">
+							 <div class="col-sm-12">
+								 <div class="col-sm-2">
+									<label >Producto</label>
+									<select class="form-control select2" placeholder="Seleccione" ng-model="cot.productoSeleccionado.producto_id "
+									 ng-change="cot.getProductos(cot.productoSeleccionado.producto_id)">
+										<option ng-repeat="producto in cot.productos" value="{{producto._id}}">{{producto.nombre}}</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+				    			<label>Cantidad</label>
+			    				<input type="number" class="form-control" placeholder="Cantidad" ng-model="cot.productoSeleccionado.cantidad"> 
+			    				</div>
+			    				 <div class="col-sm-2">
+								<label >Unidad</label>
+								<select  class="form-control select2" placeholder="Seleccione" ng-model="cot.productoSeleccionado.unidad_id">
+									<option ng-repeat="unidad in cot.unidades" value="{{unidad._id}}">{{unidad.nombre}}</option>
+								</select>
+					        </div>
+								<div class="col-sm-2">
+		    	 					<label>Precio</label>
+						    		<div class="form-control">{{cot.productoSeleccionado.precio | currency}}</div>
+								</div>
+					        <div class="col-sm-2">
+				    			<label>Utilidad</label>
+			    				<input type="number" class="form-control" placeholder="Utilidad" ng-model="cot.productoSeleccionado.utilidad">
+			   				 </div>
+			   				 <div class="col-sm-2">
+		    	 					<label>Precio + utilidad</label>
+						    		<div class="form-control">{{cot.productoSeleccionado.precio * cot.productoSeleccionado.utilidad/100  + cot.productoSeleccionado.precio}}</div>
+								</div>
+							<div class="col-sm-12">
+							        <label>Descripción</label>
+						    	    <textarea class="form-control">{{cot.productoSeleccionado.descripcion}} </textarea>
+			    	         </div>
+			   				 
+
+							<div class="col-sm-3"><br/>
+								<input type="submit" ng-click="cot.agregarProducto(cot.productoSeleccionado)" value="Agregar" class="btn btn-primary" ng-show="cot.action">
+								<input type="submit" ng-click="cot.actualizarProducto(cot.cotizacionProducto,cot.cotizacion)" value="Actualizar" class="btn btn-primary" ng-show="!cot.action">	
+							</div>
+							</div>
+
+						</div><br/>							
+							</div>
+							
+					</div>
+				</div>
+		</div>
+	</div>
+		<!-- end widget content -->
+</div>
+	<!-- end widget div --> 
+</div>
+		    	 	
+
+</div><br/>
+					
+		  	
+	  	</form>
+	</div>
+</div>
+<br/>
+<!-- ///////////////////////////////////////   TABLAS  ///////////////////////////////////////////////////////// -->
+<!-- List -->
+		<div class="row"  ng-show="cot.tabla" >
+<div class="col-sm-12">
+	<table class="table table-bordered"  >
+		<thead>
+			<tr>
+			    <td width="10%"><div class="text-center">No.</div></td> 
+		        <th width="20%"><div class="text-center">Descripción</div></th>
+				<th width="10%"><div class="text-center">Unidad</div></th>
+				<th width="10%"><div class="text-center">Cantidad</div></th>
+				<th width="10%"><div class="text-center">Precio</div></th>
+				<th width="10%"><div class="text-center">Importe</div></th>
+				<th width="20%"><div class="text-center">Acciones</div></th>
+			</tr>
+		</thead> 
+		<tbody>
+	    	<tr  ng-repeat="detalle in cot.cotizacion.detalle"> 
+		        <td><div class="text-center">{{$index + 1}}</div ></td>  
+		        <td><div class="text-center">{{detalle.descripcion}}</div></td> 
+			    <td><div class="text-center">{{cot.getUnidad(detalle.unidad_id)}}</div></td>			    
+			    <td><div class="text-center">{{detalle.cantidad}}</div></td>
+			    <td><div class="text-center">{{detalle.precio * detalle.utilidad/100 + detalle.precio | currency}}</div></td>
+			    <td><div class="text-center">{{(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad | currency}}</div></td>
+			    <td width="30%"><div class="text-center">
+					<a class="btn btn-warning" ng-click="cot.editar(detalle._id)"><i class="fa fa-pencil"></i></a>
+					<a class="btn btn-danger"  ng-click="cot.cambiarEstatus(detalle._id)"><i class="fa fa-trash"></i> </a>		 
+				    </div>				    
+			    </td>
+		   </tr>	
+		   <tr>
+			   <td colspan="6" ></td>
+			   <td><div class="text-center"><strong>SubTotal:</strong> {{cot.SumaPrecioProductos() | currency}}</div>
+			   </td>
+		    </tr>
+		    <tr>
+		    	<td colspan="6"></td>
+		    	<td ng-if="cot.on"><div class="text-center"><strong>Iva:</strong> {{cot.SumaPrecioProductos()*.16 | currency}}
+		    	</div></td>
+		    </tr>
+		    <tr>
+			   <td colspan="6"></td>
+			   <td ng-if="cot.on"><div class="text-center"><strong>Total:</strong> {{cot.SumaPrecioProductos()*.16 + cot.SumaPrecioProductos() | currency}}</div>
+			   </td>
+		   </tr>
+		    
+		</tbody>
+	</table>
+	</div>
+</div>
+
+  	<div class="row" ng-show="!cot.guardar">
+		<div class="col-sm-12">
+			<input type="submit" ng-click="cot.actualizarManual(cot.cotizacion)" value="Actualizar" class="btn btn-primary" ng-if="ordenProduccion._id">	
+		</div>
+	</div><br/>
+

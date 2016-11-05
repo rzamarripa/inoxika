@@ -1,30 +1,60 @@
 angular.module("inoxica")
 .controller("ClientesCtrl", ClientesCtrl);  
 function ClientesCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
-$reactive(this).attach($scope);
+let rc =$reactive(this).attach($scope);
 
-	this.subscribe('clientes',()=>{
-	return [{estatus:true}] 
-    });
-
- 
+	this.subscribe('clientes');
 	
-  this.action = true;
+    this.action = true;
+    this.act = true;
+    this.formContactos = false;
+
+    this.contactosSeleccionados = [];
+
+
+
   
 	this.helpers({
 	  clientes : () => {
-		  return Clientes.find();
+		  return Clientes.find().fetch();
 	  },
 	
   });
-  
-	this.nuevo = true;  	  
+
+
+   this.modal = function(contactos)
+   {
+   	 this.contactosSeleccionados = contactos;
+   	 $('#myModal').modal('show');
+   }
+
   this.nuevoCliente = function()
   {
     this.action = true;
     this.nuevo = !this.nuevo;
-    this.cliente = {};		
+    this.cliente = {};	
+    this.cliente.contactos = [];	
   };
+  
+  this.nuevoObra = function()
+  {
+   	this.add= true;
+   	this.act = true;
+   	this.contactoSeleccionado = {};
+  };
+
+   this.agregarContacto = function(contacto)
+	{ 
+		
+		console.log(this.contacto)
+		
+		this.cliente.contactos.push(contacto);
+		this.cliente.estatus = 1;
+		console.log(this.cliente);
+		this.guardar = false;
+		this.add= false;	 
+		this.contactoSeleccionado = {};
+	};
   
   this.guardar = function(cliente)
 	{
@@ -39,12 +69,40 @@ $reactive(this).attach($scope);
 	
 	this.editar = function(id)
 	{
+	$state.go('root.clientesDetalle');
     this.cliente = Clientes.findOne({_id:id});
     this.action = false;
     $('.collapse').collapse('show');
     this.nuevo = false;
 	};
-	
+
+
+
+
+
+
+	this.editarContactos = function($index,contactos)
+	{
+    this.contactoSeleccionados = rc.cliente.contactos[$index];
+
+    this.formContactos = true;
+	};
+
+
+	this.editarMaterial = function($index)
+	{
+
+    this.materialSeleccionado = rc.producto.detalleProducto[$index];
+
+    //this.materialSeleccionado._id = _id;
+
+    this.agregar = false;
+    this.cancelar = true;
+    this.materialIndice = $index;
+    console.log(this.materialSeleccionado);
+
+	};
+
 	this.actualizar = function(cliente)
 	{
 		var idTemp = cliente._id;
@@ -65,5 +123,22 @@ $reactive(this).attach($scope);
 		
 		Clientes.update({_id: id},{$set :  {estatus : cliente.estatus}});
     };
+
+     this.getCliente= function(cliente_id)
+	{
+		var cliente = Clientes.findOne(cliente_id);
+		if(cliente)
+		return cliente.nombre;
+	};
+
+
+
+
+
+
+
+
+
+
 		
 };

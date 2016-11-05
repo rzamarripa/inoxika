@@ -1,0 +1,119 @@
+<h2>Proveedores</h2>
+
+<div class="row">
+	<div class="col-sm-12">
+		<a class="btn btn-{{prove.nuevo == true ? 'primary' : 'danger'}}" role="button" data-toggle="collapse" 
+			href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="nuevoProve" ng-click="prove.nuevoProveedor()">
+		 {{prove.nuevo == true ? 'Nuevo1' : 'Cancelar'}}
+		</a>
+		<div class="collapse" id="collapseExample">
+			<form class="form-horizontal" role="form" data-parsley-validate>
+	    	 <div class="well">
+	    	 	<div class="row">
+		    	  	<div class="col-sm-3">
+					    <label>Nombre</label>
+				    	<input type="text"  class="form-control" placeholder="Nombre" ng-model="prove.proveedor.nombre" >
+				    </div>
+				    <div class="col-sm-3">
+					    <label>Correo</label>
+				    	<input type="text"  class="form-control" placeholder="Correo" ng-model="prove.proveedor.correo" >
+				    </div>
+				    <div class="col-sm-3">
+					    <label>Credito</label>
+				    	<input type="text"  class="form-control" placeholder="Credito" ng-model="prove.proveedor.credito" >
+				    </div>
+				    <div class="col-sm-3">
+					    <label>Teléfono1</label>
+				    	<input type="text"  class="form-control" placeholder="Teléfono Oficina" ng-model="prove.proveedor.tel1" >
+				    </div>
+				     <div class="col-sm-3">
+					    <label>Teléfono2</label>
+				    	<input type="text"  class="form-control" placeholder="Teléfono Oficina" ng-model="prove.proveedor.tel2" >
+				    </div>
+				       <div class="col-sm-6"  rowspan="2">
+					    <label>Datos Fiscales</label>
+				    	<textarea type="text"  class="form-control" placeholder="Descripción" ng-model="prove.proveedor.descripcion"></textarea>
+				    </div>
+			    </div>
+	    	 	<br/>
+
+					<div class="row">
+						
+						<div class="col-sm-12">
+							<input type="submit" ng-click="prove.guardar(prove.proveedor)" value="Guardar" class="btn btn-primary" ng-show="prove.action">
+							<input type="submit" ng-click="prove.actualizar(prove.proveedor)" value="Actualizar" class="btn btn-primary" ng-show="!prove.action">	
+						</div>
+					</div>
+		  	</div>
+	  	</form>
+		</div>
+	</div>
+</div>
+<br/>
+                  
+
+<!-- List -->
+	<div class="row">
+		<div class="col-sm-12">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th width="10%"><div class="text-center">Nombre</div></th>
+						<th width="10%"><div class="text-center">Datos Fiscales</div></th>
+						<th width="10%"><div class="text-center">credito</div></th>
+						<th width="10%"><div class="text-center">correo</div></th>
+						<th width="10%"><div class="text-center">tel1</div></th>
+						<th width="10%"><div class="text-center">tel2</div></th>
+						
+						<th width="10%">
+							<div class="text-center">
+								Estatus
+							</div>
+						</th>
+						<th width="10%">
+							<div class="text-center">
+								Acciones
+							</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+			    <tr ng-repeat="prove in prove.proveedores">
+				    <td><div class="text-center">{{prove.nombre}}</div></td>
+				    <td><div class="text-center">{{prove.descripcion}}</div></td>
+				    <td><div class="text-center">{{prove.credito}}</div></td>
+				    <td><div class="text-center">{{prove.correo}}</div></td>
+				    <td><div class="text-center">{{prove.tel1}}</div></td>
+				    <td><div class="text-center">{{prove.tel2}}</div></td>
+				  
+				    
+				    <td>
+					    <div class="text-center">
+					    	<span ng-if="prove.estatus" class="label label-success">
+								  Activo
+								</span>
+								<span ng-if="!prove.estatus" class="label label-danger">
+								  Inactivo
+								</span>
+					    </div>
+				    </td>
+				    <td>
+					    <div class="text-center">
+						    <div class="btn-group">
+								  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								    <span class="caret"></span>
+								    <span class="sr-only">Toggle Dropdown</span>
+								  </button>
+								  <ul class="dropdown-menu text-left">
+								    <li><a href="/editarCliente/{{prove._id}}"><i class="fa fa-pencil"></i> Editar</a></li>
+								  <li><a href="#" ng-click="client.cambiarEstatus(prove._id)"><i class="fa fa-trash"></i> Desactivar</a></li>
+								  <li><a href="#" ng-click="client.modal(prove.contactos)"><i class="fa fa-eye"></i> Ver</a></li>
+								  </ul>
+								</div>
+					    </div>				    
+				    </td>
+			    </tr>
+				</tbody>
+			</table>
+		</div>
+</div>

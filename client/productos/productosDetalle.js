@@ -1,6 +1,6 @@
 angular.module("inoxica")
-.controller("ProductosCtrl", ProductosCtrl);  
-function ProductosCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
+.controller("ProductosDetalleCtrl", ProductosDetalleCtrl);  
+function ProductosDetalleCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
 let rc = $reactive(this).attach($scope);
 
 	this.materialIndice = 0;
@@ -17,16 +17,20 @@ let rc = $reactive(this).attach($scope);
 	return [{estatus:true}] 
     });
 
- 
+ this.materialSeleccionado = {};
+ this.material = {};
+ this.producto = {};
+ this.producto.detalleProducto = [];
  
 	
   this.action = true;
   this.agregar = true;
   this.cancelar = false;
+  	this.nuevo = true; 
   
 	this.helpers({
-	  productos : () => {
-		  return Productos.find();
+	  producto : () => {
+		  return Productos.findOne({_id : $stateParams.producto_id});
 	  },
 	  materiales : () => {
 		  return Materiales.find();
@@ -44,23 +48,14 @@ let rc = $reactive(this).attach($scope);
 	 //  },
 	
   });
-  
-	this.nuevo = true;
+ 
+     
 
- this.materialSeleccionado = {};
- this.material = {};
- this.producto = {};
- this.producto.detalleProducto = [];
-
-  this.nuevoProductos = function()
-  {
-    this.action = true;
-    this.nuevo = !this.nuevo;
     this.producto = {};
     this.producto.detalleProducto = [];
     this.material = {};	
     this.materialSeleccionado = {};	
-  };
+
 
  
   
@@ -95,6 +90,7 @@ let rc = $reactive(this).attach($scope);
 	    this.material = {};	
 		$('.collapse').collapse('hide');
 		this.nuevo = true;
+		$state.go('root.productos');
 	};
 	this.modificarMaterial = function(material)
 	{
@@ -103,7 +99,7 @@ let rc = $reactive(this).attach($scope);
 		this.cancelar = false;
 		this.materialSeleccionado = {};
 		this.material = {};
-	}
+	};
 	
 	this.editar = function(id)
 	{
@@ -137,6 +133,7 @@ let rc = $reactive(this).attach($scope);
 		$('.collapse').collapse('hide');
 		this.nuevo = true;
 		console.log(producto);
+		$state.go('root.productos');
 	};
 
 	this.cambiarEstatus = function(id)
@@ -191,8 +188,10 @@ let rc = $reactive(this).attach($scope);
 
 	this.SumaPrecioProductos = function(){
 		total = 0;
-		_.each(rc.producto.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
+			_.each(rc.producto.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
 		return total
 	}
+		
+	
 		
 };

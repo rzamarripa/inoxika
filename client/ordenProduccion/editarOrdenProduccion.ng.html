@@ -1,0 +1,224 @@
+<h2>Orden de Producción</h2>
+<div class="row">
+	<div class="col-sm-12">
+		<form class="form-horizontal" role="form" data-parsley-validate>
+
+			<div class="well">     
+			    <div class="row">
+			     <div class="col-sm-2">
+		    	 					<label>Folio</label>
+						    		<div class="form-control">{{orden.cotizacion.folio}}</div>
+								</div>	
+			      <div class="col-sm-3">
+								<label >Proveedor</label>
+								<select class="form-control select2" placeholder="Seleccione" ng-model="orden.cotizacion.proveedor_id"
+								 ng-change="orden.getProveedor(orden.cotizacion.proveedor_id)">
+									<option ng-repeat="proveedor in orden.proveedores" value="{{proveedor._id}}">{{proveedor.nombre}}</option>
+								</select>
+					</div>		    
+	          <div class="col-sm-3">
+					    <label>Nombre del Proyecto</label>
+				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="orden.cotizacion.nombreProyecto" >
+				    </div>
+				     <div class="col-sm-3">
+						<label for="fecha">Fecha de inicio</label>
+						<input name="fechaInicio" date-time format="dd-MM-yyyy" class="form-control" view="year" max-view="month" min-view="date" ng-model="orden.cotizacion.fechaInicio"  />
+					</div>
+					
+				</div>
+	    	  </div>
+	    	 
+	    	 <br/>
+
+<div class="row">
+	<div class="jarviswidget" id="wid-id-7" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
+		<header role="heading">
+			<ul class="nav nav-tabs pull-left in">
+				<li class="active" >
+					<a data-toggle="tab" href="#hr1" ng-click="orden.Mostrartabla()"><span > Partida Manual </span> </a>
+				</li>
+				<li  >  
+					<a data-toggle="tab" href="#hr2" ng-click="orden.Mostrartabla()"><span > Partida Producto  </span> </a>
+				</li>
+			</ul>
+		<!-- <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+		<div class="widget-toolbar" id="switch-1" role="menu">
+										<span class="onoffswitch-title"><i class="fa fa-line-chart"></i> Agregar Iva</span>
+										<span class="onoffswitch" >
+											<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-click="orden.aumentoIva()">
+											<label class="onoffswitch-label" for="myonoffswitch"> 
+												<span class="onoffswitch-inner" data-swchon-text="Iva" data-swchoff-text="Sin"
+												></span> 
+												<span class="onoffswitch-switch" ></span></label> 
+											</span>
+									</div> -->
+		</header>
+	
+
+		<!-- ////////////////////////////////////////////// PARTIDA MANUAL //////////////////////////////// -->
+<div role="content">
+<div class="widget-body">
+	<div class="tab-content">
+		<div class="tab-pane active" id="hr1" >
+			<div class="tabbable tabs-below">
+				<div class="tab-content padding-10">
+					<div class="tab-pane active" id="AA">
+						<div class="row">
+							<div class="col-sm-2">
+				    			<label>Nombre</label>
+			    				<input  type="text" class="form-control" placeholder="Nombre" ng-model="orden.cotizacionManual.nombre">
+			   				 </div>
+			   				  <div class="col-sm-2">
+				    			<label>Cantidad</label>
+			    				<input type="number" class="form-control" placeholder="Cantidad" ng-model="orden.cotizacionManual.cantidad">
+			   				 </div>
+			   				  <div class="col-sm-2">
+								<label >Unidad</label>
+								<select  class="form-control select2" placeholder="Seleccione" ng-model="orden.cotizacionManual.unidad_id">
+									<option ng-repeat="unidad in orden.unidades" value="{{unidad._id}}">{{unidad.nombre}}</option>
+								</select>
+					        </div>
+			   				<!--  <div class="col-sm-2">
+				    			<label>Precio</label>
+			    				<input type="number" class="form-control" placeholder="Precio" ng-model="orden.cotizacionManual.precio">
+			   				 </div> -->
+			   				<!--  <div class="col-sm-2">
+				    			<label>Utilidad</label>
+			    				<input type="number" class="form-control" placeholder="Utilidad" ng-model="orden.cotizacionManual.utilidad">
+			   				 </div> -->
+			   				<!--  <div class="col-sm-2">
+		    	 					<label>Precio + utilidad</label>
+						    		<div class="form-control">{{orden.cotizacionManual.precio * orden.cotizacionManual.utilidad/100  + orden.cotizacionManual.precio | currency}}</div>
+								</div> -->
+			   				 <div class="col-sm-12">
+							     <label>Descripción</label>
+						    	    <textarea type="text" class="form-control" placeholder="Descripción" ng-model="orden.cotizacionManual.descripcion" >
+						            </textarea>
+			    	         </div>
+			   				 </div><br/>
+					   	<div class="row">
+							<div class="col-sm-12">
+								<input type="submit" ng-click="orden.agregarManual(orden.cotizacionManual)" value="Agregar" class="btn btn-primary"  ng-show="orden.agregar">
+								<input type="submit" ng-click="orden.actualizarProducto(orden.cotizacionManual)" value="Actualizar" class="btn btn-primary"  ng-show="!orden.agregar">	
+							</div>
+						</div><br/>
+						</div>	
+				</div>
+				
+			</div>
+
+		</div>
+
+				<!-- //////////////////////////////////////////////////// PRODUCTO  //////////////////////////////// -->
+	    <div class="tab-pane" id="hr2">
+
+				<div class="tab-content padding-10">
+					<div class="tab-pane active" id="iss1"  >
+							<div class="row">
+							 <div class="col-sm-12">
+								 <div class="col-sm-2">
+									<label >Producto</label>
+									<select class="form-control select2" placeholder="Seleccione" ng-model="orden.productoSeleccionado.producto_id "
+									 ng-change="orden.getProductos(orden.productoSeleccionado.producto_id)">
+										<option ng-repeat="producto in orden.productos" value="{{producto._id}}">{{producto.nombre}}</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+				    			<label>Cantidad</label>
+			    				<input type="number" class="form-control" placeholder="Cantidad" ng-model="orden.productoSeleccionado.cantidad"> 
+			    				</div>
+			    				 <div class="col-sm-2">
+								<label >Unidad</label>
+								<select  class="form-control select2" placeholder="Seleccione" ng-model="orden.productoSeleccionado.unidad_id">
+									<option ng-repeat="unidad in orden.unidades" value="{{unidad._id}}">{{unidad.nombre}}</option>
+								</select>
+					        </div>
+							<!-- 	<div class="col-sm-2">
+		    	 					<label>Precio</label>
+						    		<div class="form-control">{{orden.productoSeleccionado.precio | currency}}</div>
+								</div> -->
+					       <!--  <div class="col-sm-2">
+				    			<label>Utilidad</label>
+			    				<input type="number" class="form-control" placeholder="Utilidad" ng-model="orden.productoSeleccionado.utilidad">
+			   				 </div> -->
+			   			<!-- 	 <div class="col-sm-2">
+		    	 					<label>Precio + utilidad</label>
+						    		<div class="form-control">{{orden.productoSeleccionado.precio * orden.productoSeleccionado.utilidad/100  + orden.productoSeleccionado.precio}}</div>
+								</div> -->
+							<div class="col-sm-12">
+							        <label>Descripción</label>
+						    	    <textarea class="form-control">{{orden.productoSeleccionado.descripcion}} </textarea>
+			    	         </div>
+			   				 
+
+							<div class="col-sm-3"><br/>
+								<input type="submit" ng-click="orden.agregarProducto(orden.productoSeleccionado)" value="Agregar" class="btn btn-primary" ng-show="orden.agregar">
+								<input type="submit" ng-click="orden.actualizarProducto(orden.productoSeleccionado)" value="Actualizar" class="btn btn-primary" ng-show="!orden.agregar">	
+							</div>
+							</div>
+
+						</div><br/>							
+							</div>
+							
+					</div>
+				</div>
+		</div>
+	</div>
+		<!-- end widget content -->
+</div>
+	<!-- end widget div --> 
+</div>
+		    	 	
+
+</div><br/>
+					
+		  	
+	  	</form>
+	</div>
+</div>
+<br/>
+<!-- ///////////////////////////////////////   TABLAS  ///////////////////////////////////////////////////////// -->
+<!-- List -->
+		<div class="row">
+<div class="col-sm-12">
+	<table class="table table-bordered"  >
+		<thead>
+			<tr>
+			    <td width="5%"><div class="text-center">No.</div></td> 
+			    <th width="10%"><div class="text-center">nombre</div></th>
+		        <th width="20%"><div class="text-center">Descripción</div></th>
+				<th width="10%"><div class="text-center">Unidad</div></th>
+				<th width="10%"><div class="text-center">Cantidad</div></th>
+				<th width="10%"><div class="text-center">Acciones</div></th>
+			</tr>
+		</thead> 
+		<tbody>
+	    	<tr  ng-repeat="detalle in orden.cotizacion.detalle"> 
+		        <td><div class="text-center">{{$index + 1}}</div ></td>
+		        <td><div class="text-center">{{detalle.nombre}}</div></td>
+		        <td><div class="text-center">{{detalle.descripcion}}</div></td> 
+			    <td><div class="text-center">{{orden.getUnidad(detalle.unidad_id)}}</div></td>			    
+			    <td><div class="text-center">{{detalle.cantidad}}</div></td>
+			   
+			    <td width="10%"><div class="text-center">
+					
+					<a class="btn btn-warning" ng-click="orden.editarOrden($index)"><i class="fa fa-pencil"></i></a>
+					<a class="btn btn-danger"  ng-click="orden.cambiarEstatus(detalle._id)"><i class="fa fa-trash"></i> </a>
+							 
+							
+				    </div>				    
+			    </td>
+		   </tr>	
+
+		    
+		</tbody>
+	</table>
+	</div>
+</div>
+
+  	<div class="row" ng-if="orden.cotizacion._id">
+		<div class="col-sm-12">
+			<input type="submit" ng-click="orden.actualizar(orden.cotizacion)" value="Actualizar" class="btn btn-primary" ng-if="orden.cotizacion._id">	
+		</div>
+	</div><br/>
+
