@@ -34,14 +34,7 @@ let rc = $reactive(this).attach($scope);
 	  unidades : () => {
 		  return Unidades.find();
 	  },
-	 //  materialesProductos : () => {
-	 //  	suma = [];
-	 //  		total = 0;
-		// _.each(rc.producto.detalleProducto,function(producto){total += producto.precio});
-		// return total
-
-		//   return suma;
-	 //  },
+	
 	
   });
   

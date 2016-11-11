@@ -30,7 +30,7 @@
 				    <td><div class="text-center">{{$index + 1}}</div></td>
 				    <td><div class="text-center">{{ordenCompra.folio}}</div></td>
 				    <td><div class="text-center">{{ordenCompra.fechaInicio | date:"dd-MM-yyyy"}}</div></td> 
-				    <td><div class="text-center">{{orden.getProveedor(ordenCompra.proveedor_id)}}</div></td>
+				    <td><div class="text-center">{{orden.getProveedor(orden.ordenCompra.proveedor_id)}}</div></td>
 				    <td><div class="text-center">{{ordenCompra.nombrePrimerProducto}}</div></td>
 				    <td>
 					    <div class="text-center">

@@ -37,7 +37,7 @@ let rc = $reactive(this).attach($scope);
   
 	this.helpers({
 	  cotizacion : () => {
-		  return Cotizacion.findOne({_id : $stateParams.cotizacion_id});
+		  return Cotizacion.findOne({_id : $stateParams.ordenCompra_id});
 	  },
 	  materiales : () => {
 		  return Materiales.find();

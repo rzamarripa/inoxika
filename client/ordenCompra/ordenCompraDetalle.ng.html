@@ -98,8 +98,8 @@
 			   				 </div><br/>
 					   	<div class="row">
 							<div class="col-sm-12">
-								<input type="submit" ng-click="orden.agregarManual(orden.cotizacionManual)" value="Agregar" class="btn btn-primary"  ng-show="!cot.cotizacion._id">
-								<input type="submit" ng-click="orden.actualizarProducto(orden.cotizacionManual)" value="Actualizar" class="btn btn-primary"  ng-show="cot.cotizacion._id">	
+								<input type="submit" ng-click="orden.agregarManual(orden.cotizacionManual)" value="Agregar" class="btn btn-primary"  ng-show="orden.action">
+								<input type="submit" ng-click="orden.actualizarProducto(orden.cotizacionManual)" value="Actualizar" class="btn btn-primary"  ng-show="!orden.action">	
 							</div>
 						</div><br/>
 						</div>	
@@ -152,8 +152,8 @@
 			   				 
 
 							<div class="col-sm-3"><br/>
-								<input type="submit" ng-click="orden.agregarProducto(orden.productoSeleccionado)" value="Agregar" class="btn btn-primary" ng-show="!orden.cotizacion._id">
-								<input type="submit" ng-click="orden.actualizarProducto(orden.productoSeleccionado)" value="Actualizar" class="btn btn-primary" ng-show="orden.cotizacion._id">	
+								<input type="submit" ng-click="orden.agregarProducto(orden.productoSeleccionado)" value="Agregar" class="btn btn-primary" ng-show="orden.action">
+								<input type="submit" ng-click="orden.actualizarProducto(orden.productoSeleccionado)" value="Actualizar" class="btn btn-primary" ng-show="!orden.action">	
 							</div>
 							</div>
 
@@ -235,8 +235,8 @@
 
   	<div class="row" ng-if="orden.cotizacion._id">
 		<div class="col-sm-12">
-			<input type="submit" ng-click="orden.guardarCotizacion(orden.cotizacion)" value="Guardar" class="btn btn-primary" ng-if="orden.cotizacion._id">
-			<input type="submit" ng-click="orden.actualizarManual(orden.cotizacion)" value="Actualizar" class="btn btn-primary" ng-show="!orden.action">	
+			<input type="submit" ng-click="orden.guardarCotizacion(orden.cotizacion)" value="Guardar" class="btn btn-primary" ng-show="orden.cotizacion._id">
+			<input type="submit" ng-click="orden.actualizarManual(orden.cotizacion)" value="Actualizar" class="btn btn-primary" ng-show="!orden.cotizacion._id">	
 		</div>
 	</div><br/>
 

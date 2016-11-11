@@ -1,6 +1,8 @@
 <div class="content">
 
-<br/><br/><br/><br/><br/><br/><br/>
+<br/><br/>
+<a class="btn btn-primary"  ng-show="cot.imprecion" id="printpagebutton" ng-click="cot.borrarBotonImprimir()">Imprimir</a>
+<br/><br/><br/><br/><br/>
 <div class="page-header">
  
 </div>
@@ -15,7 +17,7 @@
 			      </div>
 			      <div class="col-sm-6">
 						<div class="pull-right"> 
-					        <p>Cotización:<div clas="jumbotron"><strong>{{cot.cotizacion.folio}}</strong></div> </p>
+					        <p>Cotización:<strong>{{cot.cotizacion.folio}}</strong></p>
 					       
 					        <p>Fecha: <strong>{{cot.cotizacion.fechaInicio | date:"dd-MM-yyyy"}}</strong></p>
 					      
@@ -90,6 +92,8 @@
 	<p>Atentamente</p><br/>
 
 	<p><strong> Rigoberto Zamarripa Villegas</strong></p>
+
+	<p>Proyectos Industriales</p>
 
 	</div>
 </div>

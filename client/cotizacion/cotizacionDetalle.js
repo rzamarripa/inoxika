@@ -53,7 +53,14 @@ let rc = $reactive(this).attach($scope);
   this.action = true;
 
 
-  this.cotizacion = {};
+      this.cotizacion = {};
+	  this.cotizacion.fechaInicio = new Date();
+	  var diaDeHoy = moment();
+	  var diezDias = moment(diaDeHoy,"DD-MM-YYYY").add('days',10);
+	  var day = diezDias.format('DD');
+	  var month = diezDias.format('MM');
+  	  var year = diezDias.format('YYYY');
+      this.cotizacion.fechaVencimiento = day + '-' + month + '-' + year;
       this.cotizacionProducto = {};
       this.cotizacion.detalle = [];
       this.subTotal = 0.00;
@@ -149,18 +156,22 @@ let rc = $reactive(this).attach($scope);
 
     this.agregar = false;
     this.cancelar = true;
+    this.action = false;
     this.productoIndice = $index;
     console.log(this.productoSeleccionado);
 
 	};
-	this.editarMaterial = function($index)
+		this.actualizarProducto= function(producto)
 	{
-    this.materialSeleccionado = rc.producto.detalleProducto[$index];
-    this.agregar = false;
-    this.cancelar = true;
-    this.materialIndice = $index;
-    console.log(this.materialSeleccionado);
-
+		console.log(this.cotizacion);
+		_.each(rc.cotizacion.detalle, function(cotizacion){
+			delete cotizacion.$$hashKey;
+			});	
+		rc.cotizacion.detalle[this.productoIndice] = producto;
+		this.action = true;
+		this.productoSeleccionado = {};
+	    this.cotizacionManual = {};
+	
 	};
 	
 	this.actualizar = function(cotizacion)
@@ -195,6 +206,12 @@ let rc = $reactive(this).attach($scope);
 		rc.productoSeleccionado = Productos.findOne(producto_id);
 		console.log(rc.productoSeleccionado)
 	};
+	 this.obternerProducto= function(producto_id)
+	{
+		var producto = Productos.findOne(producto_id);
+		if(producto)
+		return producto.nombre;
+	}; 
 	this.clientillo = false;
 	this.getClientes= function(cliente_id)
 	{
@@ -214,7 +231,7 @@ let rc = $reactive(this).attach($scope);
 		var unidad = Unidades.findOne(unidad_id);
 		if(unidad)
 		return unidad.nombre;
-	}; 
+	};
 
 	this.SumaPrecioProductos = function(){
 		total = 0;

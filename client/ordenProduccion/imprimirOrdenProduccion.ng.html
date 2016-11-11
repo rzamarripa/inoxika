@@ -1,0 +1,76 @@
+<div class="content">
+
+<br/><br/>
+<a class="btn btn-primary"  ng-show="orden.imprecion" id="printpagebutton" ng-click="orden.borrarBotonImprimir()">Imprimir</a>
+<br/><br/><br/><br/><br/>
+<div class="page-header">
+ 
+</div>
+<div class="row">
+	<div class="col-sm-12">
+			<div class="row" >
+				<div class="col-sm-6"><br/>
+					<!-- <p>Proveedor: <strong>{{orden.getProveedor(orden.ordenes[0].proveedor_id)}}</strong></p> -->
+					<div class="pull-left">
+			         <p>Proyecto:{{orden.cotizacion.nombreProyecto}}</p>
+			       </div>
+			      </div>
+			      <div class="col-sm-6">
+						<div class="pull-right"> 
+					        <p>Cotización: <strong>{{orden.cotizacion.folio}}</strong></p>
+					       
+					        <p>Fecha: <strong>{{orden.cotizacion.fechaInicio | date:"dd-MM-yyyy"}}</strong></p>
+					      
+					        <p>Fecha Vencimiento: <strong>{{orden.cotizacion.fechaVencimiento | date:"dd-MM-yyyy"}}</strong></p>
+
+				       </div>
+				</div>
+			</div>
+		
+    </div>
+</div>
+<br/>
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-bordered"  >
+			<thead>
+				<tr>
+				    <td width="5%"><div class="text-center">No.</div></td> 
+			        <th width="20%"><div class="text-center">Descripción</div></th>
+					<th width="10%"><div class="text-center">Unidad</div></th>
+					<th width="10%"><div class="text-center">Cantidad</div></th>
+					
+				</tr>
+			</thead> 
+			<tbody>
+		    	<tr  ng-repeat="detalle in orden.cotizacion.detalle"> 
+			        <td><div class="text-center">{{$index + 1}}</div ></td>  
+			        <td><div class="text-center">{{detalle.descripcion}}</div></td> 
+				    <td><div class="text-center">{{orden.getUnidad(detalle.unidad_id)}}</div></td>			    
+				    <td><div class="text-center">{{detalle.cantidad}}</div></td>
+		
+			   </tr>	
+			</tbody>
+		</table>
+		</div>
+</div>
+<br/>
+<div class="row">
+	<div class="col-sm-12">
+		<p>Nota: Aqui va la nota</p>
+	</div>
+</div>
+
+<br/><br/><br/><br/><br/><br/><br/>
+
+<div class="row pull-right">
+	<div class="col-sm-12">
+	<p>Atentamente</p><br/>
+
+	<p><strong> Rigoberto Zamarripa Villegas</strong></p>
+
+	<p>Proyectos Industriales</p>
+
+	</div>
+</div>
+</div>

@@ -61,9 +61,8 @@ let rc = $reactive(this).attach($scope);
 	this.nuevo = true;
 	this.guardar = true; 
 	this.tabla 	= false; 
-
-	
-	  this.action = true;
+	this.action = true;
+	this.seccion = false;
 	 
   this.nuevoCotizacion = function()
   {
@@ -161,7 +160,9 @@ let rc = $reactive(this).attach($scope);
     this.productoSeleccionado = rc.cotizacion.detalle[$index];
 
     this.agregar = false;
+    this.seccion = true;
     this.cancelar = true;
+    this.action = false;
     this.productoIndice = $index;
     console.log(this.productoSeleccionado);
 
@@ -173,13 +174,13 @@ let rc = $reactive(this).attach($scope);
 		_.each(rc.cotizacion.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	
+		this.seccion = true;
+		this.action = true;
 		rc.cotizacion.detalle[this.productoIndice] = producto;
 		this.productoSeleccionado = {};
 	    this.cotizacionManual = {};
 	
 	};
-
-
 
 	
 	this.actualizar = function(cotizacion)

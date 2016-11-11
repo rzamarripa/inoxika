@@ -9,20 +9,24 @@
 		    	 					<label>Folio</label>
 						    		<div class="form-control">{{orden.cotizacion.folio}}</div>
 								</div>	
-			      <div class="col-sm-3">
+			    <!--   <div class="col-sm-3">
 								<label >Proveedor</label>
 								<select class="form-control select2" placeholder="Seleccione" ng-model="orden.cotizacion.proveedor_id"
 								 ng-change="orden.getProveedor(orden.cotizacion.proveedor_id)">
 									<option ng-repeat="proveedor in orden.proveedores" value="{{proveedor._id}}">{{proveedor.nombre}}</option>
 								</select>
-					</div>		    
+					</div> -->		    
 	          <div class="col-sm-3">
 					    <label>Nombre del Proyecto</label>
 				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="orden.cotizacion.nombreProyecto" >
 				    </div>
 				     <div class="col-sm-3">
 						<label for="fecha">Fecha de inicio</label>
-						<input name="fechaInicio" date-time format="dd-MM-yyyy" class="form-control" view="year" max-view="month" min-view="date" ng-model="orden.cotizacion.fechaInicio"  />
+						<input name="fechaInicio" date-time format="dd-MM-yyyy" class="form-control" view="year" max-view="month" min-view="date" ng-model="orden.cotizacion.fechaInicioOrdenProduccion"  />
+					</div>
+					 <div class="col-sm-3">
+						<label for="fecha">Fecha de terminación</label>
+						<input name="fechaInicio" date-time format="dd-MM-yyyy" class="form-control" view="year" max-view="month" min-view="date" ng-model="orden.cotizacion.fechaTerminacion"  />
 					</div>
 					
 				</div>
@@ -30,7 +34,7 @@
 	    	 
 	    	 <br/>
 
-<div class="row">
+<div class="row" ng-show="orden.seccion">
 	<div class="jarviswidget" id="wid-id-7" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
 		<header role="heading">
 			<ul class="nav nav-tabs pull-left in">
@@ -98,8 +102,8 @@
 			   				 </div><br/>
 					   	<div class="row">
 							<div class="col-sm-12">
-								<input type="submit" ng-click="orden.agregarManual(orden.cotizacionManual)" value="Agregar" class="btn btn-primary"  ng-show="!cot.cotizacion._id">
-								<input type="submit" ng-click="orden.actualizarProducto(orden.cotizacionManual)" value="Actualizar" class="btn btn-primary"  ng-show="cot.cotizacion._id">	
+								<input type="submit" ng-click="orden.agregarManual(orden.cotizacionManual)" value="Agregar" class="btn btn-primary"  ng-show="orden.action">
+								<input type="submit" ng-click="orden.actualizarProducto(orden.cotizacionManual)" value="Actualizar" class="btn btn-primary"  ng-show="!orden.action">	
 							</div>
 						</div><br/>
 						</div>	
@@ -152,8 +156,8 @@
 			   				 
 
 							<div class="col-sm-3"><br/>
-								<input type="submit" ng-click="orden.agregarProducto(orden.productoSeleccionado)" value="Agregar" class="btn btn-primary" ng-show="!orden.cotizacion._id">
-								<input type="submit" ng-click="orden.actualizarProducto(orden.productoSeleccionado)" value="Actualizar" class="btn btn-primary" ng-show="orden.cotizacion._id">	
+								<input type="submit" ng-click="orden.agregarProducto(orden.productoSeleccionado)" value="Agregar" class="btn btn-primary" ng-show="orden.action">
+								<input type="submit" ng-click="orden.actualizarProducto(orden.productoSeleccionado)" value="Actualizar" class="btn btn-primary" ng-show="!orden.action">	
 							</div>
 							</div>
 
@@ -168,8 +172,7 @@
 </div>
 	<!-- end widget div --> 
 </div>
-		    	 	
-
+		 	
 </div><br/>
 					
 		  	
@@ -188,7 +191,7 @@
 		        <th width="20%"><div class="text-center">Descripción</div></th>
 				<th width="10%"><div class="text-center">Unidad</div></th>
 				<th width="10%"><div class="text-center">Cantidad</div></th>
-				<th width="20%"><div class="text-center">Acciones</div></th>
+				<th width="10%"><div class="text-center">Acciones</div></th>
 			</tr>
 		</thead> 
 		<tbody>
@@ -198,7 +201,7 @@
 			    <td><div class="text-center">{{orden.getUnidad(detalle.unidad_id)}}</div></td>			    
 			    <td><div class="text-center">{{detalle.cantidad}}</div></td>
 			   
-			    <td width="30%"><div class="text-center">
+			    <td width="10%"><div class="text-center">
 					
 					<a class="btn btn-warning" ng-click="orden.editarOrden($index)"><i class="fa fa-pencil"></i></a>
 					<a class="btn btn-danger"  ng-click="orden.cambiarEstatus(detalle._id)"><i class="fa fa-trash"></i> </a>

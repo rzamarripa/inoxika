@@ -9,13 +9,13 @@
 		    	 					<label>Folio</label>
 						    		<div class="form-control">{{orden.cotizacion.folio}}</div>
 								</div>	
-			      <div class="col-sm-3">
+			      <!-- <div class="col-sm-3">
 								<label >Proveedor</label>
 								<select class="form-control select2" placeholder="Seleccione" ng-model="orden.cotizacion.proveedor_id"
 								 ng-change="orden.getProveedor(orden.cotizacion.proveedor_id)">
 									<option ng-repeat="proveedor in orden.proveedores" value="{{proveedor._id}}">{{proveedor.nombre}}</option>
 								</select>
-					</div>		    
+					</div>	 -->	    
 	          <div class="col-sm-3">
 					    <label>Nombre del Proyecto</label>
 				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="orden.cotizacion.nombreProyecto" >
@@ -133,18 +133,6 @@
 									<option ng-repeat="unidad in orden.unidades" value="{{unidad._id}}">{{unidad.nombre}}</option>
 								</select>
 					        </div>
-							<!-- 	<div class="col-sm-2">
-		    	 					<label>Precio</label>
-						    		<div class="form-control">{{orden.productoSeleccionado.precio | currency}}</div>
-								</div> -->
-					       <!--  <div class="col-sm-2">
-				    			<label>Utilidad</label>
-			    				<input type="number" class="form-control" placeholder="Utilidad" ng-model="orden.productoSeleccionado.utilidad">
-			   				 </div> -->
-			   			<!-- 	 <div class="col-sm-2">
-		    	 					<label>Precio + utilidad</label>
-						    		<div class="form-control">{{orden.productoSeleccionado.precio * orden.productoSeleccionado.utilidad/100  + orden.productoSeleccionado.precio}}</div>
-								</div> -->
 							<div class="col-sm-12">
 							        <label>Descripción</label>
 						    	    <textarea class="form-control">{{orden.productoSeleccionado.descripcion}} </textarea>

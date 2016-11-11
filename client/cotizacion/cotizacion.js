@@ -6,15 +6,14 @@ let rc = $reactive(this).attach($scope);
 	this.cotizacion = {};
 
 
+
     this.subscribe('materiales',()=>{
 	return [{estatus:true}] 
     });
      this.subscribe('buscarCotizaciones',()=>{
 	return [{estatus:1}] 
     });
- //      this.subscribe('ultimaCotizacion',()=>{
-	// return [{}] 
- //    });
+
       this.subscribe('clientes',()=>{
 	return [{estatus:true}] 
     });
@@ -24,15 +23,8 @@ let rc = $reactive(this).attach($scope);
     this.subscribe('unidades',()=>{
 	return [{estatus:true}] 
     });
- //      this.cotizacion = {};
- //      this.cotizacionProducto = {};
- //      this.cotizacion.detalle = [];
- //      this.cotizacion.detalleDelProducto = [];
- //      this.subTotal = 0.00;
- //      this.cotizacionManual = {};
-
- // this.clienteSeleccionado = {};
- // this.productoSeleccionado = {};	
+ 
+ 	
   this.action = true;
 	this.helpers({
 	  cotizaciones : () => {

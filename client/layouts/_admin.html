@@ -2,49 +2,71 @@
 	<ul data-smart-menu>
     <li data-ui-sref-active="active">
       <a ui-sref="root.materiales" tilte="Materiales">
-        <i class="fa fa-lg fa-fw fa-industry"></i>
+        <i class="fa fa-lg fa-fw fa-wrench"></i>
         <span class="menu-item-parent">Materiales</span>
       </a>
     </li>
     <li data-ui-sref-active="active">
       <a ui-sref="root.clientes" tilte="Clientes">
-        <i class="fa fa-lg fa-fw fa-industry"></i>
+        <i class="fa fa-lg fa-fw fa-users"></i>
         <span class="menu-item-parent">Clientes</span>
       </a>
     </li>
     <li data-ui-sref-active="active">
       <a ui-sref="root.productos" tilte="Productos">
-        <i class="fa fa-lg fa-fw fa-industry"></i>
+        <i class="fa fa-lg fa-fw fa-reorder"></i>
         <span class="menu-item-parent">Productos</span>
       </a>
     </li>
-    <li data-ui-sref-active="active">
-      <a ui-sref="root.cotizacion" tilte="Cotizacion">
-        <i class="fa fa-lg fa-fw fa-industry"></i>
-        <span class="menu-item-parent">Cotización</span>
+    <li data-menu-collapse>
+      <a href="#">
+        <i class="fa fa-lg fa-fw fa-file-o"></i>
+        <span class="menu-item-parent">Cotizaciones</span>
       </a>
+      <ul>
+         <li data-ui-sref-active="active">
+           <a ui-sref="root.cotizacion" tilte="Cotizacion">
+            <i class="fa fa-lg fa-fw fa-file-text-o"></i>
+            <span class="menu-item-parent">Pendientes</span>
+           </a>
+        </li>
+        <li data-ui-sref-active="active">
+           <a ui-sref="root.cotizacionAceptada" tilte="Cotizaciones Aceptadas">
+            <i class="fa fa-lg fa-fw fa-check-square-o"></i>
+            <span class="menu-item-parent">Aceptadas</span>
+           </a>
+        </li>
+        <li data-ui-sref-active="active">
+           <a ui-sref="root.cotizacionRechazada" tilte="Cotizaciones Rechazadas">
+            <i class="fa fa-lg fa-fw fa-ban"></i>
+            <span class="menu-item-parent">Rechazadas</span>
+           </a>
+        </li>
+
+      </ul>
     </li>
+   
     <li data-ui-sref-active="active">
       <a ui-sref="root.unidades" tilte="Unidades">
-        <i class="fa fa-lg fa-fw fa-industry"></i>
+        <i class="fa fa-lg fa-fw fa-server"></i>
         <span class="menu-item-parent">Unidades</span>
       </a>
     </li>
     <li data-ui-sref-active="active">
       <a ui-sref="root.ordenCompra" tilte="Orden">
-        <i class="fa fa-lg fa-fw fa-industry"></i>
+        <i class="fa fa-lg fa-fw fa-dollar"></i>
         <span class="menu-item-parent">Orden de Compra</span>
       </a>
     </li>
     <li data-ui-sref-active="active">
       <a ui-sref="root.ordenProduccion" tilte="Orden">
-        <i class="fa fa-lg fa-fw fa-industry"></i>
+        <i class="fa fa-lg fa-fw fa-external-link"></i>
         <span class="menu-item-parent">Orden de Producción</span>
       </a>
     </li>
      <li data-ui-sref-active="active">
       <a ui-sref="root.proveedores" tilte="Orden">
-        <i class="fa fa-lg fa-fw fa-industry"></i>
+        <i class="fa fa-lg fa-fw fa-male "></i>
         <span class="menu-item-parent">Proveedores</span>
       </a>
     </li>

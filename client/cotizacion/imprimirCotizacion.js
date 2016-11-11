@@ -58,6 +58,7 @@ let rc = $reactive(this).attach($scope);
   this.guardar = true; 
   this.tabla 	= false; 
   this.action = true;
+  this.imprecion = true;
 	
 
   
@@ -196,17 +197,18 @@ let rc = $reactive(this).attach($scope);
 		return cliente.direccion;
 	};
 
-	// this.SumaPrecioProductos = function(){
-	// 	total = 0;
-	// 	_.each(rc.cotizacion.detalle,function(detalle){ total += (
-	// 	(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad)});
-	// 	return total
-	// };
+	    this.borrarBotonImprimir= function()
+	{
+		var printButton = document.getElementById("printpagebutton");
+		 printButton.style.visibility = 'hidden';
+		 window.print()
+		 printButton.style.visibility = 'visible';
+		
+	};
 
 	this.aumentoIva = function () 
 	{
 		this.on = !this.on;
-
 		console.log(this.on)		
 		
    };

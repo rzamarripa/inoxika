@@ -89,15 +89,15 @@
 								</select>
 					        </div>
 			   				 <div class="col-sm-2">
-				    			<label>Precio</label>
-			    				<input type="number" class="form-control" placeholder="Precio" ng-model="cot.cotizacionManual.precio">
+				    			<label>Costo</label>
+			    				<input type="number" class="form-control" placeholder="Costo" ng-model="cot.cotizacionManual.precio">
 			   				 </div>
 			   				 <div class="col-sm-2">
 				    			<label>Utilidad</label>
 			    				<input type="number" class="form-control" placeholder="Utilidad" ng-model="cot.cotizacionManual.utilidad">
 			   				 </div>
 			   				 <div class="col-sm-2">
-		    	 					<label>Precio + utilidad</label>
+		    	 					<label>Precio</label>
 						    		<div class="form-control">{{cot.cotizacionManual.precio * cot.cotizacionManual.utilidad/100  + cot.cotizacionManual.precio | currency}}</div>
 								</div>
 			   				 <div class="col-sm-12">
@@ -108,8 +108,8 @@
 			   				 </div><br/>
 					   	<div class="row">
 							<div class="col-sm-12">
-								<input type="submit" ng-click="cot.agregarManual(cot.cotizacionManual)" value="Agregar" class="btn btn-primary" ng-show="!cot.cotizacion._id">
-								<input type="submit" ng-click="cot.actualizarProducto(cot.cotizacionManual)" value="Actualizar" class="btn btn-primary" ng-show="cot.cotizacion._id">	
+								<input type="submit" ng-click="cot.agregarManual(cot.cotizacionManual)" value="Agregar" class="btn btn-primary" ng-show="cot.action">
+								<input type="submit" ng-click="cot.actualizarProducto(cot.cotizacionManual)" value="Actualizar" class="btn btn-primary" ng-show="!cot.action">	
 							</div>
 						</div><br/>
 						</div>	
@@ -144,7 +144,7 @@
 								</select>
 					        </div>
 								<div class="col-sm-2">
-		    	 					<label>Precio</label>
+		    	 					<label>Costo</label>
 						    		<div class="form-control">{{cot.productoSeleccionado.precio | currency}}</div>
 								</div>
 					        <div class="col-sm-2">
@@ -152,7 +152,7 @@
 			    				<input type="number" class="form-control" placeholder="Utilidad" ng-model="cot.productoSeleccionado.utilidad">
 			   				 </div>
 			   				 <div class="col-sm-2">
-		    	 					<label>Precio + utilidad</label>
+		    	 					<label>Precio</label>
 						    		<div class="form-control">{{cot.productoSeleccionado.precio * cot.productoSeleccionado.utilidad/100  + cot.productoSeleccionado.precio}}</div>
 								</div>
 							<div class="col-sm-12">
@@ -162,8 +162,8 @@
 			   				 
 
 							<div class="col-sm-3"><br/>
-								<input type="submit" ng-click="cot.agregarProducto(cot.productoSeleccionado)" value="Agregar" class="btn btn-primary" ng-show="!cot.cotizacion._id">
-								<input type="submit" ng-click="cot.actualizarProducto(cot.productoSeleccionado)" value="Actualizar" class="btn btn-primary" ng-show="cot.cotizacion._id">	
+								<input type="submit" ng-click="cot.agregarProducto(cot.productoSeleccionado)" value="Agregar" class="btn btn-primary" ng-show="cot.action">
+								<input type="submit" ng-click="cot.actualizarProducto(cot.productoSeleccionado)" value="Actualizar" class="btn btn-primary" ng-show="!cot.action">	
 							</div>
 							</div>
 
@@ -194,25 +194,26 @@
 		<table class="table table-bordered"  >
 			<thead>
 				<tr>
-				    <td width="10%"><div class="text-center">No.</div></td> 
+				    <td width="10%"><div class="text-center">Partida</div></td> 
+				    <th width="10%"><div class="text-center">Nombre</div></th>
 			        <th width="20%"><div class="text-center">Descripción</div></th>
 					<th width="10%"><div class="text-center">Unidad</div></th>
 					<th width="10%"><div class="text-center">Cantidad</div></th>
-					<th width="10%"><div class="text-center">Precio</div></th>
+					<th width="10%"><div class="text-center">Costo</div></th>
 					<th width="10%"><div class="text-center">Importe</div></th>
 					<th width="10%"><div class="text-center">Acciones</div></th>
 				</tr>
 			</thead> 
 			<tbody>
 		    	<tr  ng-repeat="detalle in cot.cotizacion.detalle"> 
-			        <td><div class="text-center">{{$index + 1}}</div ></td>  
-			        <td><div class="text-center">{{detalle.descripcion}}</div></td> 
+			        <td><div class="text-center">{{$index + 1}}</div ></td>
+			        <td><div class="text-center">{{detalle.nombre}}</div></td>  
+			        <td><div class="">{{detalle.descripcion}}</div></td> 
 				    <td><div class="text-center">{{cot.getUnidad(detalle.unidad_id)}}</div></td>			    
 				    <td><div class="text-center">{{detalle.cantidad}}</div></td>
-				    <td><div class="text-center">{{detalle.precio * detalle.utilidad/100 + detalle.precio | currency}}</div></td>
-				   
-				    <td ><div class="text-center">{{(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad | currency }}</div></td>
-				    <td width="30%"><div class="text-center">
+				    <td><div class="pull-right">{{detalle.precio * detalle.utilidad/100 + detalle.precio | currency}}</div></td>
+				    <td ><div class="pull-right">{{(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad | currency }}</div></td>
+				    <td width="10%"><div class="text-center">
 						
 						<a class="btn btn-warning" ng-click="cot.editarProducto($index)"><i class="fa fa-pencil"></i></a>
 						<a class="btn btn-danger"  ng-click="cot.cambiarEstatus(detalle._id)"><i class="fa fa-trash"></i> </a>
@@ -220,22 +221,25 @@
 								
 					    </div>				    
 				    </td>
-			   </tr>	
-			   <tr ng-if="cot.SumaPrecioProductos()">
-				   <td colspan="6" ></td>
-				   <td><div class="text-center"><strong>SubTotal:</strong> {{cot.SumaPrecioProductos() | currency}}</div>
-				   </td>
-			    </tr>
-			    <tr  ng-if="cot.SumaPrecioProductos()">
-			    	<td colspan="6"></td>
-			    	<td ng-if="cot.on"><div class="text-center"><strong>Iva:</strong> {{cot.SumaPrecioProductos()*.16 | currency}}
-			    	</div></td>
-			    </tr>
-			    <tr  ng-if="cot.SumaPrecioProductos()">
-				   <td colspan="6"></td>
-				   <td ng-if="cot.on"><div class="text-center"><strong>Total:</strong> {{cot.SumaPrecioProductos()*.16 + cot.SumaPrecioProductos() | currency}}</div>
-				   </td>
-			   </tr>
+				   </tr>
+			      <tr>
+			   <td colspan="6"><div class="pull-right"><strong>SubTotal</strong></div> </td>
+			   <td><div class=" pull-right" >{{cot.SumaPrecioProductos() | currency}}</div>
+			   </td>
+			   <td></td>
+		    </tr>
+		    <tr>
+		    	<td colspan="6"><div class="pull-right"><strong>Iva</strong></div></td>
+		    	<td><div class="pull-right" ng-if="cot.on"> {{cot.SumaPrecioProductos()*.16 | currency}}
+		    	</div></td>
+		    	<td></td>
+		    </tr>
+		    <tr>
+			   <td colspan="6" ><div class="pull-right"><strong>Total</strong></div></td>
+			   <td><div class="pull-right" ng-if="cot.on">{{cot.SumaPrecioProductos()*.16 + cot.SumaPrecioProductos() | currency}}</div>
+			   </td>
+			   <td></td>
+		   </tr>
 			    
 			</tbody>
 		</table>
