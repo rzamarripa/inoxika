@@ -1,4 +1,4 @@
-<h2>Cotización</h2>
+<h2>Cotizaciones Pendientes</h2>
 <div class="row">
 	<div class="col-sm-12">
 		<a class="btn btn-primary" ui-sref="root.cotizacionDetalle({cantidad : cot.cantidad})" >Nuevo</a>
@@ -7,7 +7,7 @@
 </div>
 <br/>
 <!-- ///////////////////////////////////////   TABLAS  ///////////////////////////////////////////////////////// -->
-<!--  
+ 
  	<div class="row" id="printableArea">
 		<div class="col-sm-12">
 			<table class="table table-bordered">
@@ -42,7 +42,7 @@
 								  </button>
 								  <ul class="dropdown-menu text-left">
 								    <li><a href="/editarCotizacion/{{cotiza._id}}"><i class="fa fa-pencil"></i> Editar</a></li>
-								
+								  <!-- <li><a href="#" ng-click="cot.cambiarEstatus(cotiza._id)"><i class="fa fa-trash"></i> Desactivar</a></li> -->
 								  <li><a href="/ordenProduccionDetalle/{{cotiza._id}}"><i class="fa fa-check-square-o"></i> Aceptada</a></li>
 								  <li><a target="_blank" href="/imprimirCotizacion/{{cotiza._id}}"><i class="fa fa-print"></i> Imprimir</a></li>
 								  <li><a href="#" ng-click="cot.cambiarEstatus(cotiza._id)"><i class="fa fa-ban"></i> Rechazada</a></li>
@@ -54,4 +54,4 @@
 				</tbody>
 			</table>
 		</div>
-</div> -->
+</div>

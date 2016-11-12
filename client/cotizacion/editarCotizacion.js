@@ -123,6 +123,14 @@ let rc = $reactive(this).attach($scope);
 
 	};
 
+
+	this.eliminarProducto = function($index)
+	{
+		rc.cotizacion.detalle.splice($index, 1);
+    };
+
+
+
 		this.actualizarProducto= function(producto)
 	{
 		console.log(this.cotizacion);
@@ -150,7 +158,7 @@ let rc = $reactive(this).attach($scope);
 		$('.collapse').collapse('hide');
 		this.nuevo = true;
 		console.log(cotizacion);
-		$state.go('root.cotizacion')
+		$state.go('root.cotizacionPendiente')
 	};
 
 

@@ -175,6 +175,16 @@ angular.module('inoxica').config(['$injector', function ($injector) {
       templateUrl: 'client/cotizacion/cotizacionRechazada.ng.html',
       controller: 'CotizacionRechazadaCtrl as cot',
     })
+      .state('root.cotizacionAceptada', {
+      url: '/cotizacionAceptada/:cotizacion_id',
+      templateUrl: 'client/cotizacion/cotizacionAceptada.ng.html',
+      controller: 'CotizacionCtrl as cot',
+    })
+       .state('root.cotizacionPendiente', {
+      url: '/cotizacionPendiente/:cotizacion_id',
+      templateUrl: 'client/cotizacion/cotizacionPendiente.ng.html',
+      controller: 'CotizacionCtrl as cot',
+    })
       //<--///////////////// ORDEN DE COMPRA ////////////////////-->//
 
       .state('root.ordenCompra', {

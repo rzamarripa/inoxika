@@ -33,20 +33,22 @@ let rc = $reactive(this).attach($scope);
 		  return Productos.findOne({_id : $stateParams.producto_id});
 	  },
 	  materiales : () => {
-		  return Materiales.find();
+	  	var materiales = Materiales.find().fetch();
+		  	if (materiales) {
+		  		_.each(materiales, function(material){
+		  			material.unidad = Unidades.findOne(material.unidad_id)
+
+		  	});
+	  	}
+	  	console.log(materiales);
+		  return materiales;
 	  },
+
+
 	  unidades : () => {
 		  return Unidades.find();
 	  },
-	 //  materialesProductos : () => {
-	 //  	suma = [];
-	 //  		total = 0;
-		// _.each(rc.producto.detalleProducto,function(producto){total += producto.precio});
-		// return total
 
-		//   return suma;
-	 //  },
-	
   });
  
      
@@ -55,6 +57,7 @@ let rc = $reactive(this).attach($scope);
     this.producto.detalleProducto = [];
     this.material = {};	
     this.materialSeleccionado = {};	
+    this.materialSeleccionado.unidad_id = this.material.unidad_id;
 
 
  
@@ -108,13 +111,22 @@ let rc = $reactive(this).attach($scope);
     $('.collapse').collapse('show');
     this.nuevo = false;
 	};
+	this.cambiarEstatus = function(id)
+	{
+		var producto = Productos.findOne({_id:id});
+		if(producto.estatus == true)
+			producto.estatus = false;
+		else
+			producto.estatus = true;
+		
+		Productos.update({_id: id},{$set :  {estatus : producto.estatus}});
+    };
 
    
 	this.editarMaterial = function($index)
 	{
     this.materialSeleccionado = rc.producto.detalleProducto[$index];
     //this.materialSeleccionado._id = _id;
-
     this.agregar = false;
     this.cancelar = true;
     this.materialIndice = $index;
@@ -136,25 +148,12 @@ let rc = $reactive(this).attach($scope);
 		$state.go('root.productos');
 	};
 
-	this.cambiarEstatus = function(id)
+	
+    this.eliminarMaterial = function($index)
 	{
-		var producto = Productos.findOne({_id:id});
-		if(producto.estatus == true)
-			producto.estatus = false;
-		else
-			producto.estatus = true;
 		
-		Productos.update({_id: id},{$set :  {estatus : producto.estatus}});
-    };
-    this.cambiarEstatusMaterial = function(id)
-	{
-		var producto = rc.producto.detalleProducto
-		if(producto.estatus == true)
-			producto.estatus = false;
-		else
-			producto.estatus = true;
-		
-		Productos.update({_id: id},{$set :  {estatus : producto.estatus}});
+		//this.materialIndice = $index;
+		rc.producto.detalleProducto.splice($index, 1);
     };
 
 	this.getMateriales= function(material_id)

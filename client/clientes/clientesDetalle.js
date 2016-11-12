@@ -20,6 +20,11 @@ this.contactoIndice = 0;
 		},
   });
 
+	this.cliente = {};
+
+	this.cliente.contactos = [];
+    this.contactoSeleccionado = {};
+
 	
 ///////// VARIABLES ////////
 	this.new = true; 
@@ -38,12 +43,12 @@ this.contactoIndice = 0;
   
   this.nuevoContacto = function()
   {
-    this.cliente.contactos = [];
-    this.contactoSeleccionado = {};
+    
    	this.add= false;
    	this.new = !this.new;
  	
   };
+  
   this.nuevu = function()
   {
   	if (rc.actualContacto == false) {
@@ -63,22 +68,14 @@ this.contactoIndice = 0;
 		
 		rc.cliente.contactos.push(contacto);
 		toastr.success('contacto agregado.');
-		this.cliente.estatus = 1;
+		contacto.estatus = true;
 		console.log(this.cliente);
 		this.guardar = false;
 		this.add= false;	 
 		this.contactoSeleccionado = {};
 	};
 
-  this.modificarContacto = function(contacto)
-	{
-	  rc.cliente.contactos.push = (contacto);
-	  this.contactoSeleccionado = {};
-	  $('.collapse').collapse('hide');
-	  this.actualContacto = true
-	  this.add = false; 
-	  this.new = true;
-	};
+
 
   
   this.guardarCliente = function(cliente)
@@ -114,23 +111,16 @@ this.contactoIndice = 0;
 	    console.log(this.contactoSeleccionado);
 
 	};
-
-
-	// this.editarMaterial = function($index)
-	// {
-	//     this.materialSeleccionado = rc.producto.detalleProducto[$index];
-	//     //this.materialSeleccionado._id = _id;
-	//     $('.collapse').collapse('show');
-	//     this.new = true;
-	//     this.agregar = false;
-	//     this.cancelar = true;
-	//     this.materialIndice = $index;
-	//     console.log(this.materialSeleccionado);
-
-	// };
-
-
-
+	  this.modificarContacto = function(contacto)
+		{
+		  rc.cliente.contactos.push = (contacto);
+		  this.contacto.estatus = true;
+		  this.contactoSeleccionado = {};
+		  $('.collapse').collapse('hide');
+		  this.actualContacto = true
+		  this.add = false; 
+		  this.new = true;
+		};
 	
 	this.actualizar = function(cliente)
 	{
@@ -147,7 +137,7 @@ this.contactoIndice = 0;
 		this.cliente = {}; 
 	};
 
-	this.cambiarEstatus = function(id)
+	this.cambiarEstatus = function(contacto)
 	{
 		var cliente = Clientes.findOne({_id:id});
 		if(cliente.estatus == true)
@@ -156,6 +146,19 @@ this.contactoIndice = 0;
 			cliente.estatus = true;
 		
 		Clientes.update({_id: id},{$set :  {estatus : cliente.estatus}});
+    };
+
+
+
+
+    this.eliminarContacto = function(contacto)
+	{
+	  
+		if(contacto.estatus == true)
+			contacto.estatus = false;
+		else
+			contacto.estatus = true;
+		
     };
 		
 };

@@ -32,6 +32,14 @@ let rc = $reactive(this).attach($scope);
 
     this.ordenCompra = {};
     this.ordenCompra.detalle = this.cotizacion
+    this.cotizacion = {};
+    this.cotizacion.fechaInicio = new Date();
+	  var diaDeHoy = moment();
+	  var diezDias = moment(diaDeHoy,"DD-MM-YYYY").add('days',10);
+	  var day = diezDias.format('DD');
+	  var month = diezDias.format('MM');
+  	  var year = diezDias.format('YYYY');
+      this.cotizacion.fechaVencimiento = day + '-' + month + '-' + year;
     
      
   
@@ -63,6 +71,8 @@ let rc = $reactive(this).attach($scope);
 	this.tabla 	= false; 
 	this.action = true;
 	this.seccion = false;
+
+
 	 
   this.nuevoCotizacion = function()
   {
@@ -168,13 +178,18 @@ let rc = $reactive(this).attach($scope);
 
 	};
 
+		this.eliminarOrden = function($index)
+	{
+		rc.cotizacion.detalle.splice($index, 1);
+    };
+
 		this.actualizarProducto= function(producto)
 	{
 		console.log(this.cotizacion);
 		_.each(rc.cotizacion.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	
-		this.seccion = true;
+		this.seccion = false;
 		this.action = true;
 		rc.cotizacion.detalle[this.productoIndice] = producto;
 		this.productoSeleccionado = {};
