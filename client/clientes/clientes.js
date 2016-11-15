@@ -8,6 +8,7 @@ let rc =$reactive(this).attach($scope);
     this.action = true;
     this.act = true;
     this.formContactos = false;
+    this.clienteDesactivar = true;
 
     this.contactosSeleccionados = [];
 

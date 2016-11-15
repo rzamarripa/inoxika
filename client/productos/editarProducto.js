@@ -141,6 +141,12 @@ let rc = $reactive(this).attach($scope);
 		
 		Productos.update({_id: id},{$set :  {estatus : producto.estatus}});
     };
+     this.eliminarMaterial = function($index)
+	{
+		
+		//this.materialIndice = $index;
+		rc.producto.detalleProducto.splice($index, 1);
+    };
 
 	this.getMateriales= function(material_id)
 	{

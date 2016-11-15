@@ -140,7 +140,7 @@ let rc = $reactive(this).attach($scope);
 		this.guardar = true; 
 		this.productoTipo = true;
 		this.tabla = false;
-		$state.go('root.cotizacion')
+		$state.go('root.cotizacionPendiente')
 	};
 	
 	this.editar = function(id)
@@ -173,6 +173,11 @@ let rc = $reactive(this).attach($scope);
 	    this.cotizacionManual = {};
 	
 	};
+	this.eliminarProducto = function($index)
+	{
+		//this.materialIndice = $index;
+		rc.cotizacion.detalle.splice($index, 1);
+    };
 	
 	this.actualizar = function(cotizacion)
 	{
@@ -188,6 +193,8 @@ let rc = $reactive(this).attach($scope);
 		console.log(cotizacion);
 		$state.go('root.cotizacion')
 	};
+
+
 
 	this.cambiarEstatus = function(id)
 	{

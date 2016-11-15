@@ -1,4 +1,4 @@
-<h2>Productos</h2>
+<h2>Productos</h2>{{pro.materiales}}
 <div class="row">
 	<div class="col-sm-12">
 			<form class="form-horizontal" role="form" data-parsley-validate>
@@ -30,16 +30,14 @@
 							</select>
 						</div>
 						<div class="col-sm-2">
-								<label >Unidad</label>
-								<select  class="form-control select2" placeholder="Seleccione" ng-model="pro.material.unidad_id">
-									<option ng-repeat="unidad in pro.unidades" value="{{unidad._id}}">{{unidad.nombre}}</option>
-								</select>
-					  </div>
-						<div class="col-sm-2">
 					    <label>Cantidad</label>
 				    	<input type="text" class="form-control" placeholder="Cantidad" ng-model="pro.materialSeleccionado.cantidad" >
 				    </div>
-						 
+					    <div class="col-sm-2">
+	    	 			<label>Unidad</label>
+					    		<div class="form-control">{{pro.material.unidad | currency}}</div>
+					    	
+						</div>
 	    	 			<div class="col-sm-2">
 	    	 			<label>Precio</label>
 					    		<div class="form-control">{{pro.materialSeleccionado.precio | currency}}</div>
@@ -88,13 +86,18 @@
 							  </button>
 							  <ul class="dropdown-menu text-left">
 							    <li><a href="#" ng-click="pro.editarMaterial($index)"><i class="fa fa-pencil"></i> Editar</a></li>
-							  <li><a href="#" ng-click="pro.cambiarEstatusMaterial(material._id)"><i class="fa fa-trash"></i> Desactivar</a></li>
+							  <li><a href="#" ng-click="pro.eliminarMaterial($index)"><i class="fa fa-trash"></i> Desactivar</a></li>
 							  </ul>
 							</div>
 				    </div>				    
 			    </td>
 		    </tr>
 		    <tr ><td colspan="6"> Total:{{pro.SumaPrecioProductos()}}</td></tr>
+		    <tr >
+			    <td colspan="4"><div class="pull-right"> <strong>Total</strong></div></td>
+			    <td><div class="text-center">{{pro.SumaPrecioProductos() | currency}}</div></td>
+			    <td></td>
+		    </tr>
 			</tbody>
 		</table>
 	</div>

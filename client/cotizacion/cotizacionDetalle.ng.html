@@ -212,7 +212,7 @@
 			    <td><div class="pull-right">{{(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad | currency}}</div></td>
 			    <td width="10%"><div class="text-center">
 					<a class="btn btn-warning" ng-click="cot.editar(detalle._id)"><i class="fa fa-pencil"></i></a>
-					<a class="btn btn-danger"  ng-click="cot.cambiarEstatus(detalle._id)"><i class="fa fa-trash"></i> </a>		 
+					<a class="btn btn-danger"  ng-click="cot.eliminarProducto($index)"><i class="fa fa-trash"></i> </a>		 
 				    </div>				    
 			    </td>
 		   </tr>	

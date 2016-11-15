@@ -22,11 +22,11 @@
 				    </div>
 				     <div class="col-sm-3">
 						<label for="fecha">Fecha de inicio</label>
-						<input name="fechaInicio" date-time format="dd-MM-yyyy" class="form-control" view="year" max-view="month" min-view="date" ng-model="orden.cotizacion.fechaInicioOrdenProduccion"  />
+						<input name="fechaInicio" date-time format="dd-MM-yyyy" class="form-control" view="year" max-view="month" min-view="date" ng-model="orden.cotizacion.fechaInicio"  />
 					</div>
 					 <div class="col-sm-3">
 						<label for="fecha">Fecha de terminación</label>
-						<input name="fechaInicio" date-time format="dd-MM-yyyy" class="form-control" view="year" max-view="month" min-view="date" ng-model="orden.cotizacion.fechaTerminacion"  />
+						<input name="fechaInicio" date-time format="dd-MM-yyyy" class="form-control" view="year" max-view="month" min-view="date" ng-model="orden.cotizacion.fechaVencimiento"  />
 					</div>
 					
 				</div>
@@ -204,7 +204,7 @@
 			    <td width="10%"><div class="text-center">
 					
 					<a class="btn btn-warning" ng-click="orden.editarOrden($index)"><i class="fa fa-pencil"></i></a>
-					<a class="btn btn-danger"  ng-click="orden.cambiarEstatus(detalle._id)"><i class="fa fa-trash"></i> </a>
+					<!-- <a class="btn btn-danger"  ng-click="orden.eliminarOrden(detalle._id)"><i class="fa fa-trash"></i> </a> -->
 							 
 							
 				    </div>				    
