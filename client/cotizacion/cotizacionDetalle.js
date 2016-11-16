@@ -84,7 +84,7 @@ let rc = $reactive(this).attach($scope);
 		console.log(this.cotizacion)
 		cotizacionManual.tipo = "manual";
 		this.cotizacion.detalle.push(cotizacionManual);
-		this.cotizacion.estatus = 1;
+		this.cotizacion.detalle.estatus = 1;
 		console.log(this.cotizacion);
 		this.guardar = false; 
 		this.productoTipo = false;
@@ -99,7 +99,7 @@ let rc = $reactive(this).attach($scope);
 	{ 
 		cotizacionProducto.tipo = "producto";
 		this.cotizacion.detalle.push(cotizacionProducto);
-		this.cotizacion.estatus = 1;
+		this.cotizacion.detalle.estatus = 1;
 		console.log(this.cotizacion);
 		this.guardar = false; 
 		this.productoTipo = false;
@@ -118,13 +118,14 @@ let rc = $reactive(this).attach($scope);
 			delete cotizacion.$$hashKey;
 			});	
 		 var total = 0;
+
 		_.each(rc.cotizacion.detalle,function(detalle){ total +=
 		 ((detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad)});
 		_.each(rc.cotizacion.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
 		this.cotizacion.subTotal = total;
 		this.cotizacion.total = total - total*0.16;
 		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre 
-		this.cotizacion.estado = true;
+		this.cotizacion.estatus = 1;
 		
 		this.cotizacion.folio = parseInt(cantidad) + 1;			
 		Cotizacion.insert(this.cotizacion);

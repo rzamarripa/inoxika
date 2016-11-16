@@ -23,6 +23,9 @@ let rc = $reactive(this).attach($scope);
      this.subscribe('proveedores',()=>{
 	return [{estatus:true}] 
     });
+      this.subscribe('cotizacion',()=>{
+	return [{estatus:1}] 
+    });
 
  
  
@@ -46,6 +49,9 @@ let rc = $reactive(this).attach($scope);
 	  },
 	  unidades : () => {
 		  return Unidades.find();
+	  },
+	  cotizacion : () => {
+		  return Cotizacion.findOne({_id : $stateParams.ordenCompra_id});
 	  },
   });
   

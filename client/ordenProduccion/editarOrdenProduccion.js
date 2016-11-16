@@ -13,8 +13,8 @@ let rc = $reactive(this).attach($scope);
       this.subscribe('clientes',()=>{
 	return [{estatus:true}] 
     });
-         this.subscribe('ordenProduccion',()=>{
-	return [{estatus:true}] 
+     this.subscribe('ordenProduccion',()=>{
+	return [{estado:true}] 
     });
     this.subscribe('productos',()=>{
 	return [{estatus:true}] 
@@ -29,6 +29,7 @@ let rc = $reactive(this).attach($scope);
     console.log($stateParams)
     var cantidad = $stateParams.cantidad
    
+ 
 
     this.ordenProduccion = {};
     this.ordenProduccion.detalle = this.cotizacion
@@ -37,7 +38,7 @@ let rc = $reactive(this).attach($scope);
   
 	this.helpers({
 	  cotizacion : () => {
-		  return Cotizacion.findOne({_id : $stateParams.ordenProduccion_id});
+		  return Cotizacion.findOne();
 	  },
 	  materiales : () => {
 		  return Materiales.find();
@@ -54,16 +55,31 @@ let rc = $reactive(this).attach($scope);
 	   proveedores : () => {
 		  return Proveedores.find();
 	  },
+	    ordenes : () => {
+
+	    	
+	    	orden = OrdenProduccion.findOne({_id : $stateParams.ordenProduccion_id});
+
+	    	_.each(orden.detalle, function(partida){
+	    		partida.estatus = 1;
+
+	    	})
+
+
+	    	console.log(orden);
+		  return orden
+	  },
 
   });
+
+
+
   
 
 	this.nuevo = true;
 	this.guardar = true; 
 	this.tabla 	= false; 
 	this.agregar = true;
-
-	
 	  this.action = true;
 	 
   this.nuevoCotizacion = function()
@@ -177,6 +193,9 @@ let rc = $reactive(this).attach($scope);
 			delete cotizacion.$$hashKey;
 			});	
 		rc.cotizacion.detalle[this.productoIndice] = cotizacion;
+	    var idTemp = cotizacion._id;
+		delete cotizacion._id;	
+		OrdenProduccion.update({_id:idTemp},{$set:cotizacion});
 		this.productoSeleccionado = {};
 	    this.cotizacionManual = {};
 	    this.agregar = true;
@@ -266,6 +285,27 @@ let rc = $reactive(this).attach($scope);
 		if(proveedor)
 		return proveedor.nombre;
 	};
+
+
+
+var pendiente = false;
+this.cambiarEstatusPartida = function(partidaSeleccionada, estatus){
+	_.each(this.ordenProduccion.detalle, function(partida){
+		if(partidaSeleccionada._id == partida._id){
+			partida.estatus = estatus;
+			//Cambio la partida de estatus
+			OrdenProduccion.update(rc.ordenProduccion._id, {$set : { detalle : rc.ordenProduccion.detalle}})
+		}
+		if(partida.estatus == 1){
+			pendiente = true;
+		}
+	});
+	
+	if(pendiente == false){
+		//Cambio la orden de proudcción estatus
+		OrdenProduccion.update(rc.ordenProduccion._id, {$set : { estatus : 2 } } );
+	}
+}
 
 
 

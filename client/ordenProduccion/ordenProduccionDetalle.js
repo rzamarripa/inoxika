@@ -13,7 +13,7 @@ let rc = $reactive(this).attach($scope);
       this.subscribe('clientes',()=>{
 	return [{estatus:true}] 
     });
-         this.subscribe('ordenProduccion',()=>{
+    this.subscribe('ordenProduccion',()=>{
 	return [{estatus:true}] 
     });
     this.subscribe('productos',()=>{
@@ -128,6 +128,7 @@ let rc = $reactive(this).attach($scope);
 		_.each(rc.ordenCompra.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	
+		
 		 var total = 0;
 		_.each(rc.cotizacion.detalle,function(detalle){ total +=
 		 ((detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad)});

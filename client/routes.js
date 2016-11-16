@@ -200,11 +200,16 @@ angular.module('inoxica').config(['$injector', function ($injector) {
 
     })
 
-         .state('root.EditarOrdenCompraDetalle', {
-      url: '/EditarOrdenCompraDetalle/:ordenCompra_id',
+         .state('root.editarOrdenCompraDetalle', {
+      url: '/editarOrdenCompraDetalle/:ordenCompra_id',
       templateUrl: 'client/ordenCompra/editarOrdenCompra.ng.html',
       controller: 'EditarOrdenCompraDetalleCtrl as orden',
   })
+         .state('anon.imprimirOrdenCompra', {
+      url: '/imprimirOrdenCompra/:cotizacion_id',
+      templateUrl: 'client/ordenCompra/imprimirOrdenCompra.ng.html',
+      controller: 'ImprimirOrdenCompraCtrl as orden',
+    })
 
          //<--///////////////// ORDEN DE PRODUCCIÓN ////////////////////-->//
 

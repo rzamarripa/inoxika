@@ -120,7 +120,7 @@ let rc = $reactive(this).attach($scope);
 		_.each(rc.producto.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
 
 		this.cotizacion.subTotal = total
-		this.cotizacion.estado = true;
+		this.cotizacion.estatus = 1;
 		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre 
 		Cotizacion.insert(this.cotizacion);
 		toastr.success('Cotizacion guardada.');

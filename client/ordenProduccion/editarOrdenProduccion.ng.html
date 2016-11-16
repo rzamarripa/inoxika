@@ -167,6 +167,14 @@
 <br/>
 <!-- ///////////////////////////////////////   TABLAS  ///////////////////////////////////////////////////////// -->
 <!-- List -->
+
+
+
+<!-- <button ng-show="partida.estatus == 1" ng-click="cambiarEstatus(partida, 2)">Terminado</button>
+<button ng-show="partida.estatus == 2" ng-click="cambiarEstatus(partida, 1)">En proceso</button>
+
+ -->
+
 		<div class="row">
 <div class="col-sm-12">
 	<table class="table table-bordered"  >
@@ -177,19 +185,31 @@
 		        <th width="20%"><div class="text-center">Descripción</div></th>
 				<th width="10%"><div class="text-center">Unidad</div></th>
 				<th width="10%"><div class="text-center">Cantidad</div></th>
-				<th width="10%"><div class="text-center">Acciones</div></th>
+				<th width="10%"><div class="text-center">Estatus</div></th>
+				<th width="20%"><div class="text-center">Acciones</div></th>
 			</tr>
 		</thead> 
 		<tbody>
-	    	<tr  ng-repeat="detalle in orden.cotizacion.detalle"> 
+	    	<tr  ng-repeat="detalle in orden.ordenes.detalle"> 
 		        <td><div class="text-center">{{$index + 1}}</div ></td>
 		        <td><div class="text-center">{{detalle.nombre}}</div></td>
 		        <td><div class="text-center">{{detalle.descripcion}}</div></td> 
 			    <td><div class="text-center">{{orden.getUnidad(detalle.unidad_id)}}</div></td>			    
 			    <td><div class="text-center">{{detalle.cantidad}}</div></td>
+			     <td>
+				    <div class="text-center">
+				    	<span ng-if="detalle.estatus == 1 " class="label label-success" ng-click="orden.cambiarEstatusPartida(detalle, 1)">
+							  Pendiente
+							</span>
+							<span ng-if="!detalle.estatus == 2" class="label label-danger" ng-click="orden.cambiarEstatusPartida(detalle, 2)">
+							  Terminado
+							</span>
+				    </div>
+			    </td>
 			   
 			    <td width="10%"><div class="text-center">
-					
+			      <!--   <a class="btn btn-primary" ng-show="detalle.estatus == 1" ng-click="orden.cambiarEstatusPartida(detalle, 2)">Terminado</a>
+				    <a class="btn btn-primary" ng-show="detalle.estatus == 2" ng-click="orden.cambiarEstatusPartida(detalle, 1)">En proceso</a> -->
 					<a class="btn btn-warning" ng-click="orden.editarOrden($index)"><i class="fa fa-pencil"></i></a>
 					<a class="btn btn-danger"  ng-click="orden.cambiarEstatus(detalle._id)"><i class="fa fa-trash"></i> </a>
 							 

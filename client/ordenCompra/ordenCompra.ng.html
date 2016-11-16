@@ -40,8 +40,9 @@
 								    <span class="sr-only">Toggle Dropdown</span>
 								  </button>
 								  <ul class="dropdown-menu text-left">
-								    <li><a href="/editarOrdenCompra/{{ordenCompra._id}}"><i class="fa fa-pencil"></i> Editar</a></li>
+								    <li><a href="/editarOrdenCompraDetalle/{{ordenCompra._id}}"><i class="fa fa-pencil"></i> Editar</a></li>
 								  <li><a href="#" ng-click="client.cambiarEstatus(ordenCompra._id)"><i class="fa fa-trash"></i> Desactivar</a></li>
+								  <li><a target="_blank" href="/imprimirOrdenCompra/{{ordenCompra._id}}"><i class="fa fa-print"></i> Imprimir</a></li>
 								  </ul>
 								</div>
 					    </div>				    

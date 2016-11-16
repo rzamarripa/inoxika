@@ -190,7 +190,7 @@ let rc = $reactive(this).attach($scope);
 		$('.collapse').collapse('hide');
 		this.nuevo = true;
 		console.log(cotizacion);
-		$state.go('root.cotizacion')
+		$state.go('root.ordenCompra')
 	};
 
 	this.cambiarEstatus = function(id)

@@ -1,6 +1,6 @@
 angular.module("inoxica")
-.controller("OrdenCompraDetalleCtrl", OrdenCompraDetalleCtrl);  
-function OrdenCompraDetalleCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
+.controller("ImprimirOrdenCompraCtrl", ImprimirOrdenCompraCtrl);  
+function ImprimirOrdenCompraCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
 let rc = $reactive(this).attach($scope);
 
 
@@ -8,36 +8,34 @@ let rc = $reactive(this).attach($scope);
 	return [{estatus:true}] 
     });
      this.subscribe('cotizacion',()=>{
-	return [{estatus:1}] 
+	return [{estatus:1,cotizacion_id: this.getReactively('cotizacion_id'),}] 
     });
       this.subscribe('clientes',()=>{
 	return [{estatus:true}] 
     });
-         this.subscribe('ordenCompra',()=>{
-	return [{estatus:true}] 
-    });
-              this.subscribe('ordenProduccion',()=>{
-	return [{estatus:true}] 
-    });
     this.subscribe('productos',()=>{
-	return [{estatus:true}] 
+	return [{estatus:true}]    
     });
     this.subscribe('unidades',()=>{
 	return [{estatus:true}] 
     });
-   this.subscribe('proveedores',()=>{
+       this.subscribe('ordenProduccion',()=>{
+	return [{estado:true}] 
+    });
+     this.subscribe('proveedores',()=>{
 	return [{estatus:true}] 
     });
 
     console.log($stateParams)
     var cantidad = $stateParams.cantidad
-   
 
-    this.ordenCompra = {};
-    this.ordenCompra.detalle = this.cotizacion
-    
-     
-  
+      this.cotizacion = {};
+      this.cotizacion.detalle = [];
+      this.subTotal = 0.00;
+      this.productoIndice = 0;
+	  this.productoSeleccionado = {};
+	  this.cotizacionManual = {};
+
 	this.helpers({
 	  cotizacion : () => {
 		  return Cotizacion.findOne({_id : $stateParams.cotizacion_id});
@@ -54,29 +52,22 @@ let rc = $reactive(this).attach($scope);
 	   unidades : () => {
 		  return Unidades.find();
 	  },
-	   proveedores : () => {
+	    ordenes : () => {
+		  return OrdenProduccion.find();
+	  },
+	    proveedores : () => {
 		  return Proveedores.find();
 	  },
 
   });
   
 
-	this.nuevo = true;
-	this.guardar = true; 
-	this.tabla 	= false; 
-
+  this.nuevo = true;
+  this.guardar = true; 
+  this.tabla 	= false; 
+  this.action = true;
+  this.imprecion = true;
 	
-	  this.action = true;
-	 
-  this.nuevoCotizacion = function()
-  {
-    this.action = true;
-    this.productoTipo = true;
-    this.nuevo = !this.nuevo;
-    this.cotizacion = {};
-    this.cotizacion.detalle = [];
-  };
-
 
   
   this.agregarManual = function(cotizacionManual)
@@ -113,38 +104,7 @@ let rc = $reactive(this).attach($scope);
 		//this.cotizacion.detalle  = [];
 	};
 
-	 this.guardarCotizacion = function(cotizacion)
-	{
-		console.log(this.cotizacion);
-		_.each(rc.cotizacion.detalle, function(cotizacion){
-			delete cotizacion.$$hashKey;
-			});	
-		_.each(rc.ordenCompra.detalle, function(cotizacion){
-			delete cotizacion.$$hashKey;
-			});	
-		 var total = 0;
-		_.each(rc.cotizacion.detalle,function(detalle){ total +=
-		 ((detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad)});
-		_.each(rc.cotizacion.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
-		this.cotizacion.subTotal = total;
-		this.cotizacion.total = total - total*0.16;
-		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre 
-		this.cotizacion.estado = true;			
-		OrdenCompra.insert(this.cotizacion);
-		toastr.success('Cotizacion guardada.');
-		this.cotizacion = {};
-		this.cotizacionProducto = {};
-     	this.cotizacion.detalle = [];
-    	this.cotizacionManual = {};  
-    	this.clienteSeleccionado = {};
-        this.productoSeleccionado = {};
-		$('.collapse').collapse('hide');
-		this.nuevo = true;
-		this.guardar = true; 
-		this.productoTipo = true;
-		this.tabla = false;
-		$state.go('root.ordenCompra')
-	};
+
 	
 	this.editar = function(id)
 	{
@@ -155,9 +115,7 @@ let rc = $reactive(this).attach($scope);
 	};
 
 
-
-
-	this.editarOrden = function($index)
+	this.editarProducto = function($index)
 	{
 
     this.cotizacionManual = rc.cotizacion.detalle[$index];
@@ -165,7 +123,6 @@ let rc = $reactive(this).attach($scope);
 
     this.agregar = false;
     this.cancelar = true;
-    this.action = false;
     this.productoIndice = $index;
     console.log(this.productoSeleccionado);
 
@@ -174,7 +131,6 @@ let rc = $reactive(this).attach($scope);
 		this.actualizarProducto= function(producto)
 	{
 		console.log(this.cotizacion);
-		this.action = true;
 		_.each(rc.cotizacion.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	
@@ -183,7 +139,6 @@ let rc = $reactive(this).attach($scope);
 	    this.cotizacionManual = {};
 	
 	};
-
 
 
 	
@@ -197,6 +152,7 @@ let rc = $reactive(this).attach($scope);
 		console.log(cotizacion);
 		$state.go('root.cotizacion')
 	};
+
 
 	this.cambiarEstatus = function(id)
 	{
@@ -236,28 +192,43 @@ let rc = $reactive(this).attach($scope);
 		return unidad.nombre;
 	}; 
 
-	this.SumaPrecioProductos = function(){
-		total = 0;
-		_.each(rc.cotizacion.detalle,function(detalle){ total += (
-		(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad)});
-		return total
+	     this.getCliente= function(cliente_id)
+	{
+		var cliente = Clientes.findOne(cliente_id);
+		if(cliente)
+		return cliente.nombre;
+	};
+	    this.getClienteDireccion= function(cliente_id)
+	{
+		var cliente = Clientes.findOne(cliente_id);
+		if(cliente)
+		return cliente.direccion;
 	};
 
+	    this.borrarBotonImprimir= function()
+	{
+		var printButton = document.getElementById("printpagebutton");
+		 printButton.style.visibility = 'hidden';
+		 window.print()
+		 printButton.style.visibility = 'visible';
+		
+	};
 
 	this.aumentoIva = function () 
 	{
 		this.on = !this.on;
-
 		console.log(this.on)		
 		
    };
 
-       this.getProveedor= function(proveedor_id)
+   	    this.getProveedor = function(proveedor_id)
 	{
 		var proveedor = Proveedores.findOne(proveedor_id);
 		if(proveedor)
 		return proveedor.nombre;
 	};
+
+	
 
 
 

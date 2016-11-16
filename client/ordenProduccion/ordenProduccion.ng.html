@@ -29,7 +29,7 @@
 			    <tr ng-repeat="ordenProduccion in orden.ordenes">
 				    <td><div class="text-center">{{$index + 1}}</div></td>
 				    <td><div class="text-center">{{ordenProduccion.folio}}</div></td>
-				    <td><div class="text-center">{{ordenProduccion.fechaInicioOrdenProduccion | date:"dd-MM-yyyy"}}</div></td> 
+				    <td><div class="text-center">{{ordenProduccion.fechaInicio | date:"dd-MM-yyyy"}}</div></td> 
 				    <!-- <td><div class="text-center">{{orden.getProveedor(ordenProduccion.proveedor_id)}}</div></td> -->
 				    <td><div class="text-center">{{ordenProduccion.nombrePrimerProducto}}</div></td>
 				    <td>
