@@ -186,7 +186,7 @@ let rc = $reactive(this).attach($scope);
 	{
 		var idTemp = cotizacion._id;
 		delete cotizacion._id;		
-		Cotizacion.update({_id:idTemp},{$set:cotizacion});
+		OrdenCompra.update({_id:idTemp},{$set:cotizacion});
 		$('.collapse').collapse('hide');
 		this.nuevo = true;
 		console.log(cotizacion);
@@ -204,10 +204,10 @@ let rc = $reactive(this).attach($scope);
 		Cotizacion.update({_id: id},{$set :  {estatus : cotizacion.estatus}});
     };
 
-    this.getProductos= function(producto_id)
+     this.getProductos= function(producto)
 	{
-		console.log(producto_id);
-		rc.productoSeleccionado = Productos.findOne(producto_id);
+		console.log(producto);
+		rc.productoSeleccionado = producto;
 		console.log(rc.productoSeleccionado)
 	};
 	this.clientillo = false;

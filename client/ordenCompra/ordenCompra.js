@@ -36,13 +36,29 @@ let rc = $reactive(this).attach($scope);
   
 	this.helpers({
 	  ordenes : () => {
-		  return OrdenCompra.find();
+		 var ordenes = OrdenCompra.find().fetch();
+		  	if (ordenes) {
+		  		_.each(ordenes, function(orden){
+		  			orden.proveedor = Proveedores.findOne(orden.proveedor_id)
+
+		  	});
+	  	}
+	  	console.log(ordenes);
+		  return ordenes;
 	  },
 	    proveedores : () => {
 		  return Proveedores.find();
 	  },
-	  productos : () => {
-		  return Productos.find();
+	 productos : () => {
+		 var productos = Productos.find().fetch();
+		  	if (productos) {
+		  		_.each(productos, function(producto){
+		  			producto.unidad = Unidades.findOne(producto.unidad_id)
+
+		  	});
+	  	}
+	  	console.log(productos);
+		  return productos;
 	  },
 	  materiales : () => {
 		  return Materiales.find();

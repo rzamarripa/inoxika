@@ -25,7 +25,7 @@
 			    <div class="row">			    
 	          <div class="col-sm-3">
 					    <label>Nombre del Proyecto</label>
-				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="cot.cotizacion.nombreProyecto" >
+				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="cot.cotizacion.nombreProyecto" capitalized >
 				    </div>
 				     <div class="col-sm-3">
 						<label for="fecha">Fecha de inicio</label>
@@ -76,7 +76,7 @@
 						<div class="row">
 							<div class="col-sm-2">
 				    			<label>Nombre</label>
-			    				<input  type="text" class="form-control" placeholder="Nombre" ng-model="cot.cotizacionManual.nombre">
+			    				<input  type="text" class="form-control" placeholder="Nombre" ng-model="cot.cotizacionManual.nombre" capitalized>
 			   				 </div>
 			   				  <div class="col-sm-2">
 				    			<label>Cantidad</label>
@@ -102,7 +102,7 @@
 								</div>
 			   				 <div class="col-sm-12">
 							     <label>Descripción</label>
-						    	    <textarea type="text" class="form-control" placeholder="Descripción" ng-model="cot.cotizacionManual.descripcion" >
+						    	    <textarea type="text" class="form-control" placeholder="Descripción" ng-model="cot.cotizacionManual.descripcion" capitalized >
 						            </textarea>
 			    	         </div>
 			   				 </div><br/>
@@ -128,20 +128,21 @@
 							 <div class="col-sm-12">
 								 <div class="col-sm-2">
 									<label >Producto</label>
-									<select class="form-control select2" placeholder="Seleccione" ng-model="cot.productoSeleccionado.producto_id "
+									<!-- <select class="form-control select2" placeholder="Seleccione" ng-model="cot.productoSeleccionado.producto_id "
 									 ng-change="cot.getProductos(cot.productoSeleccionado.producto_id)">
 										<option ng-repeat="producto in cot.productos" value="{{producto._id}}">{{producto.nombre}}</option>
-									</select>
+									</select> -->
+									<select  ng-options="producto as producto.nombre for producto in cot.productos" 
+                          				 ng-model="producto.producto_id" ng-change="cot.getProductos(producto.producto_id)" 
+                          				 class="form-control select2" placeholder="Seleccione"></select>
 								</div>
 								<div class="col-sm-2">
 				    			<label>Cantidad</label>
 			    				<input type="number" class="form-control" placeholder="Cantidad" ng-model="cot.productoSeleccionado.cantidad"> 
 			    				</div>
-			    				 <div class="col-sm-2">
-								<label >Unidad</label>
-								<select  class="form-control select2" placeholder="Seleccione" ng-model="cot.productoSeleccionado.unidad_id">
-									<option ng-repeat="unidad in cot.unidades" value="{{unidad._id}}">{{unidad.nombre}}</option>
-								</select>
+			    				  <div class="col-sm-2">
+								<label>Unidad</label>
+								<div class="form-control">{{cot.productoSeleccionado.unidad.nombre}}</div>
 					        </div>
 								<div class="col-sm-2">
 		    	 					<label>Costo</label>

@@ -47,7 +47,15 @@ let rc = $reactive(this).attach($scope);
 		  return Clientes.find();
 	  },
 	  productos : () => {
-		  return Productos.find();
+		 var productos = Productos.find().fetch();
+		  	if (productos) {
+		  		_.each(productos, function(producto){
+		  			producto.unidad = Unidades.findOne(producto.unidad_id)
+
+		  	});
+	  	}
+	  	console.log(productos);
+		  return productos;
 	  },
 	   unidades : () => {
 		  return Unidades.find();
@@ -69,8 +77,31 @@ let rc = $reactive(this).attach($scope);
 	    	console.log(orden);
 		  return orden
 	  },
+	   orden : () => {
+		  return OrdenProduccion.findOne();
+	  },
 
   });
+
+
+
+
+
+
+ this.quitarhk=function(obj){
+	if(Array.isArray(obj)){
+		for (var i = 0; i < obj.length; i++) {
+			obj[i] =this.quitarhk(obj[i]);
+		}
+	}
+	else if(obj !== null && typeof obj === 'object'){
+		delete obj.$$hashKey;
+		for (var name in obj) {
+				obj[name] = this.quitarhk(obj[name]);
+		}	
+	}
+	return obj;
+}
 
 
 
@@ -96,27 +127,39 @@ let rc = $reactive(this).attach($scope);
   this.agregarManual = function(cotizacionManual)
 	{ 
 		//cotizacion.material_id = this.material_id;
-		console.log(this.cotizacion)
+		console.log(this.cotizacionManual)
 		cotizacionManual.tipo = "manual";
-		this.cotizacion.detalle.push(cotizacionManual);
-		this.cotizacion.estatus = 1;
-		console.log(this.cotizacion);
+		this.ordenes.detalle.push(cotizacionManual);
+		this.ordenes.estatus = 1;
 		this.guardar = false; 
 		this.productoTipo = false;
 		this.on = false;
 		this.tabla 	= true;
 		this.subTotal += (cotizacionManual.precio + (cotizacionManual.precio * cotizacionManual.utilidad /100)  * cotizacionManual.cantidad)
 		* cotizacionManual.cantidad ;
+
+		// var idTemp = cotizacionManual._id;
+		// delete cotizacionManual._id;	
+
+		// this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre	
+		// OrdenProduccion.update({_id:idTemp},{$set:cotizacionManual});
+		// $('.collapse').collapse('hide');
+		// this.nuevo = true;
+		// console.log(cotizacionManual);
 		this.cotizacionManual = {};
+
+
+
+
 		//this.cotizacion.detalle = [];
 	};
 	this.agregarProducto = function(cotizacionProducto)
 	{ 
 		//cotizacion.material_id = this.material_id;
 		cotizacionProducto.tipo = "producto";
-		this.cotizacion.detalle.push(cotizacionProducto);
-		this.cotizacion.estatus = 1;
-		console.log(this.cotizacion);
+		this.ordenes.detalle.push(cotizacionProducto);
+		this.ordenes.estatus = 1;
+		console.log(this.cotizacionProducto);
 		this.guardar = false; 
 		this.productoTipo = false;
 		_.each(cotizacionProducto.detalle, function(detalle){
@@ -214,9 +257,14 @@ let rc = $reactive(this).attach($scope);
 		_.each(rc.ordenProduccion.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	
+
+		console.log(this.cotizacion);
+		_.each(rc.ordenes.detalle, function(orden){
+			delete orden.$$hashKey;
+			});	
+		
 		var idTemp = cotizacion._id;
 		delete cotizacion._id;	
-
 		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre	
 		OrdenProduccion.update({_id:idTemp},{$set:cotizacion});
 		$('.collapse').collapse('hide');
@@ -236,10 +284,10 @@ let rc = $reactive(this).attach($scope);
 		Cotizacion.update({_id: id},{$set :  {estatus : cotizacion.estatus}});
     };
 
-    this.getProductos= function(producto_id)
+    this.getProductos= function(producto)
 	{
-		console.log(producto_id);
-		rc.productoSeleccionado = Productos.findOne(producto_id);
+		console.log(producto);
+		rc.productoSeleccionado = producto;
 		console.log(rc.productoSeleccionado)
 	};
 	this.clientillo = false;
@@ -274,7 +322,6 @@ let rc = $reactive(this).attach($scope);
 	this.aumentoIva = function () 
 	{
 		this.on = !this.on;
-
 		console.log(this.on)		
 		
    };
@@ -289,23 +336,36 @@ let rc = $reactive(this).attach($scope);
 
 
 var pendiente = false;
-this.cambiarEstatusPartida = function(partidaSeleccionada, estatus){
-	_.each(this.ordenProduccion.detalle, function(partida){
-		if(partidaSeleccionada._id == partida._id){
-			partida.estatus = estatus;
-			//Cambio la partida de estatus
-			OrdenProduccion.update(rc.ordenProduccion._id, {$set : { detalle : rc.ordenProduccion.detalle}})
-		}
-		if(partida.estatus == 1){
-			pendiente = true;
-		}
-	});
+this.cambiarEstatusPartida = function(partidaSeleccionada, estatus, index){
+	partidaSeleccionada.estatus = estatus;
+	console.log(rc.ordenes);
+	delete partidaSeleccionada.$$hashKey;
+	OrdenProduccion.update(rc.orden._id, {$set : { detalle : rc.orden.detalle}})
+	// _.each(this.ordenProduccion.detalle, function(partida){
+	// 	if(partidaSeleccionada.index == partida.index){
+	// 		partida.estatus = estatus;
+	// 		//Cambio la partida de estatus
+	// 		OrdenProduccion.update(rc.ordenProduccion._id, {$set : { detalle : rc.ordenProduccion.detalle}})
+	// 	}
+	// 	if(partida.estatus == 1){
+	// 		pendiente = true;
+	// 		console.log(estatus);
+	// 	}
+
+	// });
 	
-	if(pendiente == false){
-		//Cambio la orden de proudcción estatus
-		OrdenProduccion.update(rc.ordenProduccion._id, {$set : { estatus : 2 } } );
-	}
+	// if(pendiente == false){
+	// 	//Cambio la orden de proudcción estatus
+	// 	OrdenProduccion.update(rc.ordenProduccion._id, {$set : { estatus : 2 } } );
+	// }
+	// console.log(partidaSeleccionada);
 }
+
+
+	this.eliminarProducto = function($index)
+	{
+		rc.ordenes.detalle.splice($index, 1);
+    };
 
 
 

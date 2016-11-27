@@ -49,7 +49,15 @@ let rc = $reactive(this).attach($scope);
 		  return Clientes.find();
 	  },
 	  productos : () => {
-		  return Productos.find();
+		 var productos = Productos.find().fetch();
+		  	if (productos) {
+		  		_.each(productos, function(producto){
+		  			producto.unidad = Unidades.findOne(producto.unidad_id)
+
+		  	});
+	  	}
+	  	console.log(productos);
+		  return productos;
 	  },
 	   unidades : () => {
 		  return Unidades.find();
@@ -153,9 +161,6 @@ let rc = $reactive(this).attach($scope);
     $('.collapse').collapse('show');
     this.nuevo = false;
 	};
-
-
-
 
 	this.editarOrden = function($index)
 	{

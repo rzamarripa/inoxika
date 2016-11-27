@@ -18,7 +18,7 @@
 					</div>	 -->	    
 	          <div class="col-sm-3">
 					    <label>Nombre del Proyecto</label>
-				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="orden.cotizacion.nombreProyecto" >
+				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="orden.cotizacion.nombreProyecto" capitalized>
 				    </div>
 				     <div class="col-sm-3">
 						<label for="fecha">Fecha de inicio</label>
@@ -66,7 +66,7 @@
 						<div class="row">
 							<div class="col-sm-2">
 				    			<label>Nombre</label>
-			    				<input  type="text" class="form-control" placeholder="Nombre" ng-model="orden.cotizacionManual.nombre">
+			    				<input  type="text" class="form-control" placeholder="Nombre" ng-model="orden.cotizacionManual.nombre" capitalized>
 			   				 </div>
 			   				  <div class="col-sm-2">
 				    			<label>Cantidad</label>
@@ -92,7 +92,7 @@
 								</div> -->
 			   				 <div class="col-sm-12">
 							     <label>Descripción</label>
-						    	    <textarea type="text" class="form-control" placeholder="Descripción" ng-model="orden.cotizacionManual.descripcion" >
+						    	    <textarea type="text" class="form-control" placeholder="Descripción" ng-model="orden.cotizacionManual.descripcion" capitalized >
 						            </textarea>
 			    	         </div>
 			   				 </div><br/>
@@ -118,20 +118,21 @@
 							 <div class="col-sm-12">
 								 <div class="col-sm-2">
 									<label >Producto</label>
-									<select class="form-control select2" placeholder="Seleccione" ng-model="orden.productoSeleccionado.producto_id "
+									<!-- <select class="form-control select2" placeholder="Seleccione" ng-model="orden.productoSeleccionado.producto_id "
 									 ng-change="orden.getProductos(orden.productoSeleccionado.producto_id)">
 										<option ng-repeat="producto in orden.productos" value="{{producto._id}}">{{producto.nombre}}</option>
-									</select>
+									</select> -->
+									<select  ng-options="producto as producto.nombre for producto in orden.productos" 
+                          				 ng-model="producto.producto_id" ng-change="orden.getProductos(producto.producto_id)" 
+                          				 class="form-control select2" placeholder="Seleccione"></select>
 								</div>
 								<div class="col-sm-2">
 				    			<label>Cantidad</label>
 			    				<input type="number" class="form-control" placeholder="Cantidad" ng-model="orden.productoSeleccionado.cantidad"> 
 			    				</div>
 			    				 <div class="col-sm-2">
-								<label >Unidad</label>
-								<select  class="form-control select2" placeholder="Seleccione" ng-model="orden.productoSeleccionado.unidad_id">
-									<option ng-repeat="unidad in orden.unidades" value="{{unidad._id}}">{{unidad.nombre}}</option>
-								</select>
+								<label>Unidad</label>
+								<div class="form-control">{{orden.productoSeleccionado.unidad.nombre}}</div>
 					        </div>
 							<div class="col-sm-12">
 							        <label>Descripción</label>
@@ -186,7 +187,7 @@
 				<th width="10%"><div class="text-center">Unidad</div></th>
 				<th width="10%"><div class="text-center">Cantidad</div></th>
 				<th width="10%"><div class="text-center">Estatus</div></th>
-				<th width="20%"><div class="text-center">Acciones</div></th>
+				<th width="10%"><div class="text-center">Acciones</div></th>
 			</tr>
 		</thead> 
 		<tbody>
@@ -198,12 +199,12 @@
 			    <td><div class="text-center">{{detalle.cantidad}}</div></td>
 			     <td>
 				    <div class="text-center">
-				    	<span ng-if="detalle.estatus == 1 " class="label label-success" ng-click="orden.cambiarEstatusPartida(detalle, 1)">
+				    	<a ng-show="detalle.estatus == 1 " class="label label-success" ng-click="orden.cambiarEstatusPartida(detalle, 2)">
 							  Pendiente
-							</span>
-							<span ng-if="!detalle.estatus == 2" class="label label-danger" ng-click="orden.cambiarEstatusPartida(detalle, 2)">
+							</a>
+							<a ng-show="detalle.estatus == 2" class="label label-danger" ng-click="orden.cambiarEstatusPartida(detalle, 1)">
 							  Terminado
-							</span>
+							</a>
 				    </div>
 			    </td>
 			   
@@ -211,7 +212,7 @@
 			      <!--   <a class="btn btn-primary" ng-show="detalle.estatus == 1" ng-click="orden.cambiarEstatusPartida(detalle, 2)">Terminado</a>
 				    <a class="btn btn-primary" ng-show="detalle.estatus == 2" ng-click="orden.cambiarEstatusPartida(detalle, 1)">En proceso</a> -->
 					<a class="btn btn-warning" ng-click="orden.editarOrden($index)"><i class="fa fa-pencil"></i></a>
-					<a class="btn btn-danger"  ng-click="orden.cambiarEstatus(detalle._id)"><i class="fa fa-trash"></i> </a>
+					<a class="btn btn-danger"  ng-click="orden.eliminarProducto($index)"><i class="fa fa-trash"></i> </a>
 							 
 							
 				    </div>				    
@@ -226,7 +227,7 @@
 
   	<div class="row" ng-if="orden.cotizacion._id">
 		<div class="col-sm-12">
-			<input type="submit" ng-click="orden.actualizar(orden.cotizacion)" value="Actualizar" class="btn btn-primary" ng-if="orden.cotizacion._id">	
+			<input type="submit" ng-click="orden.actualizar(orden.ordenes)" value="Actualizar" class="btn btn-primary" ng-if="orden.cotizacion._id">	
 		</div>
 	</div><br/>
 

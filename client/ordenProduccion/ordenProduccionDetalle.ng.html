@@ -70,7 +70,7 @@
 						<div class="row">
 							<div class="col-sm-2">
 				    			<label>Nombre</label>
-			    				<input  type="text" class="form-control" placeholder="Nombre" ng-model="orden.cotizacionManual.nombre">
+			    				<input  type="text" class="form-control" placeholder="Nombre" ng-model="orden.cotizacionManual.nombre" capitalized>
 			   				 </div>
 			   				  <div class="col-sm-2">
 				    			<label>Cantidad</label>
@@ -96,7 +96,7 @@
 								</div> -->
 			   				 <div class="col-sm-12">
 							     <label>Descripción</label>
-						    	    <textarea type="text" class="form-control" placeholder="Descripción" ng-model="orden.cotizacionManual.descripcion" >
+						    	    <textarea type="text" class="form-control" placeholder="Descripción" ng-model="orden.cotizacionManual.descripcion" capitalized>
 						            </textarea>
 			    	         </div>
 			   				 </div><br/>
@@ -122,10 +122,13 @@
 							 <div class="col-sm-12">
 								 <div class="col-sm-2">
 									<label >Producto</label>
-									<select class="form-control select2" placeholder="Seleccione" ng-model="orden.productoSeleccionado.producto_id "
+									<!-- <select class="form-control select2" placeholder="Seleccione" ng-model="orden.productoSeleccionado.producto_id "
 									 ng-change="orden.getProductos(orden.productoSeleccionado.producto_id)">
 										<option ng-repeat="producto in orden.productos" value="{{producto._id}}">{{producto.nombre}}</option>
-									</select>
+									</select> -->
+									<select  ng-options="producto as producto.nombre for producto in orden.productos" 
+                          				 ng-model="producto.producto_id" ng-change="orden.getProductos(producto.producto_id)" 
+                          				 class="form-control select2" placeholder="Seleccione"></select>
 								</div>
 								<div class="col-sm-2">
 				    			<label>Cantidad</label>

@@ -156,10 +156,10 @@ let rc = $reactive(this).attach($scope);
 		rc.producto.detalleProducto.splice($index, 1);
     };
 
-	this.getMateriales= function(material_id)
+	this.getMateriales= function(material)
 	{
-		
-		rc.materialSeleccionado = Materiales.findOne(material_id);
+		console.log(material);
+		rc.materialSeleccionado = material;
 	};
 	 this.obtenerMaterial= function(material_id)
 	{

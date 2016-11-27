@@ -32,8 +32,16 @@ let rc = $reactive(this).attach($scope);
 	  producto : () => {
 		  return Productos.findOne({_id : $stateParams.producto_id});
 	  },
-	  materiales : () => {
-		  return Materiales.find();
+	 materiales : () => {
+	  	var materiales = Materiales.find().fetch();
+		  	if (materiales) {
+		  		_.each(materiales, function(material){
+		  			material.unidad = Unidades.findOne(material.unidad_id)
+
+		  	});
+	  	}
+	  	console.log(materiales);
+		  return materiales;
 	  },
 	  unidades : () => {
 		  return Unidades.find();
@@ -148,10 +156,10 @@ let rc = $reactive(this).attach($scope);
 		rc.producto.detalleProducto.splice($index, 1);
     };
 
-	this.getMateriales= function(material_id)
+	this.getMateriales= function(material)
 	{
-		
-		rc.materialSeleccionado = Materiales.findOne(material_id);
+		console.log(material);
+		rc.materialSeleccionado = material;
 	};
 	 this.obtenerMaterial= function(material_id)
 	{

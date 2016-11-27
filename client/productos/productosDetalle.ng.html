@@ -1,4 +1,4 @@
-<h2>Productos</h2>{{pro.materiales}}
+<h2>Productos</h2>
 <div class="row">
 	<div class="col-sm-12">
 			<form class="form-horizontal" role="form" data-parsley-validate>
@@ -6,7 +6,7 @@
 				  <div class="row">
 	          <div class="col-sm-3">
 					    <label>Nombre</label>
-				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="pro.producto.nombre" >
+				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="pro.producto.nombre" capitalized>
 				    </div>
 				    <div class="col-sm-2">
 							<label >Unidad</label>
@@ -16,7 +16,7 @@
 				    </div>
 				     <div class="col-sm-7">
 					    <label>Descripción</label>
-				    	<textarea type="text" class="form-control" placeholder="Descripción" ng-model="pro.producto.descripcion" ></textarea>
+				    	<textarea type="text" class="form-control" placeholder="Descripción" ng-model="pro.producto.descripcion" capitalized ></textarea>
 						</div>
 	    	 </div>
 		  	</div>
@@ -25,9 +25,11 @@
 	    	 	<div class="row">
 	    	 		<div class="col-sm-4">
 							<label >Insumos</label>
-							<select ng-change="pro.getMateriales(pro.material.material_id)" class="form-control select2" placeholder="Seleccione" ng-model="pro.material.material_id">
+							<!-- <select ng-change="pro.getMateriales(pro.material.material_id)" class="form-control select2" placeholder="Seleccione" ng-model="pro.material.material_id">
 								<option ng-repeat="material in pro.materiales" value="{{material._id}}">{{material.nombre}}</option>
-							</select>
+							</select> -->
+							<select  ng-options="material as material.nombre for material in pro.materiales" 
+                           ng-model="material.material_id" ng-change="pro.getMateriales(material.material_id)" class="form-control select2" placeholder="Seleccione"></select>
 						</div>
 						<div class="col-sm-2">
 					    <label>Cantidad</label>
@@ -35,7 +37,7 @@
 				    </div>
 					    <div class="col-sm-2">
 	    	 			<label>Unidad</label>
-					    		<div class="form-control">{{pro.material.unidad | currency}}</div>
+					    		<div class="form-control">{{pro.materialSeleccionado.unidad.nombre}}</div>
 					    	
 						</div>
 	    	 			<div class="col-sm-2">
@@ -92,7 +94,7 @@
 				    </div>				    
 			    </td>
 		    </tr>
-		    <tr ><td colspan="6"> Total:{{pro.SumaPrecioProductos()}}</td></tr>
+		  <!--   <tr ><td colspan="6"> Total:{{pro.SumaPrecioProductos()}}</td></tr> -->
 		    <tr >
 			    <td colspan="4"><div class="pull-right"> <strong>Total</strong></div></td>
 			    <td><div class="text-center">{{pro.SumaPrecioProductos() | currency}}</div></td>

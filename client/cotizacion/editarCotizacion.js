@@ -48,7 +48,15 @@ let rc = $reactive(this).attach($scope);
 		  return Clientes.find();
 	  },
 	  productos : () => {
-		  return Productos.find();
+		 var productos = Productos.find().fetch();
+		  	if (productos) {
+		  		_.each(productos, function(producto){
+		  			producto.unidad = Unidades.findOne(producto.unidad_id)
+
+		  	});
+	  	}
+	  	console.log(productos);
+		  return productos;
 	  },
 	   unidades : () => {
 		  return Unidades.find();
@@ -173,10 +181,10 @@ let rc = $reactive(this).attach($scope);
 		Cotizacion.update({_id: id},{$set :  {estatus : cotizacion.estatus}});
     };
 
-    this.getProductos= function(producto_id)
+    this.getProductos= function(producto)
 	{
-		console.log(producto_id);
-		rc.productoSeleccionado = Productos.findOne(producto_id);
+		console.log(producto);
+		rc.productoSeleccionado = producto;
 		console.log(rc.productoSeleccionado)
 	};
 	this.clientillo = false;

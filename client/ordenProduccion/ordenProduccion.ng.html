@@ -20,6 +20,11 @@
 						<th width="10%"><div class="text-center">Primer Producto</div></th>
 						<th width="5%">
 							<div class="text-center">
+								Estatus
+							</div>
+						</th>
+						<th width="5%">
+							<div class="text-center">
 								Acciones
 							</div>
 						</th>
@@ -32,6 +37,16 @@
 				    <td><div class="text-center">{{ordenProduccion.fechaInicio | date:"dd-MM-yyyy"}}</div></td> 
 				    <!-- <td><div class="text-center">{{orden.getProveedor(ordenProduccion.proveedor_id)}}</div></td> -->
 				    <td><div class="text-center">{{ordenProduccion.nombrePrimerProducto}}</div></td>
+				     <td>
+				    <div class="text-center">
+				    	<a ng-show="ordenProduccion.estatus == 1 " class="label label-warning" ng-click="orden.cambiarEstatusPartida(ordenProduccion, 2)">
+							  Pendiente
+							</a>
+							<a ng-show="ordenProduccion.estatus == 2" class="label label-danger" ng-click="orden.cambiarEstatusPartida(ordenProduccion, 1)">
+							  Terminado
+							</a>
+				    </div>
+			    </td>
 				    <td>
 					    <div class="text-center">
 						    <div class="btn-group">

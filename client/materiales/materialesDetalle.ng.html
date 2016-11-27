@@ -6,22 +6,22 @@
 		    <div class="row">
           <div class="col-sm-4">
 				    <label>Nombre</label>
-			    	<input type="text" class="form-control" placeholder="Nombre" ng-model="mat.material.nombre" uppercase-only>
+			    	<input type="text" class="form-control" placeholder="Nombre" ng-model="mat.material.nombre" capitalized>
 			    </div>
 			     <div class="col-sm-4">
 						<label >Unidad</label>
-						<select  class="form-control select2" placeholder="Seleccione" ng-model="mat.material.unidad_id">
-							<option ng-repeat="unidad in mat.unidades" value="{{unidad._id}}">{{unidad.nombre}}</option>
+						<select  class="form-control select2" placeholder="Seleccione" ng-model="mat.material.unidad_id" >
+							<option ng-repeat="unidad in mat.unidades"  value="{{unidad._id}}">{{unidad.nombre}}</option>
 						</select>
 				</div>
 			     
 			     <div class="col-sm-4">
 				    <label>Precio</label>
-			    	<input type="number" class="form-control" placeholder="Precio" ng-model="mat.material.precio" >
+			    	<input type="number" class="form-control" placeholder="Precio" ng-model="mat.material.precio"  >
 			    </div>
 			     <div class="col-sm-6">
 					    <label>Descripción</label>
-				    	<textarea type="text" class="form-control" placeholder="Descripción" ng-model="mat.material.descripcion" >
+				    	<textarea type="text" class="form-control" placeholder="Descripción" ng-model="mat.material.descripcion" capitalized >
 				    </textarea>
 	    	         </div>
     	  </div>
