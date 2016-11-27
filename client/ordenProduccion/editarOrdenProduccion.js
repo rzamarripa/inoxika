@@ -126,7 +126,7 @@ let rc = $reactive(this).attach($scope);
   
   this.agregarManual = function(cotizacionManual)
 	{ 
-		//cotizacion.material_id = this.material_id;
+
 		console.log(this.cotizacionManual)
 		cotizacionManual.tipo = "manual";
 		this.ordenes.detalle.push(cotizacionManual);
@@ -137,25 +137,12 @@ let rc = $reactive(this).attach($scope);
 		this.tabla 	= true;
 		this.subTotal += (cotizacionManual.precio + (cotizacionManual.precio * cotizacionManual.utilidad /100)  * cotizacionManual.cantidad)
 		* cotizacionManual.cantidad ;
-
-		// var idTemp = cotizacionManual._id;
-		// delete cotizacionManual._id;	
-
-		// this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre	
-		// OrdenProduccion.update({_id:idTemp},{$set:cotizacionManual});
-		// $('.collapse').collapse('hide');
-		// this.nuevo = true;
-		// console.log(cotizacionManual);
 		this.cotizacionManual = {};
 
-
-
-
-		//this.cotizacion.detalle = [];
 	};
 	this.agregarProducto = function(cotizacionProducto)
 	{ 
-		//cotizacion.material_id = this.material_id;
+	
 		cotizacionProducto.tipo = "producto";
 		this.ordenes.detalle.push(cotizacionProducto);
 		this.ordenes.estatus = 1;
@@ -167,7 +154,6 @@ let rc = $reactive(this).attach($scope);
 		* cotizacionManual.cantidad ;
 		});
 		this.productoSeleccionado = {};
-		//this.cotizacion.detalle  = [];
 	};
 
 	 this.guardarCotizacion = function(cotizacion)

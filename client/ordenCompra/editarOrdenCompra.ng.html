@@ -130,11 +130,9 @@
 				    			<label>Cantidad</label>
 			    				<input type="number" class="form-control" placeholder="Cantidad" ng-model="orden.productoSeleccionado.cantidad"> 
 			    				</div>
-			    				 <div class="col-sm-2">
-								<label >Unidad</label>
-								<select  class="form-control select2" placeholder="Seleccione" ng-model="orden.productoSeleccionado.unidad_id">
-									<option ng-repeat="unidad in orden.unidades" value="{{unidad._id}}">{{unidad.nombre}}</option>
-								</select>
+			    				<div class="col-sm-2">
+								<label>Unidad</label>
+								<div class="form-control">{{orden.productoSeleccionado.unidad.nombre}}</div>
 					        </div>
 								<div class="col-sm-2">
 		    	 					<label>Precio</label>
@@ -198,7 +196,7 @@
 			</tr>
 		</thead> 
 		<tbody>
-	    	<tr  ng-repeat="detalle in orden.cotizacion.detalle"> 
+	    	<tr  ng-repeat="detalle in orden.ordenes.detalle"> 
 		        <td><div class="text-center">{{$index + 1}}</div ></td>
 		        <td><div class="text-center">{{detalle.nombre}}</div></td>  
 		        <td><div class="text-center">{{detalle.descripcion}}</div></td> 
@@ -215,20 +213,23 @@
 				    </div>				    
 			    </td>
 		   </tr>	
-		   <tr>
-			   <td colspan="7" ng-if="orden.SumaPrecioProductos()"></td>
-			   <td><div class="text-center"><strong>SubTotal:</strong> {{orden.SumaPrecioProductos() | currency}}</div>
-			   </td>
-		    </tr>
+		      <tr>
+					   <td colspan="6"><div class="pull-right"><strong>SubTotal</strong></div> </td>
+					   <td><div class=" pull-right" >{{orden.SumaPrecioProductos() | currency}}</div>
+					   </td>
+					   <td></td>
+		   		 </tr>
 		    <tr>
-		    	<td colspan="7" ng-if="orden.SumaPrecioProductos()"></td>
-		    	<td ng-if="orden.on"><div class="text-center"><strong>Iva:</strong> {{orden.SumaPrecioProductos()*.16 | currency}}
+		    	<td colspan="6"><div class="pull-right"><strong>Iva</strong></div></td>
+		    	<td><div class="pull-right" ng-if="orden.on"> {{orden.SumaPrecioProductos()*.16 | currency}}
 		    	</div></td>
+		    	<td></td>
 		    </tr>
 		    <tr>
-			   <td colspan="7" ng-if="orden.SumaPrecioProductos()"></td>
-			   <td ng-if="orden.on"><div class="text-center"><strong>Total:</strong> {{orden.SumaPrecioProductos()*.16 + orden.SumaPrecioProductos() | currency}}</div>
+			   <td colspan="6" ><div class="pull-right"><strong>Total</strong></div></td>
+			   <td><div class="pull-right" ng-if="orden.on">{{orden.SumaPrecioProductos()*.16 + orden.SumaPrecioProductos() | currency}}</div>
 			   </td>
+			   <td></td>
 		   </tr>
 		    
 		</tbody>
@@ -238,8 +239,10 @@
 
   	<div class="row" ng-if="orden.cotizacion._id">
 		<div class="col-sm-12">
-			<input type="submit" ng-click="orden.guardarCotizacion(orden.cotizacion)" value="Guardar" class="btn btn-primary" ng-show="orden.ordenCompra._id">
-			<input type="submit" ng-click="orden.actualizarManual(orden.cotizacion)" value="Actualizar" class="btn btn-primary" ng-show="!orden.ordenCompra._id">	
+			<input type="submit" ng-click="orden.guardarCotizacion(orden.ordenes)" value="Guardar" class="btn btn-primary" ng-show="orden.ordenCompra._id">
+			<input type="submit" ng-click="orden.actualizar(orden.ordenes)" value="Actualizar" class="btn btn-primary" ng-show="!orden.ordenCompra._id">	
 		</div>
 	</div><br/>
+
+
 

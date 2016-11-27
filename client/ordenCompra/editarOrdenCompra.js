@@ -13,7 +13,10 @@ let rc = $reactive(this).attach($scope);
       this.subscribe('clientes',()=>{
 	return [{estatus:true}] 
     });
-         this.subscribe('ordenCompra',()=>{
+      this.subscribe('ordenCompra',()=>{
+	return [{estado:true}] 
+    });
+               this.subscribe('ordenProduccion',()=>{
 	return [{estatus:true}] 
     });
     this.subscribe('productos',()=>{
@@ -32,6 +35,7 @@ let rc = $reactive(this).attach($scope);
 
     this.ordenCompra = {};
     this.ordenCompra.detalle = this.cotizacion
+
     
      
   
@@ -45,14 +49,36 @@ let rc = $reactive(this).attach($scope);
 	   clientes : () => {
 		  return Clientes.find();
 	  },
-	  productos : () => {
-		  return Productos.find();
+	 productos : () => {
+		 var productos = Productos.find().fetch();
+		  	if (productos) {
+		  		_.each(productos, function(producto){
+		  			producto.unidad = Unidades.findOne(producto.unidad_id)
+
+		  	});
+	  	}
+	  	console.log(productos);
+		  return productos;
 	  },
 	   unidades : () => {
 		  return Unidades.find();
 	  },
 	   proveedores : () => {
 		  return Proveedores.find();
+	  },
+	    ordenes : () => {
+		 var ordenes = orden = OrdenCompra.findOne({_id : $stateParams.ordenCompra_id});
+		  	if (ordenes) {
+		  		_.each(ordenes, function(orden){
+		  			orden.proveedor = Proveedores.findOne(orden.proveedor_id)
+
+		  	});
+	  	}
+	  	console.log(ordenes);
+		  return ordenes;
+	  },
+	   orden : () => {
+		  return OrdenCompra.findOne();
 	  },
 
   });
@@ -81,8 +107,8 @@ let rc = $reactive(this).attach($scope);
 		//cotizacion.material_id = this.material_id;
 		console.log(this.cotizacion)
 		cotizacionManual.tipo = "manual";
-		this.cotizacion.detalle.push(cotizacionManual);
-		this.cotizacion.estatus = 1;
+		this.ordenes.detalle.push(cotizacionManual);
+		this.ordenes.estatus = 1;
 		console.log(this.cotizacion);
 		this.guardar = false; 
 		this.productoTipo = false;
@@ -97,8 +123,8 @@ let rc = $reactive(this).attach($scope);
 	{ 
 		//cotizacion.material_id = this.material_id;
 		cotizacionProducto.tipo = "producto";
-		this.cotizacion.detalle.push(cotizacionProducto);
-		this.cotizacion.estatus = 1;
+		this.ordenes.detalle.push(cotizacionProducto);
+		this.ordenes.estatus = 1;
 		console.log(this.cotizacion);
 		this.guardar = false; 
 		this.productoTipo = false;
@@ -184,6 +210,10 @@ let rc = $reactive(this).attach($scope);
 	
 	this.actualizar = function(cotizacion)
 	{
+		console.log(this.cotizacion);
+		_.each(rc.ordenes.detalle, function(orden){
+			delete orden.$$hashKey;
+			});	
 		var idTemp = cotizacion._id;
 		delete cotizacion._id;		
 		OrdenCompra.update({_id:idTemp},{$set:cotizacion});
