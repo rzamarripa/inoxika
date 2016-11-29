@@ -118,7 +118,7 @@
 							 <div class="col-sm-12">
 								 <div class="col-sm-2">
 									<label >Producto</label>
-									<select class="form-control select2" placeholder="Seleccione" ng-model="orden.productoSeleccionado.producto_id "
+									<select style="width: 155px;" class="form-control select2" placeholder="Seleccione" ng-model="orden.productoSeleccionado.producto_id "
 									 ng-change="orden.getProductos(orden.productoSeleccionado.producto_id)">
 										<option ng-repeat="producto in orden.productos" value="{{producto._id}}">{{producto.nombre}}</option>
 									</select>
@@ -134,7 +134,7 @@
 								</select>
 					        </div>
 								<div class="col-sm-2">
-		    	 					<label>Precio</label>
+		    	 					<label>Costo</label>
 						    		<div class="form-control">{{orden.productoSeleccionado.precio | currency}}</div>
 								</div>
 				 <div class="col-sm-2">
@@ -142,7 +142,7 @@
 			    				<input type="number" class="form-control" placeholder="Utilidad" ng-model="orden.productoSeleccionado.utilidad">
 			   				 </div>	       
 			   				 <div class="col-sm-2">
-		    	 					<label>Precio + utilidad</label>
+		    	 					<label>Precio</label>
 						    		<div class="form-control">{{orden.productoSeleccionado.precio * orden.productoSeleccionado.utilidad/100  + orden.productoSeleccionado.precio}}</div>
 								</div>
 							<div class="col-sm-12">

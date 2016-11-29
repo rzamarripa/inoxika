@@ -29,7 +29,8 @@ let rc = $reactive(this).attach($scope);
       this.productoIndice = 0;
 	  this.productoSeleccionado = {};
 	  this.cotizacionManual = {};
-	  // this.productoSeleccionado = this.cotizacionManual;
+	  
+
      
 
 
@@ -69,6 +70,9 @@ let rc = $reactive(this).attach($scope);
   this.guardar = true; 
   this.tabla 	= false; 
   this.action = true;
+
+
+  $(".js-example-basic-single").select2();
 	
 
   

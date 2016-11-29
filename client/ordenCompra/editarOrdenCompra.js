@@ -87,10 +87,9 @@ let rc = $reactive(this).attach($scope);
 	this.nuevo = true;
 	this.guardar = true; 
 	this.tabla 	= false; 
-
+	this.action = true;
 	
-	  this.action = true;
-	 
+	$(".js-example-basic-single").select2(); 
   this.nuevoCotizacion = function()
   {
     this.action = true;

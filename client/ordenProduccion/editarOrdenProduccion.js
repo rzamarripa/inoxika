@@ -112,6 +112,9 @@ let rc = $reactive(this).attach($scope);
 	this.tabla 	= false; 
 	this.agregar = true;
 	  this.action = true;
+
+
+	  $(".js-example-basic-single").select2();
 	 
   this.nuevoCotizacion = function()
   {

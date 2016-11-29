@@ -119,16 +119,12 @@
 				<div class="tab-content padding-10">
 					<div class="tab-pane active" id="iss1"  >
 							<div class="row">
-							 <div class="col-sm-12">
+							 
 								 <div class="col-sm-2">
-									<label >Producto</label>
-									<!-- <select class="form-control select2" placeholder="Seleccione" ng-model="orden.productoSeleccionado.producto_id "
-									 ng-change="orden.getProductos(orden.productoSeleccionado.producto_id)">
-										<option ng-repeat="producto in orden.productos" value="{{producto._id}}">{{producto.nombre}}</option>
-									</select> -->
+									<label id="id_label_single">Producto</label>
 									<select  ng-options="producto as producto.nombre for producto in orden.productos" 
                           				 ng-model="producto.producto_id" ng-change="orden.getProductos(producto.producto_id)" 
-                          				 class="form-control select2" placeholder="Seleccione"></select>
+                          				 class="js-example-basic-single js-states form-control" id="id_label_single" placeholder="Seleccione"></select>
 								</div>
 								<div class="col-sm-2">
 				    			<label>Cantidad</label>
@@ -140,18 +136,6 @@
 									<option ng-repeat="unidad in orden.unidades" value="{{unidad._id}}">{{unidad.nombre}}</option>
 								</select>
 					        </div>
-							<!-- 	<div class="col-sm-2">
-		    	 					<label>Precio</label>
-						    		<div class="form-control">{{orden.productoSeleccionado.precio | currency}}</div>
-								</div> -->
-					       <!--  <div class="col-sm-2">
-				    			<label>Utilidad</label>
-			    				<input type="number" class="form-control" placeholder="Utilidad" ng-model="orden.productoSeleccionado.utilidad">
-			   				 </div> -->
-			   			<!-- 	 <div class="col-sm-2">
-		    	 					<label>Precio + utilidad</label>
-						    		<div class="form-control">{{orden.productoSeleccionado.precio * orden.productoSeleccionado.utilidad/100  + orden.productoSeleccionado.precio}}</div>
-								</div> -->
 							<div class="col-sm-12">
 							        <label>Descripción</label>
 						    	    <textarea class="form-control">{{orden.productoSeleccionado.descripcion}} </textarea>
@@ -162,7 +146,7 @@
 								<input type="submit" ng-click="orden.agregarProducto(orden.productoSeleccionado)" value="Agregar" class="btn btn-primary" ng-show="orden.action">
 								<input type="submit" ng-click="orden.actualizarProducto(orden.productoSeleccionado)" value="Actualizar" class="btn btn-primary" ng-show="!orden.action">	
 							</div>
-							</div>
+							
 
 						</div><br/>							
 							</div>

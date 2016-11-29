@@ -7,8 +7,8 @@
 			    <div class="row">
 
 				    <div class="col-sm-4">
-								<label >Cliente</label>
-								<select class="form-control select2" placeholder="Seleccione" ng-model="cot.cotizacion.cliente_id"
+								<label id="id_label_single" >Cliente</label>
+								<select class="js-example-basic-single js-states form-control" id="id_label_single" placeholder="Seleccione" ng-model="cot.cotizacion.cliente_id"
 								 ng-change="cot.getClientes(cot.cotizacion.cliente_id)">
 									<option ng-repeat="cliente in cot.clientes" value="{{cliente._id}}">{{cliente.nombre}}</option>
 								</select>
@@ -127,14 +127,14 @@
 							<div class="row">
 							 <div class="col-sm-12">
 								 <div class="col-sm-2">
-									<label >Producto</label>
+									<label id="id_label_single">Producto</label>
 									<!-- <select class="form-control select2" placeholder="Seleccione" ng-model="cot.productoSeleccionado.producto_id "
 									 ng-change="cot.getProductos(cot.productoSeleccionado.producto_id)">
 										<option ng-repeat="producto in cot.productos" value="{{producto._id}}">{{producto.nombre}}</option>
 									</select> -->
 									<select  ng-options="producto as producto.nombre for producto in cot.productos" 
                           				 ng-model="producto.producto_id" ng-change="cot.getProductos(producto.producto_id)" 
-                          				 class="form-control select2" placeholder="Seleccione"></select>
+                          				  placeholder="Seleccione" class="js-example-basic-single js-states form-control" id="id_label_single"></select>
 								</div>
 								<div class="col-sm-2">
 				    			<label>Cantidad</label>

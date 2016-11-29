@@ -64,12 +64,37 @@
         <span class="menu-item-parent">Orden de Compra</span>
       </a>
     </li>
-    <li data-ui-sref-active="active">
-      <a ui-sref="root.ordenProduccion" tilte="Orden">
+     <li data-menu-collapse>
+      <a href="#">
         <i class="fa fa-lg fa-fw fa-external-link"></i>
         <span class="menu-item-parent">Orden de Producción</span>
       </a>
+      <ul>
+        <li data-ui-sref-active="active">
+      <a ui-sref="root.ordenProduccion" tilte="Orden">
+        <i class="fa fa-lg fa-fw fa-hand-paper-o"></i>
+        <span class="menu-item-parent">Pendiente</span>
+      </a>
     </li>
+    <li data-ui-sref-active="active">
+      <a ui-sref="root.ordenProduccionProceso" tilte="Orden">
+        <i class="fa fa-lg fa-fw fa-clock-o"></i>
+        <span class="menu-item-clock-o">En proceso</span>
+      </a>
+    </li>
+    <li data-ui-sref-active="active">
+      <a ui-sref="root.ordenProduccionTerminado" tilte="Orden">
+        <i class="fa fa-lg fa-fw fa-check"></i>
+        <span class="menu-item-parent">Terminada</span>
+      </a>
+    </li>
+     </ul>
+    </li>
+
+  
+
+
+
      <li data-ui-sref-active="active">
       <a ui-sref="root.proveedores" tilte="Orden">
         <i class="fa fa-lg fa-fw fa-male "></i>

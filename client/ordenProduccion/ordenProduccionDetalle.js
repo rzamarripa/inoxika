@@ -81,6 +81,7 @@ let rc = $reactive(this).attach($scope);
 	this.seccion = false;
 
 
+	$(".js-example-basic-single").select2();
 	 
   this.nuevoCotizacion = function()
   {

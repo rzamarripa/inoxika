@@ -24,12 +24,12 @@
 	    	 <br/>
 	    	 	<div class="row">
 	    	 		<div class="col-sm-4">
-							<label >Insumos</label>
+							<label for="id_label_single" >Insumos</label>
 							<!-- <select ng-change="pro.getMateriales(pro.material.material_id)" class="form-control select2" placeholder="Seleccione" ng-model="pro.material.material_id">
 								<option ng-repeat="material in pro.materiales" value="{{material._id}}">{{material.nombre}}</option>
 							</select> -->
 							<select  ng-options="material as material.nombre for material in pro.materiales" 
-                           ng-model="material.material_id" ng-change="pro.getMateriales(material.material_id)" class="form-control select2" placeholder="Seleccione"></select>
+                           ng-model="material.material_id" ng-change="pro.getMateriales(material.material_id)" class="js-example-basic-single js-states form-control" id="id_label_single" placeholder="Seleccione"></select>
 						</div>
 						<div class="col-sm-2">
 					    <label>Cantidad</label>

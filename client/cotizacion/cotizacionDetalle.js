@@ -78,6 +78,9 @@ let rc = $reactive(this).attach($scope);
       this.productoIndice = 0;
 	  this.clienteSeleccionado = {};
 	  this.productoSeleccionado = {};
+
+
+	  $(".js-example-basic-single").select2();
 	 
   this.nuevoCotizacion = function()
   {

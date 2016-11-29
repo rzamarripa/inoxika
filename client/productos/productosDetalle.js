@@ -60,6 +60,9 @@ let rc = $reactive(this).attach($scope);
     this.materialSeleccionado.unidad_id = this.material.unidad_id;
 
 
+    $(".js-example-basic-single").select2();
+
+
  
   
   this.agregarMaterial = function(material)
