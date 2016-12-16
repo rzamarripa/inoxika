@@ -220,7 +220,7 @@ angular.module('inoxica').config(['$injector', function ($injector) {
        .state('root.ordenProduccionProceso', {
       url: '/ordenProduccionProceso',
       templateUrl: 'client/ordenProduccion/ordenProduccionProceso.ng.html',
-      controller: 'OrdenProduccionCtrl as orden',
+      controller: 'OrdenProduccionEnProcesoCtrl as orden',
 
     })
         .state('root.ordenProduccionTerminado', {

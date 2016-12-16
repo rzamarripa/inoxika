@@ -78,6 +78,8 @@ let rc = $reactive(this).attach($scope);
       this.productoIndice = 0;
 	  this.clienteSeleccionado = {};
 	  this.productoSeleccionado = {};
+	  this.cotizacionManual.utilidad = this.clienteSeleccionado.utilidad
+	  this.productoSeleccionado.utilidad = this.clienteSeleccionado.utilidad
 
 
 	  $(".js-example-basic-single").select2();
@@ -96,6 +98,7 @@ let rc = $reactive(this).attach($scope);
 		//cotizacion.material_id = this.material_id;
 		console.log(this.cotizacion)
 		cotizacionManual.tipo = "manual";
+		cotizacionManual.utilidad = this.clienteSeleccionado.utilidad
 		this.cotizacion.detalle.push(cotizacionManual);
 		this.cotizacion.detalle.estatus = 1;
 		console.log(this.cotizacion);
@@ -111,6 +114,7 @@ let rc = $reactive(this).attach($scope);
 	this.agregarProducto = function(cotizacionProducto)
 	{ 
 		cotizacionProducto.tipo = "producto";
+		cotizacionProducto.utilidad = this.clienteSeleccionado.utilidad
 		this.cotizacion.detalle.push(cotizacionProducto);
 		this.cotizacion.detalle.estatus = 1;
 		console.log(this.cotizacion);

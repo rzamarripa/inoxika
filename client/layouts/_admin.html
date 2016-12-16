@@ -18,6 +18,7 @@
         <span class="menu-item-parent">Productos</span>
       </a>
     </li>
+<!-- ///////////////////////////////////////////////////////////// -->
     <li data-menu-collapse>
       <a href="#">
         <i class="fa fa-lg fa-fw fa-file-o"></i>
@@ -51,19 +52,32 @@
 
       </ul>
     </li>
-   
     <li data-ui-sref-active="active">
       <a ui-sref="root.unidades" tilte="Unidades">
         <i class="fa fa-lg fa-fw fa-server"></i>
         <span class="menu-item-parent">Unidades</span>
       </a>
     </li>
-    <li data-ui-sref-active="active">
-      <a ui-sref="root.ordenCompra" tilte="Orden">
+
+<!-- /////////////////////////////////////////////////////////////// -->
+
+    <li data-menu-collapse>
+      <a href="#">
         <i class="fa fa-lg fa-fw fa-dollar"></i>
         <span class="menu-item-parent">Orden de Compra</span>
       </a>
+      <ul>
+    <li data-ui-sref-active="active">
+      <a ui-sref="root.ordenCompra" tilte="Orden">
+        <i class="fa fa-lg fa-fw fa-hand-paper-o"></i>
+        <span class="menu-item-parent">Pendientes</span>
+      </a>
     </li>
+    </ul>
+     </li>
+
+    <!-- /////////////////////////////////////////////////////////// -->
+
      <li data-menu-collapse>
       <a href="#">
         <i class="fa fa-lg fa-fw fa-external-link"></i>
@@ -90,6 +104,8 @@
     </li>
      </ul>
     </li>
+
+    <!-- /////////////////////////////////////////////////////////////////// -->
 
   
 

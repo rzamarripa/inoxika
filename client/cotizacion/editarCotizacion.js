@@ -22,13 +22,16 @@ let rc = $reactive(this).attach($scope);
 
     console.log($stateParams)
     var cantidad = $stateParams.cantidad
-
+      
+      this.cliente = {}
       this.cotizacion = {};
       this.cotizacion.detalle = [];
       this.subTotal = 0.00;
       this.productoIndice = 0;
 	  this.productoSeleccionado = {};
 	  this.cotizacionManual = {};
+	  this.cotizacionManual.utilidad = this.cliente.utilidad
+	  this.productoSeleccionado.utilidad = this.cliente.utilidad
 	  
 
      
@@ -164,6 +167,7 @@ let rc = $reactive(this).attach($scope);
 		_.each(rc.cotizacion.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});
+		this.productoSeleccionado.utilidad = this.cliente.utilidad
 		var idTemp = cotizacion._id;
 		delete cotizacion._id;		
 		Cotizacion.update({_id:idTemp},{$set:cotizacion});

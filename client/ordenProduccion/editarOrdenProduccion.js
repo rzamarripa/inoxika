@@ -14,7 +14,7 @@ let rc = $reactive(this).attach($scope);
 	return [{estatus:true}] 
     });
      this.subscribe('ordenProduccion',()=>{
-	return [{estado:true}] 
+	return [{estatus:1}] 
     });
     this.subscribe('productos',()=>{
 	return [{estatus:true}] 
@@ -67,17 +67,20 @@ let rc = $reactive(this).attach($scope);
 
 	    	
 	    	orden = OrdenProduccion.findOne({_id : $stateParams.ordenProduccion_id});
-
+	     
 	    	_.each(orden.detalle, function(partida){
+	    		if (partida.estatus == undefined) {
 	    		partida.estatus = 1;
+	  }
 
-	    	})
+	    	});
+	    
 
 
 	    	console.log(orden);
 		  return orden
 	  },
-	   orden : () => {
+	   ordenEditar : () => {
 		  return OrdenProduccion.findOne();
 	  },
 
@@ -112,6 +115,7 @@ let rc = $reactive(this).attach($scope);
 	this.tabla 	= false; 
 	this.agregar = true;
 	  this.action = true;
+	  this.seccion = false;
 
 
 	  $(".js-example-basic-single").select2();
@@ -141,6 +145,7 @@ let rc = $reactive(this).attach($scope);
 		this.subTotal += (cotizacionManual.precio + (cotizacionManual.precio * cotizacionManual.utilidad /100)  * cotizacionManual.cantidad)
 		* cotizacionManual.cantidad ;
 		this.cotizacionManual = {};
+		this.seccion = false;
 
 	};
 	this.agregarProducto = function(cotizacionProducto)
@@ -157,6 +162,7 @@ let rc = $reactive(this).attach($scope);
 		* cotizacionManual.cantidad ;
 		});
 		this.productoSeleccionado = {};
+		this.seccion = false;
 	};
 
 	 this.guardarCotizacion = function(cotizacion)
@@ -213,6 +219,7 @@ let rc = $reactive(this).attach($scope);
     this.cancelar = true;
     this.productoIndice = $index;
     console.log(this.productoSeleccionado);
+    this.seccion = true;
 
 	};
 
@@ -231,6 +238,7 @@ let rc = $reactive(this).attach($scope);
 		this.productoSeleccionado = {};
 	    this.cotizacionManual = {};
 	    this.agregar = true;
+	    this.seccion = false;
 	
 	};
 
@@ -325,29 +333,42 @@ let rc = $reactive(this).attach($scope);
 
 
 var pendiente = false;
-this.cambiarEstatusPartida = function(partidaSeleccionada, estatus, index){
+this.cambiarEstatusPartida = function(partidaSeleccionada, estatus, index, id,){
 	partidaSeleccionada.estatus = estatus;
 	console.log(rc.ordenes);
 	delete partidaSeleccionada.$$hashKey;
-	OrdenProduccion.update(rc.orden._id, {$set : { detalle : rc.orden.detalle}})
-	// _.each(this.ordenProduccion.detalle, function(partida){
-	// 	if(partidaSeleccionada.index == partida.index){
-	// 		partida.estatus = estatus;
-	// 		//Cambio la partida de estatus
-	// 		OrdenProduccion.update(rc.ordenProduccion._id, {$set : { detalle : rc.ordenProduccion.detalle}})
-	// 	}
-	// 	if(partida.estatus == 1){
-	// 		pendiente = true;
-	// 		console.log(estatus);
-	// 	}
+	OrdenProduccion.update({_id: id}, {$set : { detalle : rc.ordenEditar.detalle}})
+	var todasTerminadas = true;
 
-	// });
-	
-	// if(pendiente == false){
-	// 	//Cambio la orden de proudcción estatus
-	// 	OrdenProduccion.update(rc.ordenProduccion._id, {$set : { estatus : 2 } } );
-	// }
-	// console.log(partidaSeleccionada);
+	_.each(rc.ordenEditar.detalle, function(partida){
+		if(partida.estatus == 1){
+			todasTerminadas = false;
+			
+		}
+	});
+		_.each(rc.ordenEditar.detalle, function(partida){
+		if(partida.estatus == 1){
+			todasTerminadas = true;
+			
+		}
+	});
+	console.log(todasTerminadas)
+//_.each(rc.ordenEditar, function(partida){
+	if(todasTerminadas == true){
+		console.log("entro")
+
+		var orden = OrdenProduccion.findOne({_id:id});
+		if(orden.estatus == 1)
+			orden.estatus = 2;
+		else
+			orden.estatus = 1;
+		console.log(orden)
+		
+		OrdenProduccion.update({_id: id},{$set :  {estatus : orden.estatus}});
+	}
+//});
+console.log(todasTerminadas)
+
 }
 
 

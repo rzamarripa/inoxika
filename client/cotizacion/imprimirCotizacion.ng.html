@@ -32,7 +32,7 @@
 <br/>
 <div class="col-sm-12">
 	<div class="row">
-		<p>Proyecto:{{cot.nombreProyecto}}</p>
+		<p>Proyecto:{{cot.cotizacion.nombreProyecto}}</p>
 	</div>
 </div>
 <div class="row">
@@ -40,8 +40,8 @@
 		<table class="table table-bordered"  >
 			<thead>
 				<tr>
-				    <td width="10%"><div class="text-center">No.</div></td> 
-			        <th width="20%"><div class="text-center">Descripción</div></th>
+				    <td width="5%"><div class="text-center">No.</div></td> 
+			        <th width="20%"><div class="text-center">Servicio</div></th>
 					<th width="10%"><div class="text-center">Unidad</div></th>
 					<th width="10%"><div class="text-center">Cantidad</div></th>
 					<th width="10%"><div class="text-center">Precio</div></th>
@@ -60,17 +60,17 @@
 			   </tr>	
 			   <tr>
 				   <td colspan="5" ></td>
-				   <td><div class="text-center"><strong>SubTotal:</strong> {{cot.cotizacion.subTota | currency}}</div>
+				   <td><div class="text-center"><strong>SubTotal:</strong> {{cot.cotizacion.subTotal | currency}}</div>
 				   </td>
 			    </tr>
 			    <tr>
 			    	<td colspan="5"></td>
-			    	<td><div class="text-center"><strong>Iva:</strong> {{cot.cotizacion.iva | currency}}
+			    	<td><div class="text-center"><strong>Iva:</strong> {{cot.cotizacion.subTotal*.16 | currency}}
 			    	</div></td>
 			    </tr>
 			    <tr>
 				   <td colspan="5"></td>
-				   <td><div class="text-center"><p>Total:{{cot.cotizacion.total | currency}}</p> </div>
+				   <td><div class="text-center"><strong>Total: </strong>{{cot.cotizacion.total | currency}} </div>
 				   </td>
 			   </tr>
 			    

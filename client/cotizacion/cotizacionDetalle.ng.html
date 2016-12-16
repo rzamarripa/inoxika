@@ -93,12 +93,12 @@
 			    				<input type="number" class="form-control" placeholder="Costo" ng-model="cot.cotizacionManual.precio">
 			   				 </div>
 			   				 <div class="col-sm-2">
-				    			<label>Utilidad</label>
-			    				<input type="number" class="form-control" placeholder="Utilidad" ng-model="cot.cotizacionManual.utilidad">
-			   				 </div>
+		    	 					<label>Utilidad</label>
+						    		<div class="form-control">{{cot.clienteSeleccionado.utilidad | currency}}</div>
+								</div>
 			   				 <div class="col-sm-2">
 		    	 					<label>Precio</label>
-						    		<div class="form-control">{{cot.cotizacionManual.precio * cot.cotizacionManual.utilidad/100  + cot.cotizacionManual.precio | currency}}</div>
+						    		<div class="form-control">{{cot.cotizacionManual.precio * cot.clienteSeleccionado.utilidad/100  + cot.cotizacionManual.precio | currency}}</div>
 								</div>
 			   				 <div class="col-sm-12">
 							     <label>Descripción</label>
@@ -150,12 +150,12 @@
 						    		<div class="form-control">{{cot.productoSeleccionado.precio | currency}}</div>
 								</div>
 					        <div class="col-sm-2">
-				    			<label>Utilidad</label>
-			    				<input type="number" class="form-control" placeholder="Utilidad" ng-model="cot.productoSeleccionado.utilidad">
-			   				 </div>
+		    	 					<label>Utilidad</label>
+						    		<div class="form-control">{{cot.clienteSeleccionado.utilidad | currency}}</div>
+								</div>
 			   				 <div class="col-sm-2">
 		    	 					<label>Precio</label>
-						    		<div class="form-control">{{cot.productoSeleccionado.precio * cot.productoSeleccionado.utilidad/100  + cot.productoSeleccionado.precio}}</div>
+						    		<div class="form-control">{{cot.productoSeleccionado.precio * cot.clienteSeleccionado.utilidad/100  + cot.productoSeleccionado.precio}}</div>
 								</div>
 							<div class="col-sm-12">
 							        <label>Descripción</label>

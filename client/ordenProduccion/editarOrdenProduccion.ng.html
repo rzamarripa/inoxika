@@ -30,7 +30,7 @@
 	    	 
 	    	 <br/>
 
-<div class="row">
+<div class="row"  ng-show="orden.seccion">
 	<div class="jarviswidget" id="wid-id-7" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
 		<header role="heading">
 			<ul class="nav nav-tabs pull-left in">
@@ -151,7 +151,7 @@
 
 		<div class="row">
 <div class="col-sm-12">
-	<table class="table table-bordered"  >
+	<table class="table table-bordered" >
 		<thead>
 			<tr>
 			    <td width="5%"><div class="text-center">No.</div></td> 
@@ -172,10 +172,10 @@
 			    <td><div class="text-center">{{detalle.cantidad}}</div></td>
 			     <td>
 				    <div class="text-center">
-				    	<a ng-show="detalle.estatus == 1 " class="label label-success" ng-click="orden.cambiarEstatusPartida(detalle, 2)">
+				    	<a ng-show="detalle.estatus == 1 " class="label label-success" ng-click="orden.cambiarEstatusPartida(detalle, 2, detalle._id,orden.ordenEditar._id )">
 							  Pendiente
 							</a>
-							<a ng-show="detalle.estatus == 2" class="label label-danger" ng-click="orden.cambiarEstatusPartida(detalle, 1)">
+							<a ng-show="detalle.estatus == 2" class="label label-danger" ng-click="orden.cambiarEstatusPartida(detalle, 1,  detalle._id,orden.ordenEditar._id)">
 							  Terminado
 							</a>
 				    </div>
