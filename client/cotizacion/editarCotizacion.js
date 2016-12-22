@@ -231,6 +231,12 @@ let rc = $reactive(this).attach($scope);
 		
    };
 
+   this.editarCliente = function(id)
+	{
+    this.cliente = Clientes.findOne({_id:id});
+   
+	};
+
 
 
 

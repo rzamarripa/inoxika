@@ -19,6 +19,9 @@ let rc = $reactive(this).attach($scope);
     this.subscribe('unidades',()=>{
 	return [{estatus:true}] 
     });
+     this.subscribe('notas',()=>{
+	return [{estatus:true}] 
+    });
 
     console.log($stateParams)
     var cantidad = $stateParams.cantidad
@@ -49,6 +52,9 @@ let rc = $reactive(this).attach($scope);
 	  },
 	   unidades : () => {
 		  return Unidades.find();
+	  },
+	    notas : () => {
+		  return Notas.find();
 	  },
 
   });
@@ -212,6 +218,14 @@ let rc = $reactive(this).attach($scope);
 		console.log(this.on)		
 		
    };
+
+
+      this.getNota = function(nota_id)
+	{
+		var nota = Notas.findOne(nota_id);
+		if(nota)
+		return nota.nombre;
+	};
 
 
 

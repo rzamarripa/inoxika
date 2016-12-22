@@ -228,6 +228,13 @@ let rc = $reactive(this).attach($scope);
 		return proveedor.nombre;
 	};
 
+	   this.getNota = function(nota_id)
+	{
+		var nota = Notas.findOne(nota_id);
+		if(nota)
+		return nota.nombre;
+	};
+
 	
 
 

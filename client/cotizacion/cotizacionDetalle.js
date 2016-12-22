@@ -20,6 +20,11 @@ let rc = $reactive(this).attach($scope);
 	return [{estatus:true}] 
     });
 
+    this.subscribe('notas',()=>{
+	return [{estatus:true}] 
+    });
+
+
     console.log($stateParams)
     var cantidad = $stateParams.cantidad
 
@@ -27,7 +32,8 @@ let rc = $reactive(this).attach($scope);
   
 	this.helpers({
 	  cotizacion : () => {
-		  return Cotizacion.findOne({_id : $stateParams.cotizacion_id});
+		  var cotiza = Cotizacion.findOne({_id : $stateParams.cotizacion_id});
+		  return cotiza
 	  },
 	  cotizacionProductos : () => {
 		  return Cotizacion.find({tipo : "producto" });
@@ -54,6 +60,9 @@ let rc = $reactive(this).attach($scope);
 	   unidades : () => {
 		  return Unidades.find();
 	  },
+	    notas : () => {
+		  return Notas.find();
+	  },
   });
   
 
@@ -62,7 +71,7 @@ let rc = $reactive(this).attach($scope);
   this.tabla 	= false; 
   this.action = true;
 
-
+      this.cliente = {};
       this.cotizacion = {};
 	  this.cotizacion.fechaInicio = new Date();
 	  var diaDeHoy = moment();
@@ -99,8 +108,8 @@ let rc = $reactive(this).attach($scope);
 		console.log(this.cotizacion)
 		cotizacionManual.tipo = "manual";
 		cotizacionManual.utilidad = this.clienteSeleccionado.utilidad
+		cotizacionManual.estatus = 1
 		this.cotizacion.detalle.push(cotizacionManual);
-		this.cotizacion.detalle.estatus = 1;
 		console.log(this.cotizacion);
 		this.guardar = false; 
 		this.productoTipo = false;
@@ -168,6 +177,16 @@ let rc = $reactive(this).attach($scope);
     $('.collapse').collapse('show');
     this.nuevo = false;
 	};
+
+
+
+	this.editarCliente = function(id)
+	{
+    this.cliente = Clientes.findOne({_id:id});
+   
+	};
+
+
 	this.editarProducto = function($index)
 	{
     this.productoSeleccionado = rc.cotizacion.detalle[$index];
@@ -255,6 +274,13 @@ let rc = $reactive(this).attach($scope);
 		if(unidad)
 		return unidad.nombre;
 	};
+	 this.getUtilidad= function(unidad_id)
+	{
+		var unidad = Unidades.findOne(unidad_id);
+		if(unidad)
+		return unidad.nombre;
+	};
+
 
 	this.SumaPrecioProductos = function(){
 		total = 0;

@@ -39,10 +39,10 @@
 				    <td><div class="text-center">{{ordenProduccion.nombrePrimerProducto}}</div></td>
 				     <td>
 				    <div class="text-center">
-				    	<a ng-show="ordenProduccion.estatus == 1 " class="label label-warning" ng-click="orden.cambiarEstatusPartida(ordenProduccion, 2)">
+				    	<a ng-show="ordenProduccion.estatus == 1 " class="label label-warning">
 							  Pendiente
 							</a>
-							<a ng-show="ordenProduccion.estatus == 2" class="label label-danger" ng-click="orden.cambiarEstatusPartida(ordenProduccion, 1)">
+							<a  ng-show="ordenProduccion.estatus == 2" class="label label-danger">
 							  Terminado
 							</a>
 				    </div>

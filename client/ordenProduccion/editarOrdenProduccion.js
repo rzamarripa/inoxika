@@ -14,7 +14,7 @@ let rc = $reactive(this).attach($scope);
 	return [{estatus:true}] 
     });
      this.subscribe('ordenProduccion',()=>{
-	return [{estatus:1}] 
+	return [{_id : $stateParams.ordenProduccion_id}] 
     });
     this.subscribe('productos',()=>{
 	return [{estatus:true}] 
@@ -63,26 +63,12 @@ let rc = $reactive(this).attach($scope);
 	   proveedores : () => {
 		  return Proveedores.find();
 	  },
-	    ordenes : () => {
+	    orden : () => {
 
-	    	
-	    	orden = OrdenProduccion.findOne({_id : $stateParams.ordenProduccion_id});
+	 	
+	    	return OrdenProduccion.findOne({_id : $stateParams.ordenProduccion_id});
 	     
-	    	_.each(orden.detalle, function(partida){
-	    		if (partida.estatus == undefined) {
-	    		partida.estatus = 1;
 	  }
-
-	    	});
-	    
-
-
-	    	console.log(orden);
-		  return orden
-	  },
-	   ordenEditar : () => {
-		  return OrdenProduccion.findOne();
-	  },
 
   });
 
@@ -136,8 +122,8 @@ let rc = $reactive(this).attach($scope);
 
 		console.log(this.cotizacionManual)
 		cotizacionManual.tipo = "manual";
-		this.ordenes.detalle.push(cotizacionManual);
-		this.ordenes.estatus = 1;
+		this.orden.detalle.push(cotizacionManual);
+		this.orden.estatus = 1;
 		this.guardar = false; 
 		this.productoTipo = false;
 		this.on = false;
@@ -152,8 +138,8 @@ let rc = $reactive(this).attach($scope);
 	{ 
 	
 		cotizacionProducto.tipo = "producto";
-		this.ordenes.detalle.push(cotizacionProducto);
-		this.ordenes.estatus = 1;
+		this.orden.detalle.push(cotizacionProducto);
+		this.orden.estatus = 1;
 		console.log(this.cotizacionProducto);
 		this.guardar = false; 
 		this.productoTipo = false;
@@ -243,33 +229,17 @@ let rc = $reactive(this).attach($scope);
 	};
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	
-	this.actualizar = function(cotizacion)
-	{
-		console.log(this.cotizacion);
-		_.each(rc.cotizacion.detalle, function(cotizacion){
-			delete cotizacion.$$hashKey;
-			});	
-		_.each(rc.ordenProduccion.detalle, function(cotizacion){
-			delete cotizacion.$$hashKey;
-			});	
 
-		console.log(this.cotizacion);
-		_.each(rc.ordenes.detalle, function(orden){
-			delete orden.$$hashKey;
-			});	
-		
-		var idTemp = cotizacion._id;
-		delete cotizacion._id;	
-		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre	
-		OrdenProduccion.update({_id:idTemp},{$set:cotizacion});
-		$('.collapse').collapse('hide');
-		this.nuevo = true;
-		console.log(cotizacion);
-		$state.go('root.ordenProduccion')
-	};
 
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////
+////////////////////////////////////////////////////////////////////////v////////////////////////////////////
 	this.cambiarEstatus = function(id)
 	{
 		var cotizacion = Cotizacion.findOne({_id:id});
@@ -331,53 +301,89 @@ let rc = $reactive(this).attach($scope);
 	};
 
 
-
-var pendiente = false;
-this.cambiarEstatusPartida = function(partidaSeleccionada, estatus, index, id,){
-	partidaSeleccionada.estatus = estatus;
-	console.log(rc.ordenes);
-	delete partidaSeleccionada.$$hashKey;
-	OrdenProduccion.update({_id: id}, {$set : { detalle : rc.ordenEditar.detalle}})
-	var todasTerminadas = true;
-
-	_.each(rc.ordenEditar.detalle, function(partida){
-		if(partida.estatus == 1){
-			todasTerminadas = false;
-			
-		}
-	});
-		_.each(rc.ordenEditar.detalle, function(partida){
-		if(partida.estatus == 1){
-			todasTerminadas = true;
-			
-		}
-	});
-	console.log(todasTerminadas)
-//_.each(rc.ordenEditar, function(partida){
-	if(todasTerminadas == true){
-		console.log("entro")
-
-		var orden = OrdenProduccion.findOne({_id:id});
-		if(orden.estatus == 1)
-			orden.estatus = 2;
-		else
-			orden.estatus = 1;
-		console.log(orden)
-		
-		OrdenProduccion.update({_id: id},{$set :  {estatus : orden.estatus}});
-	}
-//});
-console.log(todasTerminadas)
-
-}
-
-
 	this.eliminarProducto = function($index)
 	{
-		rc.ordenes.detalle.splice($index, 1);
+		rc.orden.detalle.splice($index, 1);
     };
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+this.cambiarEstatusPartida = function(partidaSeleccionada, estatus, id){
+	partidaSeleccionada.estatus = estatus;
+	console.log(partidaSeleccionada.estatus)
+	//console.log(rc.orden);
+	delete partidaSeleccionada.$$hashKey;
+	var idTemp = rc.orden._id;
+	delete rc.orden._id;
+	
+	console.log("partida", partidaSeleccionada);
+	OrdenProduccion.update({_id: idTemp}, {$set : rc.orden})
+	
+	// console.log(todasTerminadas)
+	console.log(rc.cotizacion)
+}
+////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////v////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	this.actualizar = function(cotizacion,id)
+	{
+		var todasTerminadas = false;
+		//console.log(this.cotizacion);
+		_.each(rc.cotizacion.detalle, function(cotizacion){
+			delete cotizacion.$$hashKey;
+			});	
+		_.each(rc.ordenProduccion.detalle, function(cotizacion){
+			delete cotizacion.$$hashKey;
+			});	
+		_.each(rc.orden.detalle, function(orden){
+			delete orden.$$hashKey;
+			});
+
+
+
+		//this.cotizacion = OrdenProduccion.findOne({_id:id});
+		var idTemp = cotizacion._id;
+		delete cotizacion._id;	
+		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre	
+		//OrdenProduccion.update({_id:idTemp},{$set:cotizacion});
+
+
+
+		todasTerminadas = true;
+
+		_.each(rc.orden.detalle, function(partida){
+			if(partida.estatus == 1){
+				todasTerminadas = false;
+			}
+			
+		});
+
+
+		console.log(todasTerminadas)
+
+		if (todasTerminadas==true) {
+			console.log("entro como true")
+			cotizacion.estatus = 2;
+		}else{
+			console.log("entro omo false");
+			cotizacion.estatus = 1;
+		}
+		OrdenProduccion.update({_id:idTemp},{$set:cotizacion});
+	
+
+	
+	
+		$('.collapse').collapse('hide');
+		this.nuevo = true;
+		console.log(cotizacion);
+		$state.go('root.ordenProduccion')
+	};
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 };

@@ -10,7 +10,7 @@
 								<label id="id_label_single" >Cliente</label>
 								<select class="js-example-basic-single js-states form-control" id="id_label_single" placeholder="Seleccione" ng-model="cot.cotizacion.cliente_id"
 								 ng-change="cot.getClientes(cot.cotizacion.cliente_id)">
-									<option ng-repeat="cliente in cot.clientes" value="{{cliente._id}}">{{cliente.nombre}}</option>
+									<option ng-repeat="cliente in cot.clientes" value="{{cliente._id}}" ng-click="cot.editarCliente(cliente._id)">{{cliente.nombre}}</option>
 								</select>
 					</div>
 					<div class="col-sm-6"> 
@@ -92,10 +92,10 @@
 				    			<label>Costo</label>
 			    				<input type="number" class="form-control" placeholder="Costo" ng-model="cot.cotizacionManual.precio">
 			   				 </div>
-			   				 <div class="col-sm-2">
-		    	 					<label>Utilidad</label>
-						    		<div class="form-control">{{cot.cliente.utilidad | currency}}</div>
-								</div>
+			   				 	<div class="col-sm-2">
+				    			<label>Utilidad</label>
+			    				<input  type="text" class="form-control" placeholder="Utilidad" ng-model="cot.clienteSeleccionado.utilidad" capitalized>
+			   				 </div>
 			   				 <div class="col-sm-2">
 		    	 					<label>Precio</label>
 						    		<div class="form-control">{{cot.cotizacionManual.precio * cot.cotizacionManual.utilidad/100  + cot.cotizacionManual.precio | currency}}</div>
@@ -148,10 +148,10 @@
 		    	 					<label>Costo</label>
 						    		<div class="form-control">{{cot.productoSeleccionado.precio | currency}}</div>
 								</div>
-					        <div class="col-sm-2">
-		    	 					<label>Utilidad</label>
-						    		<div class="form-control">{{cot.cliente.utilidad | currency}}</div>
-								</div>
+					        	<div class="col-sm-2">
+				    			<label>Utilidad</label>
+			    				<input  type="text" class="form-control" placeholder="Utilidad" ng-model="cot.clienteSeleccionado.utilidad" capitalized>
+			   				 </div>
 			   				 <div class="col-sm-2">
 		    	 					<label>Precio</label>
 						    		<div class="form-control">{{cot.productoSeleccionado.precio * cot.productoSeleccionado.utilidad/100  + cot.productoSeleccionado.precio}}</div>

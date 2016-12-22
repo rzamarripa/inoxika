@@ -1,0 +1,82 @@
+<h2>Notas</h2>
+<div class="row">
+	<div class="col-sm-12">
+			<form class="form-horizontal" role="form" data-parsley-validate>
+	    	 <div class="well">
+	    	 	<div class="row">
+	    	 		<div class="col-sm-12">
+	    	 			<div class="col-sm-3">
+	    	 				<label>Nombre</label>
+					    	<input type="text" class="form-control" placeholder="Nombre" ng-model="nota.nota.nombre" capitalized >
+	    	 			</div>
+	    	 		</div>
+	    	 	</div><br/>
+
+					<div class="row">
+						
+						<div class="col-sm-12">
+							<input type="submit" ng-click="nota.guardar(nota.nota)" value="Guardar" class="btn btn-primary" ng-show="nota.action">
+							<input type="submit" ng-click="nota.actualizar(nota.nota)" value="Actualizar" class="btn btn-primary" ng-show="!nota.action">	
+						</div>
+					</div>
+
+
+
+		  	</div>
+	  	</form>
+		
+	</div>
+</div>
+<br/>
+<!-- List -->
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th width="20%"><div class="text-center">Nombre</div></th>
+					<th width="10%">
+						<div class="text-center">
+							Estatus
+						</div>
+					</th>
+					<th width="10%">
+						<div class="text-center">
+							Acciones
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+		    <tr ng-repeat="nota in nota.notas">
+			    <td><div class="text-center">{{nota.nombre}}</div></td>
+
+			    <td>
+				    <div class="text-center">
+				    	<span ng-if="nota.estatus" class="label label-success">
+							  Activo
+							</span>
+							<span ng-if="!nota.estatus" class="label label-danger">
+							  Inactivo
+							</span>
+				    </div>
+			    </td>
+			    <td>
+				    <div class="text-center">
+					    <div class="btn-group">
+							  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    <span class="caret"></span>
+							    <span class="sr-only">Toggle Dropdown</span>
+							  </button>
+							  <ul class="dropdown-menu text-left">
+							    <li><a href="#" ng-click="nota.editar(nota._id)"><i class="fa fa-pencil"></i> Editar</a></li>
+							  <li><a href="#" ng-click="nota.cambiarEstatus(nota._id)"><i class="fa fa-trash"></i> Desactivar</a></li>
+							  </ul>
+							</div>
+				    </div>				    
+			    </td>
+		    </tr>
+			</tbody>
+		</table>
+	</div>
+</div>

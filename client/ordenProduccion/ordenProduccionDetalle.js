@@ -130,7 +130,17 @@ let rc = $reactive(this).attach($scope);
 
 	 this.guardarCotizacion = function(cotizacion)
 	{
+
+
 		console.log(this.cotizacion);
+
+	     
+	    	_.each(rc.cotizacion.detalle, function(partida){
+	    		if (partida.estatus == true) {
+	    		partida.estatus = 1;
+	            }
+
+	    	});
 		_.each(rc.cotizacion.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	

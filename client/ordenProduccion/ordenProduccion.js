@@ -34,23 +34,34 @@ let rc = $reactive(this).attach($scope);
 	  ordenes : () => {
 
 	  		orden = OrdenProduccion.find();
+	  // 		var terminadas = false;
 
 
-	    //  _.each(orden, function(ordenes){
-	    // 	_.each(orden.detalle, function(partida){
-	    // 		if (partida.estatus == 2) {
-	    // 		ordenes.estatus = 2;
-	    //  }
-
-	    // 	});
+	  // _.each(orden, function(ord){
+	  //   	_.each(ord.detalle, function(partida){
+	  //   		if (partida.estatus == 1) {
+	  //   			ord.estatus = 1
 	    	
 
+	  //          }
+	  //   	});
+	  //   });
 
-	    // });
-	    
+	  //   	console.log(terminadas)
+	  //   	  _.each(orden, function(ord){
+	  //   	_.each(ord.detalle, function(partida){
+	  //   		if (partida.estatus = 2 ) {
+	  //   			ord.estatus = 2
+	    		
+
+	  //          }
+
+	  //   	});
+	  //   });
+	  //   	console.log(terminadas)
 
 
-	    	console.log(orden);
+	  //   	console.log(orden);
 		  return orden
 	  },
 	    proveedores : () => {
@@ -73,6 +84,36 @@ let rc = $reactive(this).attach($scope);
  this.material = {};
  this.producto = {};
  this.producto.detalleProducto = [];
+
+// var todasTerminadas = false
+
+//  $(document).ready(function() {
+//    	_.each(rc.ordenes.detalle, function(partida){
+// 		if(partida.estatus == 2){
+// 			todasTerminadas = true;
+			
+// 		}else{
+// 			todasTerminadas = false
+// 		}
+// 		console.log(todasTerminadas)
+// 	});
+
+
+
+// 	if(todasTerminadas == true){
+// 		console.log("entro")
+
+// 		var orden = OrdenProduccion.findOne({_id:id});
+// 		if(orden.estatus == 1)
+// 			orden.estatus = 2;
+// 		else
+// 			orden.estatus = 1;
+// 		console.log(orden)
+		
+// 		OrdenProduccion.update({_id: id},{$set :  {estatus : orden.estatus}});
+// 	}
+// console.log(todasTerminadas)
+// });
 
   this.nuevoProductos = function()
   {
@@ -220,5 +261,37 @@ let rc = $reactive(this).attach($scope);
 		_.each(rc.producto.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
 		return total
 	}
+
+
+// 	this.cambiarEstatusPartida = function(id){
+// todasTerminadas = false;
+// 		_.each(rc.ordenes.detalle, function(partida){
+
+
+// 		if(partida.estatus == 2){
+// 			todasTerminadas = true;
+			
+// 		}
+// 	});
+	
+// 	// if(todasTerminadas = true)
+// 	// {
+// 	// 	console.log("entro")
+	
+
+// 	// 	var orden = OrdenProduccion.findOne({_id:id});
+// 	// 	if(orden.estatus == 1)
+// 	// 		orden.estatus = 2;
+// 	// 	else
+// 	// 		orden.estatus = 1;
+// 	// 	console.log(orden)
+		
+// 	// 	OrdenProduccion.update({_id: id},{$set :  {estatus : orden.estatus}});
+// 	// }
+
+// console.log(todasTerminadas)
+
+// }
+
 		
 };

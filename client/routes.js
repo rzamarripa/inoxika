@@ -246,6 +246,12 @@ angular.module('inoxica').config(['$injector', function ($injector) {
       templateUrl: 'client/ordenProduccion/imprimirOrdenProduccion.ng.html',
       controller: 'ImprimirOrdenProduccionCtrl as orden',
     })
+      //<--///////////////// NOTAS ////////////////////-->//
+    .state('root.notas', {
+      url: '/notas',
+      templateUrl: 'client/notas/notas.ng.html',
+      controller: 'NotasCtrl as nota',
+    })
   //<--///////////////// USUARIOS ////////////////////-->//
     .state('root.usuarios', {
       url: '/usuarios',

@@ -1,11 +1,13 @@
 <nav>
-	<ul data-smart-menu>
-    <li data-ui-sref-active="active">
-      <a ui-sref="root.materiales" tilte="Materiales">
-        <i class="fa fa-lg fa-fw fa-wrench"></i>
-        <span class="menu-item-parent">Materiales</span>
+  <ul data-smart-menu>
+
+<li data-menu-collapse>
+      <a href="#">
+        <i class="fa fa-lg fa-fw fa-bar-chart-o"></i>
+        <span class="menu-item-parent">Catálogos</span>
       </a>
-    </li>
+	<ul>
+    
     <li data-ui-sref-active="active">
       <a ui-sref="root.clientes" tilte="Clientes">
         <i class="fa fa-lg fa-fw fa-users"></i>
@@ -18,46 +20,28 @@
         <span class="menu-item-parent">Productos</span>
       </a>
     </li>
-<!-- ///////////////////////////////////////////////////////////// -->
-    <li data-menu-collapse>
-      <a href="#">
-        <i class="fa fa-lg fa-fw fa-file-o"></i>
-        <span class="menu-item-parent">Cotizaciones</span>
-      </a>
-      <ul>
-      <li data-ui-sref-active="active">
-           <a ui-sref="root.cotizacion" tilte="Nueva">
-            <i class="fa fa-lg fa-fw fa-file-text-o"></i>
-            <span class="menu-item-parent">Nueva</span>
-           </a>
-        </li>
-          <li data-ui-sref-active="active">
-           <a ui-sref="root.cotizacionPendiente" tilte=" Pendientes">
-            <i class="fa fa-lg fa-fw fa-file-powerpoint-o"></i>
-            <span class="menu-item-parent">Pendientes</span>
-           </a>
-        </li>
-        <li data-ui-sref-active="active">
-           <a ui-sref="root.cotizacionAceptada" tilte=" Aceptadas">
-            <i class="fa fa-lg fa-fw fa-check-square-o"></i>
-            <span class="menu-item-parent">Aceptadas</span>
-           </a>
-        </li>
-        <li data-ui-sref-active="active">
-           <a ui-sref="root.cotizacionRechazada" tilte="Cotizaciones Rechazadas">
-            <i class="fa fa-lg fa-fw fa-ban"></i>
-            <span class="menu-item-parent">Rechazadas</span>
-           </a>
-        </li>
-
-      </ul>
-    </li>
     <li data-ui-sref-active="active">
       <a ui-sref="root.unidades" tilte="Unidades">
         <i class="fa fa-lg fa-fw fa-server"></i>
         <span class="menu-item-parent">Unidades</span>
       </a>
     </li>
+    <li data-ui-sref-active="active">
+      <a ui-sref="root.proveedores" tilte="Orden">
+        <i class="fa fa-lg fa-fw fa-male "></i>
+        <span class="menu-item-parent">Proveedores</span>
+      </a>
+    </li>
+    <li data-ui-sref-active="active">
+      <a ui-sref="root.materiales" tilte="Materiales">
+        <i class="fa fa-lg fa-fw fa-wrench"></i>
+        <span class="menu-item-parent">Materiales</span>
+      </a>
+    </li>
+<!-- ///////////////////////////////////////////////////////////// -->
+ 
+
+         
 
 <!-- /////////////////////////////////////////////////////////////// -->
 
@@ -104,19 +88,50 @@
     </li>
      </ul>
     </li>
+        <li data-menu-collapse>
+      <a href="#">
+        <i class="fa fa-lg fa-fw fa-file-o"></i>
+        <span class="menu-item-parent">Cotizaciones</span>
+      </a>
+       <ul >
+      <li data-ui-sref-active="active">
+           <a ui-sref="root.cotizacion" tilte="Nueva">
+            <i class="fa fa-lg fa-fw fa-file-text-o"></i>
+            <span class="menu-item-parent">Nueva</span>
+           </a>
+        </li>
+          <li data-ui-sref-active="active">
+           <a ui-sref="root.cotizacionPendiente" tilte=" Pendientes">
+            <i class="fa fa-lg fa-fw fa-file-powerpoint-o"></i>
+            <span class="menu-item-parent">Pendientes</span>
+           </a>
+        </li>
+        <li data-ui-sref-active="active">
+           <a ui-sref="root.cotizacionAceptada" tilte=" Aceptadas">
+            <i class="fa fa-lg fa-fw fa-check-square-o"></i>
+            <span class="menu-item-parent">Aceptadas</span>
+           </a>
+        </li>
+        <li data-ui-sref-active="active">
+           <a ui-sref="root.cotizacionRechazada" tilte="Cotizaciones Rechazadas">
+            <i class="fa fa-lg fa-fw fa-ban"></i>
+            <span class="menu-item-parent">Rechazadas</span>
+           </a>
+        </li>
 
-    <!-- /////////////////////////////////////////////////////////////////// -->
+      </ul>
+    </li>
 
-  
-
-
-
-     <li data-ui-sref-active="active">
-      <a ui-sref="root.proveedores" tilte="Orden">
-        <i class="fa fa-lg fa-fw fa-male "></i>
-        <span class="menu-item-parent">Proveedores</span>
+    <li data-ui-sref-active="active">
+      <a ui-sref="root.notas" tilte="Notas">
+        <i class="fa fa-lg fa-fw fa-users"></i>
+        <span class="menu-item-parent">Notas</span>
       </a>
     </li>
+
+    <!-- /////////////////////////////////////////////////////////////////// -->
 	</ul>
+   </li>
+   </ul>
 </nav>
 
