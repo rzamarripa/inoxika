@@ -13,11 +13,11 @@ let rc = $reactive(this).attach($scope);
       this.subscribe('clientes',()=>{
 	return [{estatus:true}] 
     });
-         this.subscribe('ordenCompra',()=>{
-	return [{estatus:true}] 
+     this.subscribe('ordenCompra',()=>{
+	return [{estatus:"pendiente"}] 
     });
-              this.subscribe('ordenProduccion',()=>{
-	return [{estatus:true}] 
+     this.subscribe('ordenProduccion',()=>{
+	return [{_id : $stateParams.ordenProduccion_id}] 
     });
     this.subscribe('productos',()=>{
 	return [{estatus:true}] 
@@ -33,14 +33,14 @@ let rc = $reactive(this).attach($scope);
     var cantidad = $stateParams.cantidad
    
 
-    this.ordenCompra = {};
-    this.ordenCompra.detalle = this.cotizacion
+    this.ordenProduccion = {};
+    this.ordenProduccion.detalle = this.cotizacion
     
      
   
 	this.helpers({
-	  cotizacion : () => {
-		  return Cotizacion.findOne({_id : $stateParams.cotizacion_id});
+	  ordenProduccion : () => {
+		  return OrdenProduccion.findOne({_id : $stateParams.ordenProduccion_id});
 	  },
 	  materiales : () => {
 		  return Materiales.find();
@@ -89,11 +89,11 @@ let rc = $reactive(this).attach($scope);
   this.agregarManual = function(cotizacionManual)
 	{ 
 		//cotizacion.material_id = this.material_id;
-		console.log(this.cotizacion)
+		console.log(this.ordenProduccion)
 		cotizacionManual.tipo = "manual";
-		this.cotizacion.detalle.push(cotizacionManual);
-		this.cotizacion.estatus = 1;
-		console.log(this.cotizacion);
+		this.ordenProduccion.detalle.push(cotizacionManual);
+		this.ordenProduccion.estatus = 1;
+		console.log(this.ordenProduccion);
 		this.guardar = false; 
 		this.productoTipo = false;
 		this.on = false;
@@ -107,9 +107,9 @@ let rc = $reactive(this).attach($scope);
 	{ 
 		//cotizacion.material_id = this.material_id;
 		cotizacionProducto.tipo = "producto";
-		this.cotizacion.detalle.push(cotizacionProducto);
-		this.cotizacion.estatus = 1;
-		console.log(this.cotizacion);
+		this.ordenProduccion.detalle.push(cotizacionProducto);
+		this.ordenProduccion.estatus = 1;
+		console.log(this.ordenProduccion);
 		this.guardar = false; 
 		this.productoTipo = false;
 		_.each(cotizacionProducto.detalle, function(detalle){
@@ -123,22 +123,23 @@ let rc = $reactive(this).attach($scope);
 	 this.guardarCotizacion = function(cotizacion)
 	{
 		console.log(this.cotizacion);
-		_.each(rc.cotizacion.detalle, function(cotizacion){
+		_.each(rc.ordenProduccion.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	
-		_.each(rc.ordenCompra.detalle, function(cotizacion){
+		_.each(rc.ordenProduccion.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	
 		 var total = 0;
-		_.each(rc.cotizacion.detalle,function(detalle){ total +=
+		_.each(rc.ordenProduccion.detalle,function(detalle){ total +=
 		 ((detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad)});
-		_.each(rc.cotizacion.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
-		this.cotizacion.subTotal = total;
-		this.cotizacion.total = total - total*0.16;
-		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre 
-		this.cotizacion.estado = true;			
-		OrdenCompra.insert(this.cotizacion);
-		toastr.success('Cotizacion guardada.');
+		_.each(rc.ordenProduccion.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
+		this.ordenProduccion.imprimir = true;
+		this.ordenProduccion.subTotal = total;
+		this.ordenProduccion.total = total - total*0.16;
+		this.ordenProduccion.nombrePrimerProducto = this.ordenProduccion.detalle[0].nombre 
+		this.ordenProduccion.estado = "pendiente";			
+		OrdenCompra.insert(this.ordenProduccion);
+		toastr.success('Orden guardada.');
 		this.cotizacion = {};
 		this.cotizacionProducto = {};
      	this.cotizacion.detalle = [];
@@ -164,8 +165,8 @@ let rc = $reactive(this).attach($scope);
 	this.editarOrden = function($index)
 	{
 
-    this.cotizacionManual = rc.cotizacion.detalle[$index];
-    this.productoSeleccionado = rc.cotizacion.detalle[$index];
+    this.cotizacionManual = rc.ordenProduccion.detalle[$index];
+    this.productoSeleccionado = rc.ordenProduccion.detalle[$index];
 
     this.agregar = false;
     this.cancelar = true;
@@ -177,12 +178,12 @@ let rc = $reactive(this).attach($scope);
 
 		this.actualizarProducto= function(producto)
 	{
-		console.log(this.cotizacion);
+		console.log(this.producto);
 		this.action = true;
-		_.each(rc.cotizacion.detalle, function(cotizacion){
+		_.each(rc.ordenProduccion.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	
-		rc.cotizacion.detalle[this.productoIndice] = producto;
+		rc.ordenProduccion.detalle[this.productoIndice] = producto;
 		this.productoSeleccionado = {};
 	    this.cotizacionManual = {};
 	
@@ -204,7 +205,7 @@ let rc = $reactive(this).attach($scope);
 
 	this.cambiarEstatus = function(id)
 	{
-		var cotizacion = Cotizacion.findOne({_id:id});
+		var cotizacion = OrdenProduccion.findOne({_id:id});
 		if(cotizacion.estatus == 1)
 			cotizacion.estatus = 2;
 		else
@@ -242,7 +243,7 @@ let rc = $reactive(this).attach($scope);
 
 	this.SumaPrecioProductos = function(){
 		total = 0;
-		_.each(rc.cotizacion.detalle,function(detalle){ total += (
+		_.each(rc.ordenProduccion.detalle,function(detalle){ total += (
 		(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad)});
 		return total
 	};
@@ -262,6 +263,11 @@ let rc = $reactive(this).attach($scope);
 		if(proveedor)
 		return proveedor.nombre;
 	};
+
+	this.eliminarOrden = function($index)
+	{
+		rc.ordenProduccion.detalle.splice($index, 1);
+    };
 
 
 

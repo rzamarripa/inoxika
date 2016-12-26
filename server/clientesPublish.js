@@ -3,5 +3,6 @@ Meteor.publish("clientes",function(){
 });
 
 Meteor.publish("cliente",function(options){
-  	return Clientes.find(options.id);
+  	return Clientes.find(options.id,{}, {sort: {createdAt: -1}, limit: 5});
+  	// Clientes.find(options.id);
 });

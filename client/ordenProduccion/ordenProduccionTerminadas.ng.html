@@ -1,4 +1,4 @@
-<h2>Orden de Producción en Proceso</h2>
+<h2>Orden de Producción Termindas</h2>
 <div class="row">
 	<div class="col-sm-12">
 		<!-- <a class="btn btn-primary" ui-sref="root.cotizacionDetalle" >Nuevo</a> -->
@@ -42,7 +42,7 @@
 				    	<a ng-show="ordenProduccion.estatus == 1 " class="label label-warning" ng-click="orden.cambiarEstatusPartida(ordenProduccion, 2)">
 							  Pendiente
 							</a>
-							<a ng-show="ordenProduccion.estatus == 2" class="label label-danger" ng-click="orden.cambiarEstatusPartida(ordenProduccion, 1)">
+							<a ng-show="ordenProduccion.estatus == 2" class="label label-success" ng-click="orden.cambiarEstatusPartida(ordenProduccion, 1)">
 							  Terminado
 							</a>
 				    </div>

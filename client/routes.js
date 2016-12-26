@@ -169,17 +169,17 @@ angular.module('inoxica').config(['$injector', function ($injector) {
     })
 
       .state('root.cotizacionRechazada', {
-      url: '/cotizacionRechazada/:cotizacion_id',
+      url: '/cotizacionRechazada/',
       templateUrl: 'client/cotizacion/cotizacionRechazada.ng.html',
       controller: 'CotizacionRechazadaCtrl as cot',
     })
       .state('root.cotizacionAceptada', {
-      url: '/cotizacionAceptada/:cotizacion_id',
+      url: '/cotizacionAceptada/',
       templateUrl: 'client/cotizacion/cotizacionAceptada.ng.html',
-      controller: 'CotizacionCtrl as cot',
+      controller: 'CotizacionAceptadaCtrl as cot',
     })
        .state('root.cotizacionPendiente', {
-      url: '/cotizacionPendiente/:cotizacion_id',
+      url: '/cotizacionPendiente/',
       templateUrl: 'client/cotizacion/cotizacionPendiente.ng.html',
       controller: 'CotizacionCtrl as cot',
     })
@@ -192,7 +192,7 @@ angular.module('inoxica').config(['$injector', function ($injector) {
 
     })
       .state('root.ordenCompraDetalle', {
-      url: '/ordenCompraDetalle/:cotizacion_id',
+      url: '/ordenCompraDetalle/:ordenProduccion_id',
       templateUrl: 'client/ordenCompra/ordenCompraDetalle.ng.html',
       controller: 'OrdenCompraDetalleCtrl as orden',
 
@@ -204,9 +204,21 @@ angular.module('inoxica').config(['$injector', function ($injector) {
       controller: 'EditarOrdenCompraDetalleCtrl as orden',
   })
          .state('anon.imprimirOrdenCompra', {
-      url: '/imprimirOrdenCompra/:cotizacion_id',
+      url: '/imprimirOrdenCompra/:ordenCompra_id',
       templateUrl: 'client/ordenCompra/imprimirOrdenCompra.ng.html',
       controller: 'ImprimirOrdenCompraCtrl as orden',
+    })
+          .state('root.ordenCompraAceptada', {
+      url: '/ordenCompraAceptada',
+      templateUrl: 'client/ordenCompra/ordenCompraAceptada.ng.html',
+      controller: 'OrdenCompraAceptadaCtrl as orden',
+
+    })
+              .state('root.ordenCompraRechazada', {
+      url: '/ordenCompraRechazada',
+      templateUrl: 'client/ordenCompra/ordenCompraRechazada.ng.html',
+      controller: 'OrdenCompraRechazadaCtrl as orden',
+
     })
 
          //<--///////////////// ORDEN DE PRODUCCIÓN ////////////////////-->//
@@ -223,10 +235,10 @@ angular.module('inoxica').config(['$injector', function ($injector) {
       controller: 'OrdenProduccionEnProcesoCtrl as orden',
 
     })
-        .state('root.ordenProduccionTerminado', {
-      url: '/ordenProduccionTerminado',
-      templateUrl: 'client/ordenProduccion/ordenProduccionTerminado.ng.html',
-      controller: 'OrdenProduccionTerminadoCtrl as orden',
+        .state('root.ordenProduccionTerminadas', {
+      url: '/ordenProduccionTerminadas',
+      templateUrl: 'client/ordenProduccion/ordenProduccionTerminadas.ng.html',
+      controller: 'OrdenProduccionTerminadasCtrl as orden',
 
     })
       .state('root.ordenProduccionDetalle', {
@@ -242,7 +254,7 @@ angular.module('inoxica').config(['$injector', function ($injector) {
       controller: 'EditarOrdenProduccionCtrl as orden',
     })
       .state('anon.imprimirOrdenProduccion', {
-      url: '/imprimirOrdenProduccion/:cotizacion_id',
+      url: '/imprimirOrdenProduccion/:ordenProduccion_id',
       templateUrl: 'client/ordenProduccion/imprimirOrdenProduccion.ng.html',
       controller: 'ImprimirOrdenProduccionCtrl as orden',
     })

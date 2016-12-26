@@ -1,4 +1,4 @@
-<h2>Cotizaciónes Rechazadas</h2>
+<h2>Cotizaciónes canceladas</h2>
 
 <br/>
 <!-- ///////////////////////////////////////   TABLAS  ///////////////////////////////////////////////////////// -->
@@ -13,6 +13,12 @@
 						<th width="10%"><div class="text-center">Fecha</div></th>
 						<th width="10%"><div class="text-center">Cliente</div></th>
 						<th width="10%"><div class="text-center">Primer Producto</div></th>
+						<th width="5%">
+							<div class="text-center">
+								Estatus
+							</div>
+						</th>
+					
 						
 						<th width="5%">
 							<div class="text-center">
@@ -30,18 +36,25 @@
 				    <td><div class="text-center">{{cotiza.nombrePrimerProducto}}</div></td>
 				    <td>
 					    <div class="text-center">
-						    <div class="btn-group">
-								  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    <span class="caret"></span>
-								    <span class="sr-only">Toggle Dropdown</span>
-								  </button>
-								  <ul class="dropdown-menu text-left">
-								  <li><a href="#" ng-click="cot.cambiarEstatus(cotiza._id)"><i class="fa fa-recycle"></i> Activar</a></li>
-				
-								  </ul>
-								</div>
-					    </div>				    
-				    </td>
+					    	<a ng-show="cotiza.estatus == 3 " class="label label-success">
+								  Aceptada
+								</a>
+					    </div>
+			       </td>
+					    <td>
+						    <div class="text-center">
+							    <div class="btn-group">
+									  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									    <span class="caret"></span>
+									    <span class="sr-only">Toggle Dropdown</span>
+									  </button>
+									  <ul class="dropdown-menu text-left">
+									  <li><a href="#" ng-click="cot.cambiarEstatus(cotiza._id)"><i class="fa fa-recycle"></i> Activar</a></li>
+					
+									  </ul>
+									</div>
+						    </div>				    
+					    </td>
 			    </tr>
 				</tbody>
 			</table>

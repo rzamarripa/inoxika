@@ -1,6 +1,6 @@
 angular.module("inoxica")
-.controller("OrdenProduccionEnProcesoCtrl", OrdenProduccionEnProcesoCtrl);  
-function OrdenProduccionEnProcesoCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
+.controller("OrdenProduccionTerminadasCtrl", OrdenProduccionTerminadasCtrl);  
+function OrdenProduccionTerminadasCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
 let rc = $reactive(this).attach($scope);
 
 	this.materialIndice = 0;
@@ -18,7 +18,7 @@ let rc = $reactive(this).attach($scope);
     });
 
     this.subscribe('ordenProduccion',()=>{
-	return [{estatus:2}] 
+	return [{_id : $stateParams.ordenProduccion_id,estatus:2}] 
     });
      this.subscribe('proveedores',()=>{
 	return [{estatus:true}] 

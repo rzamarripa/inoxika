@@ -32,8 +32,7 @@ let rc = $reactive(this).attach($scope);
   
 	this.helpers({
 	  cotizacion : () => {
-		  var cotiza = Cotizacion.findOne({_id : $stateParams.cotizacion_id});
-		  return cotiza
+		  return  Cotizacion.findOne({_id : $stateParams.cotizacion_id});
 	  },
 	  cotizacionProductos : () => {
 		  return Cotizacion.find({tipo : "producto" });
@@ -70,6 +69,7 @@ let rc = $reactive(this).attach($scope);
   this.guardar = true; 
   this.tabla 	= false; 
   this.action = true;
+  this.botonIva = false;
 
       this.cliente = {};
       this.cotizacion = {};
@@ -104,6 +104,7 @@ let rc = $reactive(this).attach($scope);
   
   this.agregarManual = function(cotizacionManual)
 	{ 
+		this.botonIva = true;
 		//cotizacion.material_id = this.material_id;
 		console.log(this.cotizacion)
 		cotizacionManual.tipo = "manual";
@@ -122,6 +123,7 @@ let rc = $reactive(this).attach($scope);
 	};
 	this.agregarProducto = function(cotizacionProducto)
 	{ 
+		this.botonIva = true;
 		cotizacionProducto.tipo = "producto";
 		cotizacionProducto.utilidad = this.clienteSeleccionado.utilidad
 		this.cotizacion.detalle.push(cotizacionProducto);
@@ -152,6 +154,7 @@ let rc = $reactive(this).attach($scope);
 		this.cotizacion.total = total - total*0.16;
 		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre 
 		this.cotizacion.estatus = 1;
+		this.cotizacion.ordenProduccion = true;
 		
 		this.cotizacion.folio = parseInt(cantidad) + 1;			
 		Cotizacion.insert(this.cotizacion);

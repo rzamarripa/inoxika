@@ -51,7 +51,7 @@
 
 <div class="row">
 	<div class="jarviswidget" id="wid-id-7" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
-		<header role="heading">
+		<header role="heading" >
 			<ul class="nav nav-tabs pull-left in">
 				<li class="active">
 					<a data-toggle="tab" href="#hr1" ng-click="cot.Mostrartabla()"><span > Partida Manual </span> </a>
@@ -61,7 +61,7 @@
 				</li>
 			</ul>
 		<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
-		<div class="widget-toolbar" id="switch-1" role="menu">
+		<div class="widget-toolbar" id="switch-1" role="menu" ng-show="cot.botonIva">
 										<span class="onoffswitch-title"><i class="fa fa-line-chart"></i> Agregar Iva</span>
 										<span class="onoffswitch" >
 											<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-click="cot.aumentoIva()">
@@ -241,15 +241,15 @@
 			   </td>
 			   <td></td>
 		    </tr>
-		    <tr>
+		    <tr ng-if="cot.on">
 		    	<td colspan="6"><div class="pull-right"><strong>Iva</strong></div></td>
-		    	<td><div class="pull-right" ng-if="cot.on"> {{cot.SumaPrecioProductos()*.16 | currency}}
+		    	<td><div class="pull-right" > {{cot.SumaPrecioProductos()*.16 | currency}}
 		    	</div></td>
 		    	<td></td>
 		    </tr>
-		    <tr>
+		    <tr ng-if="cot.on">
 			   <td colspan="6" ><div class="pull-right"><strong>Total</strong></div></td>
-			   <td><div class="pull-right" ng-if="cot.on">{{cot.SumaPrecioProductos()*.16 + cot.SumaPrecioProductos() | currency}}</div>
+			   <td><div class="pull-right">{{cot.SumaPrecioProductos()*.16 + cot.SumaPrecioProductos() | currency}}</div>
 			   </td>
 			   <td></td>
 		   </tr>

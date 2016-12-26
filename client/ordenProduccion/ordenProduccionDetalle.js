@@ -8,7 +8,7 @@ let rc = $reactive(this).attach($scope);
 	return [{estatus:true}] 
     });
      this.subscribe('cotizacion',()=>{
-	return [{estatus:1}] 
+	return [{ordenProduccion:true}] 
     });
       this.subscribe('clientes',()=>{
 	return [{estatus:true}] 
@@ -155,7 +155,8 @@ let rc = $reactive(this).attach($scope);
 		this.cotizacion.subTotal = total;
 		this.cotizacion.total = total - total*0.16;
 		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre 
-		this.cotizacion.estado = true;			
+		this.cotizacion.estado = true;
+		this.cotizacion.estatus = 1;			
 		OrdenProduccion.insert(this.cotizacion);
 		toastr.success('Cotizacion guardada.');
 		this.cotizacion = {};

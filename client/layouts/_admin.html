@@ -57,6 +57,18 @@
         <span class="menu-item-parent">Pendientes</span>
       </a>
     </li>
+      <li data-ui-sref-active="active">
+      <a ui-sref="root.ordenCompraAceptada" tilte="OrdenAceptada">
+        <i class="fa fa-lg fa-fw fa-check-square-o"></i>
+        <span class="menu-item-parent">Aceptada</span>
+      </a>
+    </li>
+    <li data-ui-sref-active="active">
+      <a ui-sref="root.ordenCompraRechazada" tilte="OrdenRechazada">
+        <i class="fa fa fa-ban"></i>
+        <span class="menu-item-parent">Rechazada</span>
+      </a>
+    </li>
     </ul>
      </li>
 
@@ -75,15 +87,9 @@
       </a>
     </li>
     <li data-ui-sref-active="active">
-      <a ui-sref="root.ordenProduccionProceso" tilte="Orden">
-        <i class="fa fa-lg fa-fw fa-clock-o"></i>
-        <span class="menu-item-clock-o">En proceso</span>
-      </a>
-    </li>
-    <li data-ui-sref-active="active">
-      <a ui-sref="root.ordenProduccionTerminado" tilte="Orden">
+      <a ui-sref="root.ordenProduccionTerminadas" tilte="Orden">
         <i class="fa fa-lg fa-fw fa-check"></i>
-        <span class="menu-item-parent">Terminada</span>
+        <span class="menu-item-parent">Terminadas</span>
       </a>
     </li>
      </ul>
@@ -124,7 +130,7 @@
 
     <li data-ui-sref-active="active">
       <a ui-sref="root.notas" tilte="Notas">
-        <i class="fa fa-lg fa-fw fa-users"></i>
+        <i class="fa fa-lg fa-fw fa-file-text-o"></i>
         <span class="menu-item-parent">Notas</span>
       </a>
     </li>

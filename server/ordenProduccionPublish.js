@@ -1,3 +1,3 @@
-Meteor.publish("ordenProduccion",function(){
-  	return OrdenProduccion.find();
+Meteor.publish("ordenProduccion",function(params){
+  	return OrdenProduccion.find(params);
 });

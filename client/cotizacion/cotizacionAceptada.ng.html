@@ -18,6 +18,11 @@
 						<th width="10%"><div class="text-center">Fecha</div></th>
 						<th width="10%"><div class="text-center">Cliente</div></th>
 						<th width="10%"><div class="text-center">Primer Producto</div></th>
+							<th width="5%">
+							<div class="text-center">
+								Estatus
+							</div>
+						</th>
 						
 						<th width="5%">
 							<div class="text-center">
@@ -33,6 +38,13 @@
 				    <td><div class="text-center">{{cotiza.fechaInicio | date:"dd-MM-yyyy"}}</div></td> 
 				    <td><div class="text-center">{{cot.getCliente(cotiza.cliente_id)}}</div></td>
 				    <td><div class="text-center">{{cotiza.nombrePrimerProducto}}</div></td>
+				       <td>
+					    <div class="text-center">
+					    	<a ng-show="cotiza.estatus == 3 " class="label label-success">
+								  Aceptada
+								</a>
+					    </div>
+			       </td>
 				    <td>
 					    <div class="text-center">
 						    <div class="btn-group">
@@ -43,7 +55,7 @@
 								  <ul class="dropdown-menu text-left">
 								    <li><a href="/editarCotizacion/{{cotiza._id}}"><i class="fa fa-pencil"></i> Editar</a></li>
 								  <!-- <li><a href="#" ng-click="cot.cambiarEstatus(cotiza._id)"><i class="fa fa-trash"></i> Desactivar</a></li> -->
-								  <li><a href="/ordenProduccionDetalle/{{cotiza._id}}"><i class="fa fa-check-square-o"></i> Aceptada</a></li>
+								  <li><a href="/ordenProduccionDetalle/{{cotiza._id}}"><i class="fa fa-check-square-o"></i> Generar orden de producción</a></li>
 								  <li><a target="_blank" href="/imprimirCotizacion/{{cotiza._id}}"><i class="fa fa-print"></i> Imprimir</a></li>
 								  <li><a href="#" ng-click="cot.cambiarEstatus(cotiza._id)"><i class="fa fa-ban"></i> Rechazada</a></li>
 								  </ul>

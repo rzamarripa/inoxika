@@ -13,11 +13,10 @@ let rc = $reactive(this).attach($scope);
       this.subscribe('clientes',()=>{
 	return [{estatus:true}] 
     });
-      this.subscribe('ordenCompra',()=>{
-	return [{estado:true}] 
-    });
-               this.subscribe('ordenProduccion',()=>{
-	return [{estatus:true}] 
+  
+    
+    this.subscribe('ordenCompra',()=>{
+	return [{_id : $stateParams.ordenCompra_id}] 
     });
     this.subscribe('productos',()=>{
 	return [{estatus:true}] 
@@ -40,8 +39,8 @@ let rc = $reactive(this).attach($scope);
      
   
 	this.helpers({
-	  cotizacion : () => {
-		  return Cotizacion.findOne({_id : $stateParams.ordenCompra_id});
+	  ordenCompra : () => {
+		  return OrdenCompra.findOne({_id : $stateParams.ordenCompra_id});
 	  },
 	  materiales : () => {
 		  return Materiales.find();
@@ -106,8 +105,7 @@ let rc = $reactive(this).attach($scope);
 		//cotizacion.material_id = this.material_id;
 		console.log(this.cotizacion)
 		cotizacionManual.tipo = "manual";
-		this.ordenes.detalle.push(cotizacionManual);
-		this.ordenes.estatus = 1;
+		this.ordenCompra.detalle.push(cotizacionManual);
 		console.log(this.cotizacion);
 		this.guardar = false; 
 		this.productoTipo = false;
@@ -122,8 +120,7 @@ let rc = $reactive(this).attach($scope);
 	{ 
 		//cotizacion.material_id = this.material_id;
 		cotizacionProducto.tipo = "producto";
-		this.ordenes.detalle.push(cotizacionProducto);
-		this.ordenes.estatus = 1;
+		this.ordenCompra.detalle.push(cotizacionProducto);
 		console.log(this.cotizacion);
 		this.guardar = false; 
 		this.productoTipo = false;
@@ -138,16 +135,16 @@ let rc = $reactive(this).attach($scope);
 	 this.guardarCotizacion = function(cotizacion)
 	{
 		console.log(this.cotizacion);
-		_.each(rc.cotizacion.detalle, function(cotizacion){
+		_.each(rc.ordenCompra.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	
 		_.each(rc.ordenCompra.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	
 		 var total = 0;
-		_.each(rc.cotizacion.detalle,function(detalle){ total +=
+		_.each(rc.ordenCompra.detalle,function(detalle){ total +=
 		 ((detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad)});
-		_.each(rc.cotizacion.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
+		_.each(rc.ordenCompra.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
 		this.cotizacion.subTotal = total;
 		this.cotizacion.total = total - total*0.16;
 		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre 
@@ -170,7 +167,7 @@ let rc = $reactive(this).attach($scope);
 	
 	this.editar = function(id)
 	{
-    this.cotizacion = Cotizacion.findOne({_id:id});
+    this.cotizacion = OrdenCompra.findOne({_id:id});
     this.action = false;
     $('.collapse').collapse('show');
     this.nuevo = false;
@@ -182,11 +179,12 @@ let rc = $reactive(this).attach($scope);
 	this.editarOrden = function($index)
 	{
 
-    this.cotizacionManual = rc.cotizacion.detalle[$index];
-    this.productoSeleccionado = rc.cotizacion.detalle[$index];
+    this.cotizacionManual = rc.ordenCompra.detalle[$index];
+    this.productoSeleccionado = rc.ordenCompra.detalle[$index];
 
     this.agregar = false;
     this.cancelar = true;
+       this.action = false;
     this.productoIndice = $index;
     console.log(this.productoSeleccionado);
 
@@ -194,13 +192,14 @@ let rc = $reactive(this).attach($scope);
 
 		this.actualizarProducto= function(producto)
 	{
-		console.log(this.cotizacion);
-		_.each(rc.cotizacion.detalle, function(cotizacion){
+		console.log(this.producto);
+		_.each(rc.ordenCompra.detalle, function(cotizacion){
 			delete cotizacion.$$hashKey;
 			});	
-		rc.cotizacion.detalle[this.productoIndice] = producto;
+		rc.ordenCompra.detalle[this.productoIndice] = producto;
 		this.productoSeleccionado = {};
 	    this.cotizacionManual = {};
+	    this.action = true;
 	
 	};
 
@@ -210,7 +209,7 @@ let rc = $reactive(this).attach($scope);
 	this.actualizar = function(cotizacion)
 	{
 		console.log(this.cotizacion);
-		_.each(rc.ordenes.detalle, function(orden){
+		_.each(rc.ordenCompra.detalle, function(orden){
 			delete orden.$$hashKey;
 			});	
 		var idTemp = cotizacion._id;
@@ -262,7 +261,7 @@ let rc = $reactive(this).attach($scope);
 
 	this.SumaPrecioProductos = function(){
 		total = 0;
-		_.each(rc.cotizacion.detalle,function(detalle){ total += (
+		_.each(rc.ordenCompra.detalle,function(detalle){ total += (
 		(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad)});
 		return total
 	};

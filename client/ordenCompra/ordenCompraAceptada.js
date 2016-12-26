@@ -1,6 +1,6 @@
 angular.module("inoxica")
-.controller("OrdenProduccionCtrl", OrdenProduccionCtrl);  
-function OrdenProduccionCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
+.controller("OrdenCompraAceptadaCtrl", OrdenCompraAceptadaCtrl);  
+function OrdenCompraAceptadaCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
 let rc = $reactive(this).attach($scope);
 
 	this.materialIndice = 0;
@@ -17,13 +17,14 @@ let rc = $reactive(this).attach($scope);
 	return [{estatus:true}] 
     });
 
-    //this.subscribe('ordenProduccion');
-
+    this.subscribe('ordenCompra',()=>{
+	return [{estado:"aceptada"}] 
+    });
      this.subscribe('proveedores',()=>{
 	return [{estatus:true}] 
     });
-       this.subscribe('ordenProduccion',()=>{
-	return [{_id : $stateParams.ordenProduccion_id,estatus:1}] 
+      this.subscribe('cotizacion',()=>{
+	return [{estatus:1}] 
     });
 
  
@@ -34,22 +35,39 @@ let rc = $reactive(this).attach($scope);
   this.cancelar = false;
   
 	this.helpers({
-	  ordenes : () => {
+	  ordenCompra : () => {
+		 var ordenes = OrdenCompra.find().fetch();
+		  	if (ordenes) {
+		  		_.each(ordenes, function(orden){
+		  			orden.proveedor = Proveedores.findOne(orden.proveedor_id)
 
-	  		orden = OrdenProduccion.find();
-		  return orden
+		  	});
+	  	}
+	  	console.log(ordenes);
+		  return ordenes;
 	  },
 	    proveedores : () => {
 		  return Proveedores.find();
 	  },
-	  productos : () => {
-		  return Productos.find();
+	 productos : () => {
+		 var productos = Productos.find().fetch();
+		  	if (productos) {
+		  		_.each(productos, function(producto){
+		  			producto.unidad = Unidades.findOne(producto.unidad_id)
+
+		  	});
+	  	}
+	  	console.log(productos);
+		  return productos;
 	  },
 	  materiales : () => {
 		  return Materiales.find();
 	  },
 	  unidades : () => {
 		  return Unidades.find();
+	  },
+	  cotizacion : () => {
+		  return Cotizacion.findOne({_id : $stateParams.ordenCompra_id});
 	  },
   });
   
@@ -59,14 +77,6 @@ let rc = $reactive(this).attach($scope);
  this.material = {};
  this.producto = {};
  this.producto.detalleProducto = [];
-
-
-//  $(document).ready(function() {
-//    	_.each(rc.ordenes.detalle, function(partida){
-// 		if(partida.estatus == 2){
-// 			todasTerminadas = true;
-			
-
 
   this.nuevoProductos = function()
   {
@@ -194,7 +204,7 @@ let rc = $reactive(this).attach($scope);
 		return unidad.nombre;
 	};
 
-	    this.getProveedor = function(proveedor_id)
+	    this.getProveedor= function(proveedor_id)
 	{
 		var proveedor = Proveedores.findOne(proveedor_id);
 		if(proveedor)
@@ -215,36 +225,32 @@ let rc = $reactive(this).attach($scope);
 		return total
 	}
 
+	this.cambioPendiente = function(id)
+	{
 
-// 	this.cambiarEstatusPartida = function(id){
-// todasTerminadas = false;
-// 		_.each(rc.ordenes.detalle, function(partida){
-
-
-// 		if(partida.estatus == 2){
-// 			todasTerminadas = true;
-			
-// 		}
-// 	});
-	
-// 	// if(todasTerminadas = true)
-// 	// {
-// 	// 	console.log("entro")
-	
-
-// 	// 	var orden = OrdenProduccion.findOne({_id:id});
-// 	// 	if(orden.estatus == 1)
-// 	// 		orden.estatus = 2;
-// 	// 	else
-// 	// 		orden.estatus = 1;
-// 	// 	console.log(orden)
+	    var orden = rc.ordenCompra;
+		if(orden.estado == "aceptada")
+			orden.estado = "pendiente";
+		else
+			orden.estado = "aceptada";
 		
-// 	// 	OrdenProduccion.update({_id: id},{$set :  {estatus : orden.estatus}});
-// 	// }
+		OrdenCompra.update({_id: id},{$set :  {estado : orden.estado}});
 
-// console.log(todasTerminadas)
+		
+	}
+	this.cambioRechazada = function(id)
+	{
 
-// }
+			var orden = rc.ordenCompra;
+		if(orden.estado == "aceptada")
+			orden.estado = "rechazada";
+		else
+			orden.estado = "aceptada";
+		
+		OrdenCompra.update({_id: id},{$set :  {estado : orden.estado}});
+
+		
+	}
 
 		
 };

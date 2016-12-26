@@ -7,22 +7,22 @@
 			    <div class="row">
 			     <div class="col-sm-2">
 		    	 					<label>Folio</label>
-						    		<div class="form-control">{{orden.cotizacion.folio}}</div>
+						    		<div class="form-control">{{orden.ordenProduccion.folio}}</div>
 								</div>	
 			      <div class="col-sm-3">
 								<label >Proveedor</label>
-								<select class="form-control select2" placeholder="Seleccione" ng-model="orden.cotizacion.proveedor_id"
-								 ng-change="orden.getProveedor(orden.cotizacion.proveedor_id)">
+								<select class="form-control select2" placeholder="Seleccione" ng-model="orden.ordenProduccion.proveedor_id"
+								 ng-change="orden.getProveedor(orden.ordenProduccion.proveedor_id)">
 									<option ng-repeat="proveedor in orden.proveedores" value="{{proveedor._id}}">{{proveedor.nombre}}</option>
 								</select>
 					</div>		    
 	          <div class="col-sm-3">
 					    <label>Nombre del Proyecto</label>
-				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="orden.cotizacion.nombreProyecto" capitalized>
+				    	<input type="text" class="form-control" placeholder="Nombre" ng-model="orden.ordenProduccion.nombreProyecto" capitalized>
 				    </div>
 				     <div class="col-sm-3">
 						<label for="fecha">Fecha de inicio</label>
-						<input name="fechaInicio" date-time format="dd-MM-yyyy" class="form-control" view="year" max-view="month" min-view="date" ng-model="orden.cotizacion.fechaInicio"  />
+						<input name="fechaInicio" date-time format="dd-MM-yyyy" class="form-control" view="year" max-view="month" min-view="date" ng-model="orden.ordenProduccion.fechaInicio"  />
 					</div>
 					
 				</div>
@@ -195,7 +195,7 @@
 			</tr>
 		</thead> 
 		<tbody>
-	    	<tr  ng-repeat="detalle in orden.cotizacion.detalle"> 
+	    	<tr  ng-repeat="detalle in orden.ordenProduccion.detalle"> 
 		        <td><div class="text-center">{{$index + 1}}</div ></td>
 		        <td><div class="text-center">{{detalle.nombre}}</div></td>  
 		        <td><div class="text-center">{{detalle.descripcion}}</div></td> 
@@ -206,37 +206,39 @@
 			    <td width="30%"><div class="text-center">
 					
 					<a class="btn btn-warning" ng-click="orden.editarOrden($index)"><i class="fa fa-pencil"></i></a>
-					<a class="btn btn-danger"  ng-click="orden.cambiarEstatus(detalle._id)"><i class="fa fa-trash"></i> </a>
+					<a class="btn btn-danger" ng-click="orden.eliminarOrden($index)"><i class="fa fa-trash"></i> </a>
 							 
 							
 				    </div>				    
 			    </td>
 		   </tr>	
-		    <tr>
-			   <td colspan="7" ng-if="orden.SumaPrecioProductos()"></td>
-			   <td><div class="text-center"><strong>SubTotal:</strong> {{orden.SumaPrecioProductos() | currency}}</div>
+		       <tr>
+			   <td colspan="6"><div class="pull-right"><strong>SubTotal</strong></div> </td>
+			   <td><div class=" pull-right" >{{orden.SumaPrecioProductos() | currency}}</div>
 			   </td>
+			   <td></td>
 		    </tr>
 		    <tr>
-		    	<td colspan="7" ng-if="orden.SumaPrecioProductos()"></td>
-		    	<td ng-if="orden.on"><div class="text-center"><strong>Iva:</strong> {{orden.SumaPrecioProductos()*.16 | currency}}
+		    	<td colspan="6"><div class="pull-right"><strong>Iva</strong></div></td>
+		    	<td><div class="pull-right" ng-if="orden.on"> {{orden.SumaPrecioProductos()*.16 | currency}}
 		    	</div></td>
+		    	<td></td>
 		    </tr>
 		    <tr>
-			   <td colspan="7" ng-if="orden.SumaPrecioProductos()"></td>
-			   <td ng-if="orden.on"><div class="text-center"><strong>Total:</strong> {{orden.SumaPrecioProductos()*.16 + orden.SumaPrecioProductos() | currency}}</div>
+			   <td colspan="6" ><div class="pull-right"><strong>Total</strong></div></td>
+			   <td><div class="pull-right" ng-if="orden.on">{{orden.SumaPrecioProductos()*.16 + orden.SumaPrecioProductos() | currency}}</div>
 			   </td>
+			   <td></td>
 		   </tr>
-		    
 		</tbody>
 	</table>
 	</div>
 </div>
 
-  	<div class="row" ng-if="orden.cotizacion._id">
+  	<div class="row" ng-if="orden.ordenProduccion._id">
 		<div class="col-sm-12">
-			<input type="submit" ng-click="orden.guardarCotizacion(orden.cotizacion)" value="Guardar" class="btn btn-primary" ng-show="orden.cotizacion._id">
-			<input type="submit" ng-click="orden.actualizarManual(orden.cotizacion)" value="Actualizar" class="btn btn-primary" ng-show="!orden.cotizacion._id">	
+			<input type="submit" ng-click="orden.guardarCotizacion(orden.ordenProduccion)" value="Guardar" class="btn btn-primary" ng-show="orden.ordenProduccion._id">
+			<input type="submit" ng-click="orden.actualizarManual(orden.ordenProduccion)" value="Actualizar" class="btn btn-primary" ng-show="!orden.ordenProduccion._id">	
 		</div>
 	</div><br/>
 

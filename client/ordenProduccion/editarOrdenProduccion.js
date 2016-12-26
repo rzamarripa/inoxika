@@ -311,6 +311,12 @@ let rc = $reactive(this).attach($scope);
 
 
 this.cambiarEstatusPartida = function(partidaSeleccionada, estatus, id){
+
+	
+		_.each(rc.orden.detalle, function(orden){
+			delete orden.$$hashKey;
+			});
+
 	partidaSeleccionada.estatus = estatus;
 	console.log(partidaSeleccionada.estatus)
 	//console.log(rc.orden);

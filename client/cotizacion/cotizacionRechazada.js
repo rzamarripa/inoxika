@@ -218,7 +218,23 @@ let rc = $reactive(this).attach($scope);
      window.print();
 
      document.body.innerHTML = originalContents;
-}
+};
+
+this.cambioPendiente = function(id)
+	{
+
+	  	var orden = Cotizacion.findOne({_id:id});
+		if(orden.estatus == 3)
+			orden.estatus = 1;
+		else
+			orden.estatus = 3;
+		
+		Cotizacion.update({_id: id},{$set :  {estatus : orden.estatus}});
+
+		
+	}
+
+
 
 	
 

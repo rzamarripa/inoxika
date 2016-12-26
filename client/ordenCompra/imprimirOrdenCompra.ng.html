@@ -10,18 +10,18 @@
 	<div class="col-sm-12">
 			<div class="row" >
 				<div class="col-sm-6"><br/>
-					<p>Cliente: <strong>{{orden.getCliente(orden.cotizacion.cliente_id)}}</strong></p>
+					<p>Cliente: <strong>{{orden.getCliente(orden.ordenCompra.cliente_id)}}</strong></p>
 					<div class="pull-left">
-			         <p>{{orden.getClienteDireccion(orden.cotizacion.cliente_id)}}</p>
+			         <p>{{orden.getClienteDireccion(orden.ordenCompra.cliente_id)}}</p>
 			       </div>
 			      </div>
 			      <div class="col-sm-6">
 						<div class="pull-right"> 
-					        <p>Cotización:<strong>{{orden.cotizacion.folio}}</strong></p>
+					        <p>Cotización:<strong>{{orden.ordenCompra.folio}}</strong></p>
 					       
-					        <p>Fecha: <strong>{{orden.cotizacion.fechaInicio | date:"dd-MM-yyyy"}}</strong></p>
+					        <p>Fecha: <strong>{{orden.ordenCompra.fechaInicio | date:"dd-MM-yyyy"}}</strong></p>
 					      
-					        <p>Fecha Vencimiento: <strong>{{orden.cotizacion.fechaVencimiento | date:"dd-MM-yyyy"}}</strong></p>
+					        <p>Fecha Vencimiento: <strong>{{orden.ordenCompra.fechaVencimiento | date:"dd-MM-yyyy"}}</strong></p>
 
 				       </div>
 				</div>
@@ -32,7 +32,7 @@
 <br/>
 <div class="col-sm-12">
 	<div class="row">
-		<p>Proyecto:{{orden.nombreProyecto}}</p>
+		<p>Proyecto:{{orden.ordenCompra.nombreProyecto}}</p>
 	</div>
 </div>
 <div class="row">
@@ -49,7 +49,7 @@
 				</tr>
 			</thead> 
 			<tbody>
-		    	<tr  ng-repeat="detalle in orden.cotizacion.detalle"> 
+		    	<tr  ng-repeat="detalle in orden.ordenCompra.detalle"> 
 			        <td><div class="text-center">{{$index + 1}}</div ></td>  
 			        <td><div class="text-center">{{detalle.descripcion}}</div></td> 
 				    <td><div class="text-center">{{orden.getUnidad(detalle.unidad_id)}}</div></td>			    
@@ -57,8 +57,23 @@
 				    <td><div class="text-center">{{detalle.precio * detalle.utilidad/100 + detalle.precio | currency}}</div></td>
 				    <td ><div class="text-center">{{(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad | currency }}</div></td>
 		
-			   </tr>	
-			   <tr>
+			   </tr>
+			    <tr>
+			   		<td colspan="5"><div class="pull-right"><strong>SubTotal</strong></div> </td>
+				   <td><div class=" pull-right" >{{orden.ordenCompra.subTotal | currency}}</div>
+				   </td>
+		    </tr>
+		    <tr>
+		    	<td colspan="5"><div class="pull-right"><strong>Iva</strong></div></td>
+		    	<td><div class="pull-right" > {{orden.ordenCompra.subTotal *.16 | currency}}
+		    	</div></td>
+		    </tr>
+		    <tr>
+				   <td colspan="5" ><div class="pull-right"><strong>Total</strong></div></td>
+				   <td><div class="pull-right">{{orden.ordenCompra.total| currency}}</div>
+				   </td>
+		   </tr>	
+			  <!--  <tr>
 				   <td colspan="5" ></td>
 				   <td><div class="text-center"><strong>SubTotal:</strong> {{orden.cotizacion.subTota | currency}}</div>
 				   </td>
@@ -72,18 +87,18 @@
 				   <td colspan="5"></td>
 				   <td><div class="text-center"><p>Total:{{orden.cotizacion.total | currency}}</p> </div>
 				   </td>
-			   </tr>
+			   </tr> -->
 			    
 			</tbody>
 		</table>
 		</div>
 </div>
 <br/>
-<div class="row">
+<!-- <div class="row">
 	<div class="col-sm-12">
 		<p>Nota: Aqui va la nota</p>
 	</div>
-</div>
+</div> -->
 
 <br/><br/><br/><br/><br/><br/><br/>
 

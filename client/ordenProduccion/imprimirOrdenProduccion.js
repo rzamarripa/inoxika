@@ -19,26 +19,31 @@ let rc = $reactive(this).attach($scope);
     this.subscribe('unidades',()=>{
 	return [{estatus:true}] 
     });
-       this.subscribe('ordenProduccion',()=>{
-	return [{estado:true}] 
-    });
+ //       this.subscribe('ordenProduccion',()=>{
+	// return [{estado:true}] 
+ //    });
      this.subscribe('proveedores',()=>{
 	return [{estatus:true}] 
+    });
+         this.subscribe('ordenProduccion',()=>{
+	return [{estado:true}] 
     });
 
     console.log($stateParams)
     var cantidad = $stateParams.cantidad
 
-      this.cotizacion = {};
-      this.cotizacion.detalle = [];
+      //this.cotizacion = {};
+      //this.cotizacion.detalle = [];
+       this.ordenProduccion = {};
+    this.ordenProduccion.detalle = this.cotizacion
       this.subTotal = 0.00;
       this.productoIndice = 0;
 	  this.productoSeleccionado = {};
-	  this.cotizacionManual = {};
+	 // this.cotizacionManual = {};
 
 	this.helpers({
-	  cotizacion : () => {
-		  return Cotizacion.findOne({_id : $stateParams.cotizacion_id});
+	  ordenProduccion : () => {
+		  return OrdenProduccion.findOne({_id : $stateParams.ordenProduccion_id});
 	  },
 	  materiales : () => {
 		  return Materiales.find();
@@ -51,9 +56,6 @@ let rc = $reactive(this).attach($scope);
 	  },
 	   unidades : () => {
 		  return Unidades.find();
-	  },
-	    ordenes : () => {
-		  return OrdenProduccion.find();
 	  },
 	    proveedores : () => {
 		  return Proveedores.find();

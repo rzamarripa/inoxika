@@ -66,7 +66,8 @@ let rc = $reactive(this).attach($scope);
 
   
 	this.nuevo = true;
-	this.guardar = true;  
+	this.guardar = true; 
+	this.botonIva = false; 
 
 	var doc = new PDFDocument({size: 'A4', margin: 50});	  
   this.nuevoCotizacion = function()
@@ -81,6 +82,7 @@ let rc = $reactive(this).attach($scope);
   this.agregarManual = function(cotizacionManual)
 	{ 
 		//cotizacion.material_id = this.material_id;
+		this.botonIva = true; 
 		console.log(this.cotizacion)
 		cotizacionManual.tipo = "manual";
 		this.cotizacion.detalle.push(cotizacionManual);
@@ -94,6 +96,7 @@ let rc = $reactive(this).attach($scope);
 	};
 	this.agregarProducto = function(cotizacionProducto)
 	{ 
+		this.botonIva = true;
 		cotizacionProducto.tipo = "producto";
 		this.cotizacion.detalle.push(cotizacionProducto);
 		this.cotizacion.estatus = 1;
@@ -219,6 +222,33 @@ let rc = $reactive(this).attach($scope);
 
      document.body.innerHTML = originalContents;
 }
+this.cambioAceptada = function(id)
+	{
+
+	  	var orden = Cotizacion.findOne({_id:id});
+		if(orden.estatus == 1)
+			orden.estatus = 3;
+		else
+			orden.estatus = 1;
+		
+		Cotizacion.update({_id: id},{$set :  {estatus : orden.estatus}});
+
+		
+	}
+	this.cambioRechazada = function(id)
+	{
+
+			var orden = Cotizacion.findOne({_id:id});
+		if(orden.estatus == 1)
+			orden.estatus = 2;
+		else
+			orden.estatus = 1;
+		
+		Cotizacion.update({_id: id},{$set :  {estatus : orden.estatus}});
+
+		
+	}
+
 
 	
 

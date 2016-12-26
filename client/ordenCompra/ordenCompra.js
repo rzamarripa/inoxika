@@ -18,7 +18,7 @@ let rc = $reactive(this).attach($scope);
     });
 
     this.subscribe('ordenCompra',()=>{
-	return [{estado:true}] 
+	return [{estado:"pendiente"}] 
     });
      this.subscribe('proveedores',()=>{
 	return [{estatus:true}] 
@@ -35,7 +35,7 @@ let rc = $reactive(this).attach($scope);
   this.cancelar = false;
   
 	this.helpers({
-	  ordenes : () => {
+	  ordenCompra : () => {
 		 var ordenes = OrdenCompra.find().fetch();
 		  	if (ordenes) {
 		  		_.each(ordenes, function(orden){
@@ -100,28 +100,7 @@ let rc = $reactive(this).attach($scope);
 		this.material = {};
 		
 	};
-	this.guardar = function(producto)
-	{ 
-		//producto.material_id = this.material_id;
-		_.each(rc.producto.detalleProducto, function(producto){
-			delete producto.$$hashKey;
-		});	
-		 var total = 0;
-		_.each(rc.producto.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
-
-		this.producto.precio = parseFloat(total.toFixed(2));
-		this.producto.estatus = true;
-		console.log(this.producto);
-		Productos.insert(this.producto);
-		toastr.success('producto guardado.');
-		this.producto = {}; 
-	    this.producto.detalleProducto = [];
-	     this.producto = {};
-	     this.materialSeleccionado = {};
-	    this.material = {};	
-		$('.collapse').collapse('hide');
-		this.nuevo = true;
-	};
+	
 	this.modificarMaterial = function(material)
 	{
 		rc.producto.detalleProducto[this.materialIndice] = material;
@@ -223,6 +202,32 @@ let rc = $reactive(this).attach($scope);
 		total = 0;
 		_.each(rc.producto.detalleProducto,function(producto){total += producto.precio * producto.cantidad});
 		return total
+	}
+		this.cambioAceptar = function(id)
+	{
+
+	    var orden = rc.ordenCompra;
+		if(orden.estado == "pendiente")
+			orden.estado = "aceptada";
+		else
+			orden.estado = "pendiente";
+		
+		OrdenCompra.update({_id: id},{$set :  {estado : orden.estado}});
+
+		
+	}
+	this.cambioRechazada = function(id)
+	{
+
+			var orden = rc.ordenCompra;
+		if(orden.estado == "pendiente")
+			orden.estado = "rechazada";
+		else
+			orden.estado = "pendiente";
+		
+		OrdenCompra.update({_id: id},{$set :  {estado : orden.estado}});
+
+		
 	}
 		
 };
