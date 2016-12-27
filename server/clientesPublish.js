@@ -1,5 +1,5 @@
 Meteor.publish("clientes",function(){
-  	return Clientes.find();
+  	return Clientes.find({}, {sort: {nombre: 1}});
 });
 
 Meteor.publish("cliente",function(options){

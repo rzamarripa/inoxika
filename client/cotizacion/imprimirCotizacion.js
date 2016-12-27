@@ -8,7 +8,7 @@ let rc = $reactive(this).attach($scope);
 	return [{estatus:true}] 
     });
      this.subscribe('cotizacion',()=>{
-	return [{estatus:1,cotizacion_id: this.getReactively('cotizacion_id'),}] 
+	return [{cotizacion_id: this.getReactively('cotizacion_id'),}] 
     });
       this.subscribe('clientes',()=>{
 	return [{estatus:true}] 

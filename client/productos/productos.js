@@ -26,7 +26,7 @@ let rc = $reactive(this).attach($scope);
   
 	this.helpers({
 	  productos : () => {
-		  return Productos.find();
+		  return Productos.find({}, {sort: {nombre: 1}});
 	  },
 	  materiales : () => {
 		  return Materiales.find();

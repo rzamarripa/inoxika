@@ -3,21 +3,26 @@ angular.module("inoxica")
 function MaterialesCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
 $reactive(this).attach($scope);
 
-	this.subscribe('materiales',()=>{
-	return [{estatus:true}] 
-    });
+	this.subscribe('materiales');
 
-    	this.subscribe('unidades',()=>{
-	return [{estatus:true}] 
+    this.subscribe('unidades',()=>{
+		return [{estatus:true}] 
     });
 
  
 	
-  this.action = true;
+  	this.action = true;
   
 	this.helpers({
 	  materiales : () => {
-		  return Materiales.find();
+	  	var mat = Materiales.find({}, {sort: {nombre:1}}).fetch();
+	  	if(mat != undefined ){
+	  		_.each(mat, function(material){
+		  		console.log(material);
+		  	})
+	  	}
+	  	
+		return mat;
 	  },
 	   unidades : () => {
 		  return Unidades.find();

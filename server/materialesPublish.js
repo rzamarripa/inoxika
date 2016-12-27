@@ -1,3 +1,4 @@
-Meteor.publish("materiales",function(params){
-  	return Materiales.find(params,{}, {sort: {createdAt: -1}, limit: 5});
+Meteor.publish("materiales",function(){
+  	return Materiales.find({}, {sort: {nombre: 1}});
+  	//return Gizmos.find({}, {sort: { name: 1 }});
 });
