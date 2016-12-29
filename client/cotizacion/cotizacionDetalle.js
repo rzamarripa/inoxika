@@ -62,7 +62,17 @@ let rc = $reactive(this).attach($scope);
 	    notas : () => {
 		  return Notas.find();
 	  },
+	       ultimaCotizacion : () => {
+	    
+	 
+
+	 
+			
+			 return Cotizacion.find({}, {sort: {fechaInicio: -1}, limit: 1});
+	  },
   });
+
+	console.log("lo que contiene el folio",rc.ultimaCotizacion)
   
 
   this.nuevo = true;
@@ -155,8 +165,39 @@ let rc = $reactive(this).attach($scope);
 		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre 
 		this.cotizacion.estatus = 1;
 		this.cotizacion.ordenProduccion = true;
-		
-		this.cotizacion.folio = parseInt(cantidad) + 1;			
+		//this.cotizacion.folio = parseInt(cantidad) + 1;
+		//Cotizacion.insert(this.cotizacion);
+
+     //    _.each(rc.ultimaCotizacion, function(cot){
+     //    	console.log("el pañal",cot)
+					// if (isNaN(cot.folio)) {
+					// 		cot.folio = rc.ultimaCotizacion.folio;
+	 			// 		}
+	 			// 	});
+	 				// var folio = Cotizacion.findOne( {sort: {fechaInicio: -1}, limit: 1});
+      //     console.log("el folio",folio)
+      folio = 0;
+      	_.each(rc.ultimaCotizacion, function(cotizacion){
+      		folio = cotizacion.folio
+      		rc.folio = folio
+      	});
+      	console.log("nuebva cosa",rc.folio)
+
+
+
+
+      console.log("folio del hlper",rc.ultimaCotizacion)
+		  if(rc.folio > 0){
+		  	console.log("entro")
+		  
+			  	cotizacion.folio = rc.folio + 1
+			  	
+			  }else{
+			  		console.log("else")
+			  	cotizacion.folio = 1
+			  }
+
+
 		Cotizacion.insert(this.cotizacion);
 		toastr.success('Cotizacion guardada.');
 		this.cotizacion = {};

@@ -61,7 +61,8 @@ let rc = $reactive(this).attach($scope);
 				  console.log(rc.cotizacion.folio)
 				 
 			  }
-	    },	
+	    },
+		
   });
 
   
@@ -109,6 +110,8 @@ let rc = $reactive(this).attach($scope);
 		});
 		this.productoSeleccionado = {};
 	};
+
+
 
 	 this.guardarCotizacion = function(cotizacion)
 	{
