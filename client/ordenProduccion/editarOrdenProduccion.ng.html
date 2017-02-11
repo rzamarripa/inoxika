@@ -5,9 +5,9 @@
 
 			<div class="well">     
 			    <div class="row">
-			     <div class="col-sm-2">
+			     <div class="col-sm-2" >
 		    	 					<label>Folio</label>
-						    		<div class="form-control">{{orden.cotizacion.folio}}</div>
+						    		<div class="form-control">{{orden.ordenProduccion.folio}}</div>
 								</div>	
 			      <!-- <div class="col-sm-3">
 								<label >Proveedor</label>
@@ -198,9 +198,9 @@
 	</div>
 </div>
 
-  	<div class="row" ng-if="orden.cotizacion._id">
+  	<div class="row" ng-if="orden.ordenProduccion._id">
 		<div class="col-sm-12">
-			<input type="submit" ng-click="orden.actualizar(orden.orden,orden.orden._id)" value="Actualizar" class="btn btn-primary" ng-if="orden.cotizacion._id">	
+			<input type="submit" ng-click="orden.actualizar(orden.orden,orden.orden._id)" value="Actualizar" class="btn btn-primary" ng-if="orden.ordenProduccion._id">	
 		</div>
 	</div><br/>
 

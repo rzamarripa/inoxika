@@ -37,6 +37,7 @@ let rc = $reactive(this).attach($scope);
 	this.helpers({
 	  ordenCompra : () => {
 		 var ordenes = OrdenCompra.find().fetch();
+		  ordenes.estado = "aceptada"
 		  	if (ordenes) {
 		  		_.each(ordenes, function(orden){
 		  			orden.proveedor = Proveedores.findOne(orden.proveedor_id)

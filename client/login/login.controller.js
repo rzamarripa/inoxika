@@ -12,9 +12,9 @@ angular.module('inoxica').controller('LoginCtrl', ['$injector', function ($injec
 	      toastr.success("Bienvenido al Sistema");
         if(Meteor.user().roles[0] == "admin" )
         {
-          $state.go('root.materiales'); 
+          $state.go('root.home'); 
         }else{
-          $state.go('root.materiales'); 
+          $state.go('root.home'); 
         }
                
       },

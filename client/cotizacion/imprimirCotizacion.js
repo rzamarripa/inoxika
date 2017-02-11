@@ -203,6 +203,14 @@ let rc = $reactive(this).attach($scope);
 		return cliente.direccion;
 	};
 
+	   this.getClienteDF= function(cliente_id)
+	{
+		var cliente = Clientes.findOne(cliente_id);
+		if(cliente)
+		return cliente.descripcion;
+	};
+
+
 	    this.borrarBotonImprimir= function()
 	{
 		var printButton = document.getElementById("printpagebutton");

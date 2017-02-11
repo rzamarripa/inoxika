@@ -20,6 +20,10 @@ let rc = $reactive(this).attach($scope);
 	return [{estatus:true}] 
     });
 
+    this.subscribe('notas',()=>{
+	return [{estatus:true}] 
+    });
+
     console.log($stateParams)
     var cantidad = $stateParams.cantidad
       
@@ -32,6 +36,7 @@ let rc = $reactive(this).attach($scope);
 	  this.cotizacionManual = {};
 	  this.cotizacionManual.utilidad = this.cliente.utilidad
 	  this.productoSeleccionado.utilidad = this.cliente.utilidad
+	  this.nota = {};
 	  
 
      
@@ -65,6 +70,9 @@ let rc = $reactive(this).attach($scope);
 	   unidades : () => {
 		  return Unidades.find();
 	  },
+	     notas : () => {
+		  return Notas.find();
+	  },
 
   });
   
@@ -73,6 +81,8 @@ let rc = $reactive(this).attach($scope);
   this.guardar = true; 
   this.tabla 	= false; 
   this.action = true;
+  this.notasText = false;
+  this.comboNota = true;
 
 
   $(".js-example-basic-single").select2();
@@ -176,6 +186,31 @@ let rc = $reactive(this).attach($scope);
 		console.log(cotizacion);
 		$state.go('root.cotizacionPendiente')
 	};
+	this.actualizarNota = function(nota,cotizacion)
+	{
+
+		_.each(rc.cotizacion.detalle, function(cotizacion){
+			delete cotizacion.$$hashKey;
+			});
+
+
+		console.log("nota lo que tiene",nota);
+		var idTemp = nota._id;
+		delete nota._id;	
+		console.log("el id de la nota",idTemp)	
+		this.notasText = false
+
+		Notas.update({_id:idTemp},{$set:nota});
+		console.log(nota);
+		toastr.success('Nota Modificada.');
+		// var idTemp = cotizacion._id;
+		// delete cotizacion._id;	
+		// Cotizacion.update({_id:idTemp},{$set:cotizacion});
+		
+	
+		//this.notasText = false;
+		
+	};
 
 
 	this.cambiarEstatus = function(id)
@@ -235,6 +270,13 @@ let rc = $reactive(this).attach($scope);
 	{
     this.cliente = Clientes.findOne({_id:id});
    
+	};
+	this.getNota= function(nota_id)
+	{
+
+	rc.nota = Notas.findOne(nota_id);
+		 //this.clientillo = true;
+		 this.notasText = true;
 	};
 
 

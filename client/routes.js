@@ -76,13 +76,15 @@ angular.module('inoxica').config(['$injector', function ($injector) {
     })
     .state('root.home', {
       url: '/',
-      templateUrl: 'client/home/home.ng.html',      
+      templateUrl: 'client/home/home.ng.html', 
+      controller: 'HomeCtrl as hom',     
       resolve: {
 	      "currentUser": ["$meteor", function($meteor){
 	        return $meteor.requireUser();
 	      }]
 	    }
     })
+
     .state('root.estadisticas', {
       url: '/',
       templateUrl: 'client/estadisticas/estadisticas.ng.html',

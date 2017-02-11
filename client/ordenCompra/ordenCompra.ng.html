@@ -51,7 +51,7 @@
 								    <li><a href="/editarOrdenCompraDetalle/{{ordenCompra._id}}"><i class="fa fa-pencil"></i> Editar</a></li>
 								  <li><a href="#" ng-click="client.cambiarEstatus(ordenCompra._id)"><i class="fa fa-trash"></i> Desactivar</a></li>
 								  <li><a target="_blank" href="/imprimirOrdenCompra/{{ordenCompra._id}}"><i class="fa fa-print"></i> Imprimir</a></li>
-								  <li><a href="#" ng-click="orden.cambioAceptar(ordenCompra._id)"><i class="fa fa-check-square-o"></i> Aceptada</a></li>
+								  <li ng-click="orden.cambioAceptar(ordenCompra._id)"><a href="" ><i class="fa fa-check-square-o"></i> Aceptada</a></li>
 								  <li><a href="#" ng-click="orden.cambioRechazada(ordenCompra._id)"><i class="fa fa fa-ban"></i> Rechazada</a></li>
 								  </ul>
 								</div>

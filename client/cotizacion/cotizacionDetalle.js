@@ -60,7 +60,12 @@ let rc = $reactive(this).attach($scope);
 		  return Unidades.find();
 	  },
 	    notas : () => {
-		  return Notas.find();
+	    	notas = Notas.find();
+	    	// _.each(notas, function(nota){
+	    	// 	delete nota.$$hashKey;
+
+	    	// });
+		  return  notas;
 	  },
 	       ultimaCotizacion : () => {
 	    
@@ -80,6 +85,8 @@ let rc = $reactive(this).attach($scope);
   this.tabla 	= false; 
   this.action = true;
   this.botonIva = false;
+  this.notasText = false;
+  this.comboNota = true;
 
       this.cliente = {};
       this.cotizacion = {};
@@ -99,6 +106,7 @@ let rc = $reactive(this).attach($scope);
 	  this.productoSeleccionado = {};
 	  this.cotizacionManual.utilidad = this.clienteSeleccionado.utilidad
 	  this.productoSeleccionado.utilidad = this.clienteSeleccionado.utilidad
+	  this.nota = {};
 
 
 	  $(".js-example-basic-single").select2();
@@ -259,6 +267,7 @@ let rc = $reactive(this).attach($scope);
 		//this.materialIndice = $index;
 		rc.cotizacion.detalle.splice($index, 1);
     };
+
 	
 	this.actualizar = function(cotizacion)
 	{
@@ -274,6 +283,31 @@ let rc = $reactive(this).attach($scope);
 		console.log(cotizacion);
 		$state.go('root.cotizacion')
 	};
+	this.actualizarNota = function(nota)
+	{
+		console.log("nota lo que tiene",nota);
+		var idTemp = nota._id;
+		delete nota._id;	
+		console.log("el id de la nota",idTemp)	
+		
+		// Notas.update({_id:idTemp},
+		// { $set : { nombre : idTemp}});
+		this.notasText = false
+
+		Notas.update({_id:idTemp},{$set:nota});
+		console.log("act da nota",nota);
+		toastr.success('Nota Modificada.');
+		
+	
+		//this.notasText = false;
+		
+	};
+
+	this.quitarComboNota = function()
+	{
+		//this.materialIndice = $index;
+		this.comboNota = false;
+    };
 
 	this.cambiarEstatus = function(id)
 	{
@@ -323,6 +357,20 @@ let rc = $reactive(this).attach($scope);
 		var unidad = Unidades.findOne(unidad_id);
 		if(unidad)
 		return unidad.nombre;
+	};
+	this.getNota= function(nota_id)
+	{
+
+
+	rc.nota = Notas.findOne(nota_id);
+		 //this.clientillo = true;
+		 this.notasText = true;
+
+		 	notas = Notas.find();
+	    	_.each(rc.notas, function(nota){
+	    		delete nota.$$hashKey;
+
+	    	});
 	};
 
 

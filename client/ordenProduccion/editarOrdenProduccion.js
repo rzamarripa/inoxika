@@ -25,6 +25,9 @@ let rc = $reactive(this).attach($scope);
       this.subscribe('proveedores',()=>{
 	return [{estatus:true}] 
     });
+        this.subscribe('cotizacion',()=>{
+	return [{ordenProduccion:true}] 
+    });
 
     console.log($stateParams)
     var cantidad = $stateParams.cantidad
@@ -37,6 +40,9 @@ let rc = $reactive(this).attach($scope);
      
   
 	this.helpers({
+		ordenProduccion : () => {
+		  return OrdenProduccion.findOne({_id : $stateParams.ordenProduccion_id});
+	  },
 	  cotizacion : () => {
 		  return Cotizacion.findOne();
 	  },

@@ -19,6 +19,24 @@
 					<p ng-show="cot.clientillo">{{cot.clienteSeleccionado.cp}},{{cot.clienteSeleccionado.ciudad}},{{cot.clienteSeleccionado.estado}}</p>
 					</div>
 				</div>
+					<div class="row">
+				  <div class="col-sm-4" ng-show="cot.comboNota">
+								<label id="id_label_single" >Nota</label>
+								<select class="js-example-basic-single js-states form-control" id="id_label_single" ng-change="cot.getNota(cot.cotizacion.nota_id)" placeholder="Seleccione" ng-model="cot.cotizacion.nota_id">
+									<option  ng-repeat="nota in cot.notas" value="{{nota._id}}" >{{nota.nombre}}</option >
+								</select>
+					</div>
+					<div class="col-sm-6"  ng-show="cot.notasText">
+	    	 				<label>Nota</label>
+					    	<textarea  class="form-control" ng-model="cot.nota.nombre" 
+	    	 				  >{{cot.nota.nombre}}
+				    </textarea>
+	    	 			</div>
+	    	 			<div class="col-sm-2" ng-show="cot.notasText"><br/>
+	    	 				<input type="submit" ng-click="cot.actualizarNota(cot.nota,cot.cotizacion)" value="Actualizar" class="btn btn-primary" >
+	    	 			</div>
+			
+				</div>
 			</div>
 
 			<div class="well">     
@@ -52,7 +70,7 @@
 				</li>
 			</ul>
 		<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
-		<div class="widget-toolbar" id="switch-1" role="menu">
+		<div class="widget-toolbar" id="switch-1" role="menu" >
 										<span class="onoffswitch-title"><i class="fa fa-line-chart"></i> Agregar Iva</span>
 										<span class="onoffswitch" >
 											<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-click="cot.aumentoIva()">
@@ -195,7 +213,7 @@
 		<table class="table table-bordered"  >
 			<thead>
 				<tr>
-				    <td width="10%"><div class="text-center">Partida</div></td> 
+				    <th width="10%"><div class="text-center">Partida</div></th> 
 				    <th width="10%"><div class="text-center">Nombre</div></th>
 			        <th width="20%"><div class="text-center">Descripción</div></th>
 					<th width="10%"><div class="text-center">Unidad</div></th>

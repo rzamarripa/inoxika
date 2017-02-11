@@ -37,9 +37,11 @@ let rc = $reactive(this).attach($scope);
 	this.helpers({
 	  ordenCompra : () => {
 		 var ordenes = OrdenCompra.find().fetch();
+		 ordenes.estado = "pendiente"
 		  	if (ordenes) {
 		  		_.each(ordenes, function(orden){
 		  			orden.proveedor = Proveedores.findOne(orden.proveedor_id)
+		  			
 
 		  	});
 	  	}
@@ -205,8 +207,9 @@ let rc = $reactive(this).attach($scope);
 	}
 		this.cambioAceptar = function(id)
 	{
-
+  console.log("el helper",rc.ordenCompra)
 	    var orden = rc.ordenCompra;
+
 		if(orden.estado == "pendiente")
 			orden.estado = "aceptada";
 		else
@@ -214,10 +217,14 @@ let rc = $reactive(this).attach($scope);
 		
 		OrdenCompra.update({_id: id},{$set :  {estado : orden.estado}});
 
+		console.log(orden)
+		toastr.success('Aceptada.');
+
 		
 	}
 	this.cambioRechazada = function(id)
 	{
+
 
 			var orden = rc.ordenCompra;
 		if(orden.estado == "pendiente")
@@ -229,5 +236,6 @@ let rc = $reactive(this).attach($scope);
 
 		
 	}
+
 		
 };

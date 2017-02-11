@@ -1,27 +1,40 @@
 <div class="content">
+<img style="margin-right: 1160px;height: 300px;float: unset;" src="img/tri.png">
 
-<br/><br/>
-<a class="btn btn-primary"  ng-show="cot.imprecion" id="printpagebutton" ng-click="cot.borrarBotonImprimir()">Imprimir</a>
-<br/><br/><br/><br/><br/>
+<a class="btn btn-primary pull-right"  ng-show="cot.imprecion" id="printpagebutton" ng-click="cot.borrarBotonImprimir()">Imprimir</a>
+
 <div class="page-header">
  
 </div>
 <div class="row">
 	<div class="col-sm-12">
 			<div class="row" >
-				<div class="col-sm-6"><br/>
-					<p>Cliente: <strong>{{cot.getCliente(cot.cotizacion.cliente_id)}}</strong></p>
-					<div class="pull-left">
-			         <p>{{cot.getClienteDireccion(cot.cotizacion.cliente_id)}}</p>
+				<div class="col-sm-6 pull-left">
+				 <div>
+				
+					<p>Cliente:&nbsp;<strong>{{cot.getCliente(cot.cotizacion.cliente_id)}}</strong></p>
+					</div>
+					 <div>
+			        <p> {{cot.getClienteDireccion(cot.cotizacion.cliente_id)}}</p>
+			       </div>
+			       <div>
+			        <p> {{cot.getClienteDF(cot.cotizacion.cliente_id)}}</p>
 			       </div>
 			      </div>
-			      <div class="col-sm-6">
-						<div class="pull-right"> 
-					        <p>Cotización:<strong>{{cot.cotizacion.folio}}</strong></p>
-					       
-					        <p>Fecha: <strong>{{cot.cotizacion.fechaInicio | date:"dd-MM-yyyy"}}</strong></p>
-					      
-					        <p>Fecha Vencimiento: <strong>{{cot.cotizacion.fechaVencimiento | date:"dd-MM-yyyy"}}</strong></p>
+			      <div class="col-sm-6 pull-right">
+						<div> 
+					      <div>
+					     Cotización: &nbsp;
+					       <span><strong>{{cot.cotizacion.folio}}</strong></span>
+					       </div>
+					       <div>
+						       Fecha:&nbsp;
+						       <span>  <strong>{{cot.cotizacion.fechaInicio | date:"dd-MM-yyyy"}}</strong></span>
+					       </div>
+					       <div>
+						       Fecha Vencimiento: &nbsp;
+						        <span> <strong>{{cot.cotizacion.fechaVencimiento | date:"dd-MM-yyyy"}}</strong></span>
+					        </div>
 
 				       </div>
 				</div>
@@ -30,9 +43,9 @@
     </div>
 </div>
 <br/>
-<div class="col-sm-12">
+<div class="col-sm-9">
 	<div class="row">
-		<p>Proyecto:{{cot.cotizacion.nombreProyecto}}</p>
+		Proyecto: &nbsp;{{cot.cotizacion.nombreProyecto}}
 	</div>
 </div>
 <div class="row">
@@ -40,7 +53,7 @@
 		<table class="table table-bordered"  >
 			<thead>
 				<tr>
-				    <td width="5%"><div class="text-center">Partida</div></td> 
+				    <th width="5%"><div class="text-center">Partida</div></th> 
 			        <th width="20%"><div class="text-center">Servicio</div></th>
 					<th width="10%"><div class="text-center">Unidad</div></th>
 					<th width="10%"><div class="text-center">Cantidad</div></th>
@@ -54,8 +67,8 @@
 			        <td><div class="text-center">{{detalle.descripcion}}</div></td> 
 				    <td><div class="text-center">{{cot.getUnidad(detalle.unidad_id)}}</div></td>			    
 				    <td><div class="text-center">{{detalle.cantidad}}</div></td>
-				    <td><div class="text-center">{{detalle.precio * detalle.utilidad/100 + detalle.precio | currency}}</div></td>
-				    <td ><div class="text-center">{{(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad | currency }}</div></td>
+				    <td><div class="pull-right">{{detalle.precio * detalle.utilidad/100 + detalle.precio | currency}}</div></td>
+				    <td ><div class="pull-right">{{(detalle.precio * detalle.utilidad /100 + detalle.precio)  * detalle.cantidad | currency }}</div></td>
 		
 			   </tr>	
 			   <tr>
@@ -99,15 +112,15 @@
 <br/>
 <div class="row">
 	<div class="col-sm-12">
-		<p>{{cot.getNota(cot.cotizacion.nota_id)}}</p>
+		{{cot.getNota(cot.cotizacion.nota_id)}}
 	</div>
 </div>
 
-<br/><br/><br/><br/><br/><br/><br/>
+<br/>
 
 <div class="row pull-right">
 	<div class="col-sm-12">
-	<p>Atentamente</p><br/>
+	<p>Atentamente</p>	
 
 	<p><strong> Rigoberto Zamarripa Villegas</strong></p>
 
