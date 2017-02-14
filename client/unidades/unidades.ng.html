@@ -39,6 +39,7 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
+					<td width="10%">No.</td>	
 					<th width="20%"><div class="text-center">Nombre</div></th>
 					<th width="10%">
 						<div class="text-center">
@@ -54,6 +55,7 @@
 			</thead>
 			<tbody>
 		    <tr ng-repeat="unidad in uni.unidades">
+		   	    <td class="text-center">{{$index + 1}}</td>
 			    <td><div class="text-center">{{unidad.nombre}}</div></td>
 
 			    <td>

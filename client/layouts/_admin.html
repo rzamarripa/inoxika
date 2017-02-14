@@ -1,46 +1,8 @@
 <nav>
   <ul data-smart-menu>
 
-<li data-menu-collapse>
-      <a href="#">
-        <i class="fa fa-lg fa-fw fa-bar-chart-o"></i>
-        <span class="menu-item-parent">Catálogos</span>
-      </a>
-	<ul>
-    
-    <li data-ui-sref-active="active">
-      <a ui-sref="root.clientes" tilte="Clientes">
-        <i class="fa fa-lg fa-fw fa-users"></i>
-        <span class="menu-item-parent">Clientes</span>
-      </a>
-    </li>
-    <li data-ui-sref-active="active">
-      <a ui-sref="root.productos" tilte="Productos">
-        <i class="fa fa-lg fa-fw fa-reorder"></i>
-        <span class="menu-item-parent">Productos</span>
-      </a>
-    </li>
-    <li data-ui-sref-active="active">
-      <a ui-sref="root.unidades" tilte="Unidades">
-        <i class="fa fa-lg fa-fw fa-server"></i>
-        <span class="menu-item-parent">Unidades</span>
-      </a>
-    </li>
-    <li data-ui-sref-active="active">
-      <a ui-sref="root.proveedores" tilte="Orden">
-        <i class="fa fa-lg fa-fw fa-male "></i>
-        <span class="menu-item-parent">Proveedores</span>
-      </a>
-    </li>
-    <li data-ui-sref-active="active">
-      <a ui-sref="root.materiales" tilte="Materiales">
-        <i class="fa fa-lg fa-fw fa-wrench"></i>
-        <span class="menu-item-parent">Materiales</span>
-      </a>
-    </li>
-<!-- ///////////////////////////////////////////////////////////// -->
 
- <li data-menu-collapse>
+  <li data-menu-collapse>
       <a href="#">
         <i class="fa fa-lg fa-fw fa-file-o"></i>
         <span class="menu-item-parent">Cotizaciones</span>
@@ -73,13 +35,31 @@
 
       </ul>
     </li>
- 
+  
+        <li data-menu-collapse>
+      <a href="#">
+        <i class="fa fa-lg fa-fw fa-external-link"></i>
+        <span class="menu-item-parent">Orden de Producción</span>
+      </a>
+      <ul>
+        <li data-ui-sref-active="active">
+      <a ui-sref="root.ordenProduccion" tilte="Orden">
+        <i class="fa fa-lg fa-fw fa-hand-paper-o"></i>
+        <span class="menu-item-parent">Pendiente</span>
+      </a>
+    </li>
+    <li data-ui-sref-active="active">
+      <a ui-sref="root.ordenProduccionTerminadas" tilte="Orden">
+        <i class="fa fa-lg fa-fw fa-check"></i>
+        <span class="menu-item-parent">Terminadas</span>
+      </a>
+    </li>
+     </ul>
+    </li>
 
-         
+    <!-- /////////////////////////////////////////////////////////// -->
 
-<!-- /////////////////////////////////////////////////////////////// -->
-
-    <li data-menu-collapse>
+       <li data-menu-collapse>
       <a href="#">
         <i class="fa fa-lg fa-fw fa-dollar"></i>
         <span class="menu-item-parent">Orden de Compra</span>
@@ -106,30 +86,44 @@
     </ul>
      </li>
 
-    <!-- /////////////////////////////////////////////////////////// -->
-
+     <!-- /////////////////////////////////////////////////////////// -->
      <li data-menu-collapse>
       <a href="#">
-        <i class="fa fa-lg fa-fw fa-external-link"></i>
-        <span class="menu-item-parent">Orden de Producción</span>
+        <i class="fa fa-lg fa-fw fa-bar-chart-o"></i>
+        <span class="menu-item-parent">Catálogos</span>
       </a>
-      <ul>
-        <li data-ui-sref-active="active">
-      <a ui-sref="root.ordenProduccion" tilte="Orden">
-        <i class="fa fa-lg fa-fw fa-hand-paper-o"></i>
-        <span class="menu-item-parent">Pendiente</span>
+  <ul>
+    
+    <li data-ui-sref-active="active">
+      <a ui-sref="root.clientes" tilte="Clientes">
+        <i class="fa fa-lg fa-fw fa-users"></i>
+        <span class="menu-item-parent">Clientes</span>
       </a>
     </li>
     <li data-ui-sref-active="active">
-      <a ui-sref="root.ordenProduccionTerminadas" tilte="Orden">
-        <i class="fa fa-lg fa-fw fa-check"></i>
-        <span class="menu-item-parent">Terminadas</span>
+      <a ui-sref="root.productos" tilte="Productos">
+        <i class="fa fa-lg fa-fw fa-reorder"></i>
+        <span class="menu-item-parent">Productos</span>
       </a>
     </li>
-     </ul>
+    <li data-ui-sref-active="active">
+      <a ui-sref="root.unidades" tilte="Unidades">
+        <i class="fa fa-lg fa-fw fa-server"></i>
+        <span class="menu-item-parent">Unidades</span>
+      </a>
     </li>
-       
-
+    <li data-ui-sref-active="active">
+      <a ui-sref="root.proveedores" tilte="Orden">
+        <i class="fa fa-lg fa-fw fa-male "></i>
+        <span class="menu-item-parent">Proveedores</span>
+      </a>
+    </li>
+    <li data-ui-sref-active="active">
+      <a ui-sref="root.materiales" tilte="Materiales">
+        <i class="fa fa-lg fa-fw fa-wrench"></i>
+        <span class="menu-item-parent">Materiales</span>
+      </a>
+    </li>
     <li data-ui-sref-active="active">
       <a ui-sref="root.notas" tilte="Notas">
         <i class="fa fa-lg fa-fw fa-file-text-o"></i>
@@ -138,8 +132,9 @@
     </li>
 
     <!-- /////////////////////////////////////////////////////////////////// -->
-	</ul>
-   </li>
+  </ul>
+</li>
+
    </ul>
 </nav>
 
