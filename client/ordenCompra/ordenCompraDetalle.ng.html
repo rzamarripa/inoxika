@@ -118,10 +118,8 @@
 							 <div class="col-sm-12">
 								 <div class="col-sm-2">
 									<label >Producto</label>
-									<select style="width: 155px;" class="form-control select2" placeholder="Seleccione" ng-model="orden.productoSeleccionado.producto_id "
-									 ng-change="orden.getProductos(orden.productoSeleccionado.producto_id)">
-										<option ng-repeat="producto in orden.productos" value="{{producto._id}}">{{producto.nombre}}</option>
-									</select>
+									<select  ng-options="producto._id as producto.nombre for producto in orden.productos" 
+             				ng-model="orden.productoSeleccionado._id"  placeholder="Seleccione" ng-change="orden.getProductos(orden.productoSeleccionado._id)"style="width: 150px;" class="js-example-basic-single js-states form-control" id="id_label_single"></select>
 								</div>
 								<div class="col-sm-2">
 				    			<label>Cantidad</label>

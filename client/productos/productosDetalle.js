@@ -159,11 +159,15 @@ let rc = $reactive(this).attach($scope);
 		rc.producto.detalleProducto.splice($index, 1);
     };
 
-	this.getMateriales= function(material)
+
+
+	this.getMateriales= function(material_id)
 	{
-		console.log(material);
-		rc.materialSeleccionado = material;
+		console.log(material_id);
+		rc.materialSeleccionado = Materiales.findOne(material_id);
+		rc.materialSeleccionado.unidad = Unidades.findOne(rc.materialSeleccionado.unidad_id);
 	};
+
 	 this.obtenerMaterial= function(material_id)
 	{
 		var material = Materiales.findOne(material_id);

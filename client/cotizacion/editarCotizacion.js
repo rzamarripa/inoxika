@@ -2,6 +2,7 @@ angular.module("inoxica")
 .controller("EditarCotizacionDetalleCtrl", EditarCotizacionDetalleCtrl);  
 function EditarCotizacionDetalleCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
 let rc = $reactive(this).attach($scope);
+window.rc = rc;
 
 
     this.subscribe('materiales',()=>{
@@ -37,6 +38,7 @@ let rc = $reactive(this).attach($scope);
 	  this.cotizacionManual.utilidad = this.cliente.utilidad
 	  this.productoSeleccionado.utilidad = this.cliente.utilidad
 	  this.nota = {};
+
 	  
 
      
@@ -224,12 +226,18 @@ let rc = $reactive(this).attach($scope);
 		Cotizacion.update({_id: id},{$set :  {estatus : cotizacion.estatus}});
     };
 
-    this.getProductos= function(producto)
-	{
-		console.log(producto);
-		rc.productoSeleccionado = producto;
-		console.log(rc.productoSeleccionado)
-	};
+   this.getProductos= function(producto_id)
+		{
+		
+	     	_.each(rc.productos, function(producto){
+	     		delete producto.$$hashKey;
+
+	     	});
+
+			console.log(producto_id);
+			rc.productoSeleccionado = Productos.findOne(producto_id);
+			rc.productoSeleccionado.unidad = Unidades.findOne(rc.productoSeleccionado.unidad_id);
+		};
 	this.clientillo = false;
 	this.getClientes= function(cliente_id)
 	{

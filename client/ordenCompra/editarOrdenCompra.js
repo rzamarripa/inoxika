@@ -2,6 +2,7 @@ angular.module("inoxica")
 .controller("EditarOrdenCompraDetalleCtrl", EditarOrdenCompraDetalleCtrl);  
 function EditarOrdenCompraDetalleCtrl($scope, $meteor, $reactive, $state, $stateParams, toastr){
 let rc = $reactive(this).attach($scope);
+window.rc = rc;
 
 
     this.subscribe('materiales',()=>{
@@ -12,9 +13,7 @@ let rc = $reactive(this).attach($scope);
     });
       this.subscribe('clientes',()=>{
 	return [{estatus:true}] 
-    });
-  
-    
+    });    
     this.subscribe('ordenCompra',()=>{
 	return [{_id : $stateParams.ordenCompra_id}] 
     });
@@ -34,6 +33,7 @@ let rc = $reactive(this).attach($scope);
 
     this.ordenCompra = {};
     this.ordenCompra.detalle = this.cotizacion
+     rc.productoSeleccionado = {};
 
     
      
@@ -232,12 +232,18 @@ let rc = $reactive(this).attach($scope);
 		Cotizacion.update({_id: id},{$set :  {estatus : cotizacion.estatus}});
     };
 
-     this.getProductos= function(producto)
-	{
-		console.log(producto);
-		rc.productoSeleccionado = producto;
-		console.log(rc.productoSeleccionado)
-	};
+     this.getProductos= function(producto_id)
+		{
+		
+	     	_.each(rc.productos, function(producto){
+	     		delete producto.$$hashKey;
+
+	     	});
+
+			console.log(producto_id);
+			rc.productoSeleccionado = Productos.findOne(producto_id);
+			rc.productoSeleccionado.unidad = Unidades.findOne(rc.productoSeleccionado.unidad_id);
+		};
 	this.clientillo = false;
 	this.getClientes= function(cliente_id)
 	{

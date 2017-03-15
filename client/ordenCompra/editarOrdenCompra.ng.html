@@ -118,9 +118,8 @@
 							 <div class="col-sm-12">
 								 <div class="col-sm-2" >
 									<label id="id_label_single">Producto</label>
-									<select style="width: 155px;"  ng-options="producto as producto.nombre for producto in orden.productos" 
-                          				 ng-model="producto.producto_id" ng-change="orden.getProductos(producto.producto_id)" 
-                          				 class="js-example-basic-single js-states form-control" id="id_label_single" placeholder="Seleccione"></select>
+									<select  ng-options="producto._id as producto.nombre for producto in orden.productos" 
+             				ng-model="orden.productoSeleccionado._id"  placeholder="Seleccione" ng-change="orden.getProductos(orden.productoSeleccionado._id)"style="width: 150px;" class="js-example-basic-single js-states form-control" id="id_label_single"></select>
 								</div>
 								<div class="col-sm-2">
 				    			<label>Cantidad</label>

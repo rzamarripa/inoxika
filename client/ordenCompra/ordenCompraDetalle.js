@@ -35,6 +35,7 @@ let rc = $reactive(this).attach($scope);
 
     this.ordenProduccion = {};
     this.ordenProduccion.detalle = this.cotizacion
+    rc.productoSeleccionado = {};
     
      
   
@@ -214,12 +215,19 @@ let rc = $reactive(this).attach($scope);
 		Cotizacion.update({_id: id},{$set :  {estatus : cotizacion.estatus}});
     };
 
-    this.getProductos= function(producto_id)
-	{
-		console.log(producto_id);
-		rc.productoSeleccionado = Productos.findOne(producto_id);
-		console.log(rc.productoSeleccionado)
-	};
+     this.getProductos= function(producto_id)
+		{
+		
+	     	_.each(rc.productos, function(producto){
+	     		delete producto.$$hashKey;
+
+	     	});
+
+			console.log(producto_id);
+			rc.productoSeleccionado = Productos.findOne(producto_id);
+			rc.productoSeleccionado.unidad = Unidades.findOne(rc.productoSeleccionado.unidad_id);
+		};
+
 	this.clientillo = false;
 	this.getClientes= function(cliente_id)
 	{

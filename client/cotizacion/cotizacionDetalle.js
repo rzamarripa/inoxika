@@ -27,6 +27,7 @@ let rc = $reactive(this).attach($scope);
 
     console.log($stateParams)
     var cantidad = $stateParams.cantidad
+    this.productoSeleccionado = {};
 
       
   
@@ -173,22 +174,13 @@ let rc = $reactive(this).attach($scope);
 		this.cotizacion.nombrePrimerProducto = this.cotizacion.detalle[0].nombre 
 		this.cotizacion.estatus = 1;
 		this.cotizacion.ordenProduccion = true;
-		//this.cotizacion.folio = parseInt(cantidad) + 1;
-		//Cotizacion.insert(this.cotizacion);
 
-     //    _.each(rc.ultimaCotizacion, function(cot){
-     //    	console.log("el pañal",cot)
-					// if (isNaN(cot.folio)) {
-					// 		cot.folio = rc.ultimaCotizacion.folio;
-	 			// 		}
-	 			// 	});
-	 				// var folio = Cotizacion.findOne( {sort: {fechaInicio: -1}, limit: 1});
-      //     console.log("el folio",folio)
       folio = 0;
       	_.each(rc.ultimaCotizacion, function(cotizacion){
       		folio = cotizacion.folio
       		rc.folio = folio
       	});
+     
       	console.log("nuebva cosa",rc.folio)
 
 
@@ -320,12 +312,33 @@ let rc = $reactive(this).attach($scope);
 		Cotizacion.update({_id: id},{$set :  {estatus : cotizacion.estatus}});
     };
 
-    this.getProductos= function(producto)
-	{
-		console.log(producto);
-		rc.productoSeleccionado = producto;
-		console.log(rc.productoSeleccionado)
-	};
+ //    this.getProductos= function(producto)
+	// {
+	// 	console.log(producto);
+	// 	rc.productoSeleccionado = producto;
+	// 	console.log(rc.productoSeleccionado)
+	// };
+
+	//this.getMateriales= function(material_id)
+	// {
+	// 	console.log(material_id);
+	// 	rc.materialSeleccionado = Materiales.findOne(material_id);
+	// 	rc.materialSeleccionado.unidad = Unidades.findOne(rc.materialSeleccionado.unidad_id);
+	// };
+
+		this.getProductos= function(producto_id)
+		{
+		
+	     	_.each(rc.productos, function(producto){
+	     		delete producto.$$hashKey;
+
+	     	});
+
+			console.log(producto_id);
+			rc.productoSeleccionado = Productos.findOne(producto_id);
+			rc.productoSeleccionado.unidad = Unidades.findOne(rc.productoSeleccionado.unidad_id);
+		};
+
 	 this.obternerProducto= function(producto_id)
 	{
 		var producto = Productos.findOne(producto_id);
@@ -358,19 +371,27 @@ let rc = $reactive(this).attach($scope);
 		if(unidad)
 		return unidad.nombre;
 	};
+	// this.getNota= function(nota_id)
+	// {
+
+
+	// rc.nota = Notas.findOne(nota_id);
+	// 	 //this.clientillo = true;
+	// 	 this.notasText = true;
+
+	// 	 	notas = Notas.find();
+	//     	_.each(rc.notas, function(nota){
+	//     		delete nota.$$hashKey;
+
+	//     	});
+	// };
+
 	this.getNota= function(nota_id)
 	{
-
-
-	rc.nota = Notas.findOne(nota_id);
-		 //this.clientillo = true;
-		 this.notasText = true;
-
-		 	notas = Notas.find();
-	    	_.each(rc.notas, function(nota){
-	    		delete nota.$$hashKey;
-
-	    	});
+		this.notasText = true;
+		console.log(nota_id);
+		rc.nota = Notas.findOne(nota_id);
+		//rc.nota.unidad = Unidades.findOne(rc.nota.unidad_id);
 	};
 
 
